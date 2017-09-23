@@ -1,0 +1,56 @@
+<div class="wrapper">
+
+    <div class="left-side col-sm-1"></div>
+
+    <div class="middle col-sm-10">
+        <md-tab-group>
+            <md-tab *ngFor="let course of profCourses; let i = index" label="Course {{i + 1}}">
+                <div class="dashboard col-sm-9" dnd-droppable="true" (onDropSuccess)="student=onItemDrop($event, i)">
+                    <br><br>
+                    <p class="course-name"><a href="#"><b><u>{{course}}</u></b></a></p><br><br>
+                    <p>Teaching Assistants:</p><br>
+
+                    <div class="ta">
+                        <md-list-item *ngFor="let student of getTAs(i)">
+                            <md-card *ngIf="student" class="student-details" dnd-draggable [dragEnabled]="true" [dragData]="student">
+                                <md-icon class="material-icons">person</md-icon>
+                                <div fxFlex></div>
+                                <p class="student-name" style="margin-left: 10px;">{{student.name}}</p>
+                                <div fxFlex></div>
+                                <md-icon class="material-icons" (click)="removeTA(student , i)">cancel</md-icon>
+                            </md-card>
+                        </md-list-item>
+                    </div>
+
+                    <div class="icons">
+                        <span class="material-icons"><md-icon class="md-icons">announcement</md-icon></span>
+                        <span class="material-icons"><md-icon class="md-icons">message</md-icon></span>
+                        <span class="material-icons"><md-icon class="md-icons">folder</md-icon></span>
+                        <span class="material-icons"><md-icon class="md-icons" [mdMenuTriggerFor]="menu">file_download</md-icon></span>
+                        <md-menu #menu="mdMenu">
+                            <button md-menu-item (click)="exportToCSV(i)">to CSV</button>
+                            <button md-menu-item>to JSON</button>
+                        </md-menu>
+                    </div>
+                </div>
+
+                <div class="student-list col-sm-3" fxLayout.gt-md="row" fxLayoutAlign.sm="center">
+                    <md-list>
+                        <h3 md-subheader>Students</h3>
+                        <md-list-item *ngFor="let student of students">
+                            <md-card class="student-details" dnd-draggable [dragEnabled]="isAvailable(student)"
+                                     [dragData]="student"
+                                     [ngStyle]="{backgroundColor: getColor(student)}">
+                                <md-icon class="material-icons" >person</md-icon>
+                                <p class="student-name" style="margin-left: 10px;">{{student.name}}</p>
+                            </md-card>
+                        </md-list-item>
+                    </md-list>
+                </div>
+            </md-tab>
+
+        </md-tab-group>
+    </div>
+
+    <div class="right-side col-sm-1"></div>
+</div>
