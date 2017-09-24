@@ -59,7 +59,7 @@ a{
 
 .student-details{
   width:200px;
-  display: flex;
+  // display: flex;
   flex-direction: row;
   padding-bottom: 5px;
   padding-top: 5px;
@@ -71,6 +71,12 @@ a{
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.student-info p{
+  display: inline-block;
+  vertical-align: top;
+  // margin-left: 20px;
 }
 
 .fill-space {

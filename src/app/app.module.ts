@@ -20,6 +20,7 @@ import { ProfessorComponent } from './professor/professor.component';
 import { LoginComponent } from './login/login.component';
 import { DataService } from './data.service';
 import { Proflogin2Component } from './proflogin2/proflogin2.component';
+import { StarRatingModule } from 'angular-star-rating';
 
 export const ROUTES: Routes = [
   {path: 'login', pathMatch: 'full', component: LoginComponent},
@@ -49,7 +50,8 @@ export const ROUTES: Routes = [
     FlexLayoutModule,
     DndModule.forRoot(),
     MdMenuModule,
-    MdSelectModule
+    MdSelectModule,
+    StarRatingModule.forRoot()
   ],
   providers: [DragDropService, DragDropConfig, DataService],
   bootstrap: [AppComponent]

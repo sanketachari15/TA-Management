@@ -11,16 +11,19 @@
                     <p>Teaching Assistants:</p><br>
 
                     <div class="ta">
-                        <md-list-item *ngFor="let student of getTAs(i)">
-                            <md-card *ngIf="student" class="student-details" dnd-draggable [dragEnabled]="true"
-                                     [dragData]="student">
-                                <md-icon class="material-icons">person</md-icon>
-                                <div fxFlex></div>
-                                <p class="student-name" style="margin-left: 10px;" mdTooltip="{{student.name}}" mdTooltipPosition="above">{{student.name}}</p>
-                                <div fxFlex></div>
-                                <md-icon class="material-icons" (click)="removeTA(student , i)">cancel</md-icon>
-                            </md-card>
-                        </md-list-item>
+                        <div layout="row" layout-wrap  layout-sm="column">
+                                <div *ngFor="let student of getTAs(i)">
+                                    <md-card *ngIf="student" class="student-details" dnd-draggable [dragEnabled]="true" [dragData]="student">
+                                    <div class="student-info">
+                                    <p><md-icon class="material-icons" >person</md-icon></p>
+                                    <p style="margin-left:10px;"><star-rating-comp [size]="'small'" [starType]="'svg'" [rating]="student.interest" [staticColor]="'ok'" [readOnly]="true" ></star-rating-comp></p>
+                                    <p><md-icon class="material-icons" (click)="removeTA(student , i)" align="right">cancel</md-icon></p>
+                                    </div>
+                                    <p class="student-name" style="margin-left: 5px;">{{student.name}}</p>
+                                    <p class="student-gpa" style="margin-left: 5px;">GPA: {{student.gpa}}</p>                                  
+                                    </md-card>
+                                </div>
+                        </div>
                     </div>
 
                     <div class="icons">
@@ -39,15 +42,20 @@
                 <div class="student-list col-sm-3" fxLayout.gt-md="row" fxLayoutAlign.sm="center">
                     <md-list>
                         <h3 md-subheader>Students</h3>
-                        <md-list-item *ngFor="let student of students">
-                            <md-card class="student-details" dnd-draggable [dragEnabled]="isAvailable(student)"
-                                     [dragData]="student"
-                                     [ngStyle]="{backgroundColor: getColor(student)}">
-                                <md-icon class="material-icons">person</md-icon>
-                                <p class="student-name" style="margin-left: 10px;" mdTooltip="{{student.name}}" mdTooltipPosition="above">
-                                    {{student.name}}</p>
-                            </md-card>
-                        </md-list-item>
+                        <div layout="row" layout-wrap  layout-sm="column">
+                            <div *ngFor="let student of students">
+                                    <md-card class="student-details" dnd-draggable [dragEnabled]="isAvailable(student)"
+                                            [dragData]="student"
+                                            [ngStyle]="{backgroundColor: getColor(student)}">
+                                        <div class="student-info">
+                                        <p><md-icon class="material-icons" >person</md-icon></p>
+                                        <p style="margin-left: 10px;"><star-rating-comp [starType]="'svg'" [rating]="student.interest" [staticColor]="'ok'" [readOnly]="true" ></star-rating-comp></p>
+                                        </div>
+                                        <p class="student-name" style="margin-left: 5px;">{{student.name}}</p>
+                                        <p class="student-gpa" style="margin-left: 5px;">GPA: {{student.gpa}}</p>                                  
+                                    </md-card>
+                            </div>
+                       </div>
                     </md-list>
                 </div>
             </md-tab>

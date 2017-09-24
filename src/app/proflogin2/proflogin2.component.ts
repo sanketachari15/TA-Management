@@ -18,10 +18,10 @@ export class Proflogin2Component implements OnInit {
 
   constructor(private dataService: DataService) {
     dataService.getStudents().subscribe(x => {
-      this.students = x
+      this.students = x;
     });
     dataService.getProfCourses().subscribe(x => {
-      this.profCourses = x
+      this.profCourses = x;
     });
   }
 
@@ -35,8 +35,9 @@ export class Proflogin2Component implements OnInit {
   }
 
   getColor(student: any) {
-    if (this.droppedItems.indexOf(student) > -1)
+    if (this.droppedItems.indexOf(student) > -1) {
       return '#757575';
+    }
     return 'white';
   }
 
@@ -50,7 +51,7 @@ export class Proflogin2Component implements OnInit {
 
   removeTA(student: any, courseNo: number) {
     this.courses[courseNo].splice(this.courses[courseNo].indexOf(student), 1);
-    this.droppedItems.splice(this.droppedItems.indexOf(student), 1)
+    this.droppedItems.splice(this.droppedItems.indexOf(student), 1);
   }
 
   getTAs(courseNo: number) {
