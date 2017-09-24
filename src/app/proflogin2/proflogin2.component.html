@@ -16,7 +16,7 @@
                                      [dragData]="student">
                                 <md-icon class="material-icons">person</md-icon>
                                 <div fxFlex></div>
-                                <p class="student-name" style="margin-left: 10px;">{{student.name}}</p>
+                                <p class="student-name" style="margin-left: 10px;" mdTooltip="{{student.name}}" mdTooltipPosition="above">{{student.name}}</p>
                                 <div fxFlex></div>
                                 <md-icon class="material-icons" (click)="removeTA(student , i)">cancel</md-icon>
                             </md-card>
