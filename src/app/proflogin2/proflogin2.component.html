@@ -12,7 +12,8 @@
 
                     <div class="ta">
                         <md-list-item *ngFor="let student of getTAs(i)">
-                            <md-card *ngIf="student" class="student-details" dnd-draggable [dragEnabled]="true" [dragData]="student">
+                            <md-card *ngIf="student" class="student-details" dnd-draggable [dragEnabled]="true"
+                                     [dragData]="student">
                                 <md-icon class="material-icons">person</md-icon>
                                 <div fxFlex></div>
                                 <p class="student-name" style="margin-left: 10px;">{{student.name}}</p>
@@ -23,10 +24,11 @@
                     </div>
 
                     <div class="icons">
-                        <span class="material-icons"><md-icon class="md-icons">announcement</md-icon></span>
-                        <span class="material-icons"><md-icon class="md-icons">message</md-icon></span>
-                        <span class="material-icons"><md-icon class="md-icons">folder</md-icon></span>
-                        <span class="material-icons"><md-icon class="md-icons" [mdMenuTriggerFor]="menu">file_download</md-icon></span>
+                        <span class="material-icons" mdTooltip="Announcement" mdTooltipPosition="above"><md-icon class="md-icons">announcement</md-icon></span>
+                        <span class="material-icons" mdTooltip="Messages" mdTooltipPosition="above"><md-icon class="md-icons">message</md-icon></span>
+                        <span class="material-icons" mdTooltip="Files" mdTooltipPosition="above"><md-icon class="md-icons">folder</md-icon></span>
+                        <span class="material-icons" mdTooltip="Download" mdTooltipPosition="above"><md-icon class="md-icons"
+                                                              [mdMenuTriggerFor]="menu">file_download</md-icon></span>
                         <md-menu #menu="mdMenu">
                             <button md-menu-item (click)="exportToCSV(i)">to CSV</button>
                             <button md-menu-item>to JSON</button>
@@ -41,8 +43,9 @@
                             <md-card class="student-details" dnd-draggable [dragEnabled]="isAvailable(student)"
                                      [dragData]="student"
                                      [ngStyle]="{backgroundColor: getColor(student)}">
-                                <md-icon class="material-icons" >person</md-icon>
-                                <p class="student-name" style="margin-left: 10px;">{{student.name}}</p>
+                                <md-icon class="material-icons">person</md-icon>
+                                <p class="student-name" style="margin-left: 10px;" mdTooltip="{{student.name}}" mdTooltipPosition="above">
+                                    {{student.name}}</p>
                             </md-card>
                         </md-list-item>
                     </md-list>
