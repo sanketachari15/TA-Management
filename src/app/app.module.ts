@@ -12,6 +12,7 @@ import {
   MdSelectModule,
   MdTabsModule,
   MdTooltipModule} from '@angular/material';
+import {FormsModule} from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
 import { AppComponent } from './app.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
@@ -47,6 +48,7 @@ export const ROUTES: Routes = [
     MdIconModule,
     MdTabsModule,
     MdTooltipModule,
+    FormsModule,
     FlexLayoutModule,
     DndModule.forRoot(),
     MdMenuModule,
