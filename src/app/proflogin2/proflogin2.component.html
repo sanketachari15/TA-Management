@@ -20,7 +20,7 @@
                                     <p><md-icon class="material-icons" (click)="removeTA(student , i)" align="right">cancel</md-icon></p>
                                     </div>
                                     <p class="student-name" style="margin-left: 5px;" mdTooltip="{{student.name}}" mdTooltipPosition="above">{{student.name}}</p>
-                                    <p class="student-gpa" style="margin-left: 5px;">GPA: {{student.gpa}}</p>                                  
+                                    <p class="student-gpa" style="margin-left: 5px;">GPA: {{student.gpa}}</p>
                                     </md-card>
                                 </div>
                         </div>
@@ -39,11 +39,16 @@
                     </div>
                 </div>
 
-                <div class="student-list col-sm-3" fxLayout.gt-md="row" fxLayoutAlign.sm="center">
+                <div class="student-list col-sm-3" fxLayout.gt-md="column" fxLayoutAlign.sm="center">
+                    <form>
+                        <md-form-field>
+                            <input class="search-input" name="search-input" mdInput placeholder="Search by name" [(ngModel)]="search">
+                        </md-form-field>
+                    </form>
+
                     <md-list>
-                        <h3 md-subheader>Students</h3>
                         <div layout="row" layout-wrap  layout-sm="column">
-                            <div *ngFor="let student of students">
+                            <div *ngFor="let student of getStudents()">
                                     <md-card class="student-details" dnd-draggable [dragEnabled]="isAvailable(student)"
                                             [dragData]="student"
                                             [ngStyle]="{backgroundColor: getColor(student)}">
@@ -52,7 +57,7 @@
                                         <p style="margin-left: 10px;"><star-rating-comp [starType]="'svg'" [rating]="student.interest" [staticColor]="'ok'" [readOnly]="true" ></star-rating-comp></p>
                                         </div>
                                         <p class="student-name" style="margin-left: 5px;" mdTooltip="{{student.name}}" mdTooltipPosition="above">{{student.name}}</p>
-                                        <p class="student-gpa" style="margin-left: 5px;">GPA: {{student.gpa}}</p>                                  
+                                        <p class="student-gpa" style="margin-left: 5px;">GPA: {{student.gpa}}</p>
                                     </md-card>
                             </div>
                        </div>

@@ -14,6 +14,7 @@ export class Proflogin2Component implements OnInit {
   courses = {0: [], 1: [], 2: [], 3: [], 4: [], 5: []};
 
   students: any;
+  search:string;
   profCourses: any;
 
   constructor(private dataService: DataService) {
@@ -32,6 +33,16 @@ export class Proflogin2Component implements OnInit {
     this.droppedItems.push(event.dragData);
     this.courses[courseNo].push(event.dragData);
     return event.dragData;
+  }
+
+  getStudents(){  
+
+    if(_.isEmpty(this.search)) 
+      return this.students; 
+
+    return _.chain(this.students) 
+        .filter(student =>  student.name.toLowerCase().startsWith(this.search.toLowerCase())) 
+        .value(); 
   }
 
   getColor(student: any) {
