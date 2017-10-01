@@ -6,11 +6,11 @@ import 'rxjs/add/operator/takeUntil';
 import {Subject, Subscription} from "rxjs";
 
 @Component({
-  selector: 'app-proflogin2',
-  templateUrl: './proflogin2.component.html',
-  styleUrls: ['./proflogin2.component.scss']
+  selector: 'app-professor',
+  templateUrl: 'professor.component.html',
+  styleUrls: ['professor.component.scss']
 })
-export class Proflogin2Component implements OnInit, OnDestroy {
+export class ProfessorComponent implements OnInit, OnDestroy {
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
