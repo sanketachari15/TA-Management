@@ -18,8 +18,6 @@ export class ProfessorComponent implements OnInit, OnDestroy {
   courses = {0: [], 1: [], 2: [], 3: [], 4: [], 5: []};
 
   students: any;
-  studentSubscription: Subscription;
-  coursesSubscription:Subscription;
   search:string;
   profCourses: any;
 
@@ -30,18 +28,24 @@ export class ProfessorComponent implements OnInit, OnDestroy {
 
     this.dataService.getStudents()
         .takeUntil(this.ngUnsubscribe)
-        .subscribe(x => { this.students = x; });
+        .subscribe(
+            (x) =>  this.students = x,
+            (err) => console.log("Error occurred in ngOnInit subscribe " + err),
+            () => console.log("students requested")
+        );
+
 
     this.dataService.getProfCourses()
         .takeUntil(this.ngUnsubscribe)
-        .subscribe(x => { this.profCourses = x; });
+        .subscribe(
+            (x) => this.profCourses = x ,
+            (err) => console.log("Error occurred in ngOnInit subscribe " + err),
+            () => console.log("professor courses requested"));
   }
 
   ngOnDestroy(){
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
-    /*this.studentSubscription.unsubscribe();
-    this.coursesSubscription.unsubscribe();*/
   }
 
   onItemDrop(event: any, courseNo: number) {
