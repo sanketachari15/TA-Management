@@ -72,11 +72,7 @@ export class ProfessorComponent implements OnInit, OnDestroy {
   }
 
   isAvailable(student: any) {
-    if (this.droppedItems.indexOf(student) > -1) {
-      // console.log(student.name + ": " + "false");
-      return false;
-    }
-    return true;
+    return this.droppedItems.indexOf(student) < 0;
   }
 
   removeTA(student: any, courseNo: number) {
@@ -91,8 +87,10 @@ export class ProfessorComponent implements OnInit, OnDestroy {
   exportToCSV(courseNo: number) {
 
     if (!_.isEmpty(this.courses[courseNo])) {
-      return new Angular2Csv(this.courses[courseNo], this.profCourses[courseNo], {headers: Object.keys(this.courses[courseNo][0])});
+       new Angular2Csv(this.courses[courseNo], this.profCourses[courseNo], {headers: Object.keys(this.courses[courseNo][0])});
+       return true;
     }
+    return false;
   }
 
 }
