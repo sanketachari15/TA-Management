@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import {HttpModule} from '@angular/http';
 import { HttpParams, HttpClient } from '@angular/common/http';
 import 'rxjs/Rx'
 
