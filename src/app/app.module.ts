@@ -10,6 +10,7 @@ import {
   MdMenuModule,
   MdToolbarModule,
   MdSelectModule,
+  MdDialogModule,
   MdTabsModule,
   MdTooltipModule} from '@angular/material';
 import {FormsModule} from '@angular/forms';
@@ -21,6 +22,7 @@ import { LoginComponent } from './login/login.component';
 import { DataService } from './data.service';
 import { ProfessorComponent } from './professor/professor.component';
 import { StarRatingModule } from 'angular-star-rating';
+import { TadetailsComponent } from './tadetails/tadetails.component';
 
 export const ROUTES: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -32,7 +34,8 @@ export const ROUTES: Routes = [
   declarations: [
     AppComponent,
     LoginComponent,
-    ProfessorComponent
+    ProfessorComponent,
+    TadetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -51,6 +54,7 @@ export const ROUTES: Routes = [
     DndModule.forRoot(),
     MdMenuModule,
     MdSelectModule,
+    MdDialogModule,
     StarRatingModule.forRoot()
   ],
   providers: [DragDropService, DragDropConfig, DataService],

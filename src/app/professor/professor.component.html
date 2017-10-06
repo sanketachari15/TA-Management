@@ -70,7 +70,7 @@
                             <div *ngFor="let student of getStudents()">
                                 <md-card class="student-details" dnd-draggable [dragEnabled]="isAvailable(student)"
                                          [dragData]="student"
-                                         [ngStyle]="{backgroundColor: getColor(student)}">
+                                         [ngStyle]="{backgroundColor: getColor(student)}" (click)="openDialog()">
                                     <div class="student-info">
                                         <p>
                                             <md-icon class="material-icons">person</md-icon>
