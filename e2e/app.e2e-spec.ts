@@ -7,8 +7,14 @@ describe('ta-management App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should display login page', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!');
+    expect(page.getLoginPageDetails('.first-element')).toEqual('Prof-Login');
+    expect(page.getLoginPageDetails('.second-element')).toEqual('Student-Login');
+    expect(page.getLoginPageDetails('.third-element')).toEqual('Manager-Login');
+  });
+
+  it('should display home page for professor', () => {
+    page.navigateTo('/prof');
   });
 });
