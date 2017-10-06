@@ -11,7 +11,9 @@ import {
   MdToolbarModule,
   MdSelectModule,
   MdDialogModule,
+  MdDialog,
   MdTabsModule,
+  MdSidenavModule,
   MdTooltipModule} from '@angular/material';
 import {FormsModule} from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
@@ -58,10 +60,12 @@ export const ROUTES: Routes = [
     MdMenuModule,
     MdSelectModule,
     MdDialogModule,
+    MdSidenavModule,
     StarRatingModule.forRoot()
   ],
-  providers: [DragDropService, DragDropConfig, DataService],
-  bootstrap: [AppComponent]
+  providers: [DragDropService, DragDropConfig, DataService, MdDialogModule, MdDialog, MdSidenavModule],
+  bootstrap: [AppComponent],
+  entryComponents: [TadetailsComponent]
 })
 export class AppModule {
 }

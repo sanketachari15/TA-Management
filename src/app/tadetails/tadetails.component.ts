@@ -7,14 +7,14 @@ import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
   styleUrls: ['./tadetails.component.scss']
 })
 export class TadetailsComponent implements OnInit {
-
-  constructor(
+  public dRef: MdDialogRef<TadetailsComponent>;
+  constructor() { }
+  /*constructor(
     public dialogRef: MdDialogRef<TadetailsComponent>,
-    @Inject(MD_DIALOG_DATA) public data: any) { }
-
+    @Inject(MD_DIALOG_DATA) public data: any) { }*/
   ngOnInit() {
   }
     onNoClick(): void {
-      this.dialogRef.close();
+      this.dRef.close();
     }
   }
