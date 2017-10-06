@@ -1,9 +1,11 @@
-import { Component, OnInit, OnDestroy} from '@angular/core';
-import {Angular2Csv} from "angular2-csv";
-import {DataService} from "../data.service";
+import { Component, OnInit, OnDestroy, Inject} from '@angular/core';
+import {Angular2Csv} from 'angular2-csv';
+import {DataService} from '../data.service';
 import * as _ from 'underscore';
 import 'rxjs/add/operator/takeUntil';
-import {Subject, Subscription} from "rxjs";
+import {Subject, Subscription} from 'rxjs/Rx';
+import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
+import { TadetailsComponent } from '../tadetails/tadetails.component';
 
 @Component({
   selector: 'app-professor',
@@ -18,10 +20,10 @@ export class ProfessorComponent implements OnInit, OnDestroy {
   courses = {0: [], 1: [], 2: [], 3: [], 4: [], 5: []};
 
   students: any;
-  search:string;
+  search: string;
   profCourses: any;
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService, public dialog: MdDialog) {
   }
 
   ngOnInit() {
@@ -30,8 +32,8 @@ export class ProfessorComponent implements OnInit, OnDestroy {
         .takeUntil(this.ngUnsubscribe)
         .subscribe(
             (x) =>  this.students = x,
-            (err) => console.log("Error occurred in ngOnInit subscribe " + err),
-            () => console.log("students requested")
+            (err) => console.log('Error occurred in ngOnInit subscribe ' + err),
+            () => console.log('students requested')
         );
 
 
@@ -39,11 +41,11 @@ export class ProfessorComponent implements OnInit, OnDestroy {
         .takeUntil(this.ngUnsubscribe)
         .subscribe(
             (x) => this.profCourses = x ,
-            (err) => console.log("Error occurred in ngOnInit subscribe " + err),
-            () => console.log("professor courses requested"));
+            (err) => console.log('Error occurred in ngOnInit subscribe ' + err),
+            () => console.log('professor courses requested'));
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }
@@ -54,14 +56,13 @@ export class ProfessorComponent implements OnInit, OnDestroy {
     return event.dragData;
   }
 
-  getStudents(){  
+  getStudents() {
 
-    if(_.isEmpty(this.search)) 
-      return this.students; 
+    if (_.isEmpty( this.search )) {
+      return this.students;
+    }
 
-    return _.chain(this.students) 
-        .filter(student =>  student.name.toLowerCase().startsWith(this.search.toLowerCase())) 
-        .value(); 
+    return _.chain(this.students).filter(student =>  student.name.toLowerCase().startsWith(this.search.toLowerCase())).value();
   }
 
   getColor(student: any) {
@@ -93,4 +94,13 @@ export class ProfessorComponent implements OnInit, OnDestroy {
     return false;
   }
 
+  openDialog(): void {
+    const dialogRef = this.dialog.open(TadetailsComponent, {
+      width: '250px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
 }
