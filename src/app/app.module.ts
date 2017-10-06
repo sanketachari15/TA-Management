@@ -23,11 +23,13 @@ import { DataService } from './data.service';
 import { ProfessorComponent } from './professor/professor.component';
 import { StarRatingModule } from 'angular-star-rating';
 import { TadetailsComponent } from './tadetails/tadetails.component';
+import { StudentComponent } from './student/student.component';
 
 export const ROUTES: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
-  {path: 'prof', component: ProfessorComponent}
+  {path: 'prof', component: ProfessorComponent},
+  {path: 'student', component: StudentComponent}
 ];
 
 @NgModule({
@@ -35,7 +37,8 @@ export const ROUTES: Routes = [
     AppComponent,
     LoginComponent,
     ProfessorComponent,
-    TadetailsComponent
+    TadetailsComponent,
+    StudentComponent
   ],
   imports: [
     BrowserModule,
