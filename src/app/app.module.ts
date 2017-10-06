@@ -65,7 +65,7 @@ export const ROUTES: Routes = [
   ],
   providers: [DragDropService, DragDropConfig, DataService, MdDialogModule, MdDialog, MdSidenavModule],
   bootstrap: [AppComponent],
-  entryComponents: [TadetailsComponent]
+  entryComponents: [TadetailsComponent] // Added for TA Info Dialog Box Issue #15
 })
 export class AppModule {
 }
