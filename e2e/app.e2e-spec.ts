@@ -13,8 +13,4 @@ describe('ta-management App', () => {
     expect(page.getLoginPageDetails('.second-element')).toEqual('Student-Login');
     expect(page.getLoginPageDetails('.third-element')).toEqual('Manager-Login');
   });
-
-  it('should display home page for professor', () => {
-    page.navigateTo('/prof');
-  });
 });

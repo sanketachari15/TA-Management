@@ -99,9 +99,9 @@ export class ProfessorComponent implements OnInit, OnDestroy {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(TadetailsComponent, {
-      width: '250px'
-    });
+    let dialogRef = this.dialog.open(TadetailsComponent);
+
+    dialogRef.componentInstance.dRef = dialogRef;
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');

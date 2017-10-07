@@ -9,7 +9,9 @@ import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 import {HttpClientModule} from "@angular/common/http";
 import * as _ from 'underscore';
-import {DebugElement} from "@angular/core";
+import {MdDialogModule, MdDialogRef, MD_DIALOG_DATA, MdDialog} from '@angular/material';
+import { TadetailsComponent } from '../tadetails/tadetails.component';
+import {SharedService} from "../shared.service";
 
 describe('ProfessorComponent', () => {
   let component: ProfessorComponent;
@@ -36,9 +38,9 @@ describe('ProfessorComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [MdTabsModule, MdCardModule, DndModule.forRoot(), StarRatingModule.forRoot(), MdTooltipModule,
-                MdIconModule, MdMenuModule, FormsModule, HttpModule, HttpClientModule],
-      declarations: [ ProfessorComponent ],
-      providers: [DragDropService, DragDropConfig, DataService]
+                MdIconModule, MdMenuModule, FormsModule, HttpModule, HttpClientModule, MdDialogModule],
+      declarations: [ ProfessorComponent, TadetailsComponent ],
+      providers: [DragDropService, DragDropConfig, DataService, SharedService, MdDialogModule]
     })
     .compileComponents();
   }));

@@ -7,7 +7,6 @@ export class AppPage {
     }
 
     getLoginPageDetails(buttonClass) {
-        // console.log(element(by.css('.first-element')).getText());
         return element(by.css(buttonClass)).getText();
     }
 }

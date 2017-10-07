@@ -12,7 +12,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^4.3.6",
+    "@angular/animations": "^4.4.4",
     "@angular/cdk": "^2.0.0-beta.10",
     "@angular/common": "^4.2.4",
     "@angular/compiler": "^4.2.4",
@@ -31,6 +31,7 @@
     "core-js": "^2.4.1",
     "express": "^4.15.4",
     "lodash": "^4.17.4",
+    "md-content": "^1.0.8",
     "md-dialog": "0.0.1-alpha.1",
     "mysql": "^2.14.1",
     "ng2-dnd": "^4.2.0",
