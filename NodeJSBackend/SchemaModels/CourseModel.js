@@ -1,8 +1,5 @@
 var mongoose = require('mongoose');
 
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/TAManagementSystem');
-
 var Course = mongoose.model('Course', {
   Code: {
     type: String,
@@ -62,22 +59,24 @@ var Course = mongoose.model('Course', {
   }
 });
 
-var courseSE = new Course({
-  Code: 'CN123',
-  Name: 'SE',
-  Sem: 'Fall2017',
-  Department: 'CSE',
-  CourseCredits: 3,
-  ProfessorFullName: 'Alin Dobra',
-  ProfessorEmail: 'alinDobra@ufl.edu',
-  CourseScheduleLink: 'courseScheduleTest',
-  CourseSyllabusLink: 'courseSyllabusTest',
-  MaxStudents: 50,
-  TAs: ['17162351']
-});
+// var courseSE = new Course({
+//   Code: 'CN123',
+//   Name: 'SE',
+//   Sem: 'Fall2017',
+//   Department: 'CSE',
+//   CourseCredits: 3,
+//   ProfessorFullName: 'Alin Dobra',
+//   ProfessorEmail: 'alinDobra@ufl.edu',
+//   CourseScheduleLink: 'courseScheduleTest',
+//   CourseSyllabusLink: 'courseSyllabusTest',
+//   MaxStudents: 50,
+//   TAs: ['17162351']
+// });
+//
+// courseSE.save().then((doc) => {
+//   console.log('Saved course ', doc);
+// }, (error) => {
+//   console.log('Unable to save course ', error);
+// });
 
-courseSE.save().then((doc) => {
-  console.log('Saved course ', doc);
-}, (error) => {
-  console.log('Unable to save course ', error);
-});
+module.exports= { Course };
