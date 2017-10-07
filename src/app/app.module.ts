@@ -23,6 +23,7 @@ import { DataService } from './data.service';
 import { ProfessorComponent } from './professor/professor.component';
 import { StarRatingModule } from 'angular-star-rating';
 import { TadetailsComponent } from './tadetails/tadetails.component';
+import {SharedService} from "./shared.service";
 
 export const ROUTES: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -57,7 +58,7 @@ export const ROUTES: Routes = [
     MdDialogModule,
     StarRatingModule.forRoot()
   ],
-  providers: [DragDropService, DragDropConfig, DataService],
+  providers: [DragDropService, DragDropConfig, DataService, SharedService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
