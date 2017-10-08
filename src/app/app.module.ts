@@ -10,7 +10,10 @@ import {
   MdMenuModule,
   MdToolbarModule,
   MdSelectModule,
+  MdDialogModule,
+  MdDialog,
   MdTabsModule,
+  MdSidenavModule,
   MdTooltipModule} from '@angular/material';
 import {FormsModule} from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
@@ -21,18 +24,23 @@ import { LoginComponent } from './login/login.component';
 import { DataService } from './data.service';
 import { ProfessorComponent } from './professor/professor.component';
 import { StarRatingModule } from 'angular-star-rating';
+import { TadetailsComponent } from './tadetails/tadetails.component';
+import { StudentComponent } from './student/student.component';
 
 export const ROUTES: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
-  {path: 'prof', component: ProfessorComponent}
+  {path: 'prof', component: ProfessorComponent},
+  {path: 'student', component: StudentComponent}
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    ProfessorComponent
+    ProfessorComponent,
+    TadetailsComponent,
+    StudentComponent
   ],
   imports: [
     BrowserModule,
@@ -51,10 +59,13 @@ export const ROUTES: Routes = [
     DndModule.forRoot(),
     MdMenuModule,
     MdSelectModule,
+    MdDialogModule,
+    MdSidenavModule,
     StarRatingModule.forRoot()
   ],
-  providers: [DragDropService, DragDropConfig, DataService],
-  bootstrap: [AppComponent]
+  providers: [DragDropService, DragDropConfig, DataService, MdDialogModule, MdDialog, MdSidenavModule],
+  bootstrap: [AppComponent],
+  entryComponents: [TadetailsComponent] // Added for TA Info Dialog Box Issue #15
 })
 export class AppModule {
 }
