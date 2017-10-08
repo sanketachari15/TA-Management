@@ -16,7 +16,7 @@
                                 <div *ngFor="let student of getTAs(i)">
                                     <md-card *ngIf="student" class="student-details" dnd-draggable
                                              [dragEnabled]="true"
-                                             [dragData]="student">
+                                             [dragData]="student" (click)="openDialog()">
                                         <div class="student-info">
                                             <p>
                                                 <md-icon class="material-icons">person</md-icon>
