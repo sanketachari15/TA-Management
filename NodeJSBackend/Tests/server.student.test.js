@@ -8,7 +8,8 @@ beforeEach((done) => {
   Student.remove({}).then(() => done());
 });
 
-describe('POST /addStudent', () => {
+describe('POST /students', () => {
+
   it('should create a new student', (done) => {
     var StudentTest = new Student({
       UFID: '1234567890',
@@ -22,9 +23,8 @@ describe('POST /addStudent', () => {
       Email: 'testTest@ufl.edu',
       ResumeLink: 'resumeOfTest'
     });
-
     request(app)
-      .post('/addStudent')
+      .post('/students')
       .send(StudentTest)
       .expect(200)
       .expect((response) => {
@@ -34,15 +34,32 @@ describe('POST /addStudent', () => {
         if(error){
           return done(error);
         }
-
       Student.find().then((students) => {
         expect(students.length).toBe(1);
-        expect(students[0].UFID).toBe(StudentTest.UFID)
+        expect(students[0].UFID).toBe(StudentTest.UFID);
         done();
       }).catch((error) => {
         done(error);
       })
       });
-
   });
+
+  it('should not add student with empty body data', (done) => {
+    request(app)
+      .post('/students')
+      .send({})
+      .expect(400)
+      .end((error, response) => {
+        if(error){
+          return done(error);
+        }
+      Student.find().then((students) => {
+        expect(students.length).toBe(0);
+        done();
+      }).catch((error) => {
+        done(error);
+      })
+      });
+  });
+
 });

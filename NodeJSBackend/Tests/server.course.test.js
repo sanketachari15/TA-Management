@@ -8,7 +8,8 @@ beforeEach((done) => {
   Course.remove({}).then(() => done());
 });
 
-describe('POST /addCourse', () => {
+describe('POST /courses', () => {
+
   it('should create a new course', (done) => {
     var CourseTest = new Course({
       Code: 'Test123',
@@ -23,9 +24,8 @@ describe('POST /addCourse', () => {
       MaxStudents: 50,
       TAs: ['17162351']
     });
-
     request(app)
-      .post('/addCourse')
+      .post('/courses')
       .send(CourseTest)
       .expect(200)
       .expect((response) => {
@@ -35,7 +35,6 @@ describe('POST /addCourse', () => {
         if(error){
           return done(error);
         }
-
       Course.find().then((courses) => {
         expect(courses.length).toBe(1);
         expect(courses[0].Code).toBe(CourseTest.Code)
@@ -44,6 +43,23 @@ describe('POST /addCourse', () => {
         done(error);
       })
       });
+  });
 
+  it('should not add course with empty body data', (done) => {
+    request(app)
+      .post('/courses')
+      .send({})
+      .expect(400)
+      .end((error, response) => {
+        if(error){
+          return done(error);
+        }
+      Course.find().then((courses) => {
+        expect(courses.length).toBe(0);
+        done();
+      }).catch((error) => {
+        done(error);
+      })
+      });
   });
 });
