@@ -3,13 +3,14 @@ import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import {RouterTestingModule} from "@angular/router/testing";
 import {MdToolbarModule} from "@angular/material";
+import {SharedService} from "./shared.service";
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ], imports: [RouterTestingModule, MdToolbarModule]
+      declarations: [AppComponent],
+      imports: [RouterTestingModule, MdToolbarModule],
+      providers: [SharedService]
     }).compileComponents();
   }));
 
@@ -22,7 +23,7 @@ describe('AppComponent', () => {
   it(`should not have as title 'app'`, async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('');
+    expect(app.header).toEqual('Welcome to UF');
   }));
 
   /*it('should render title in a h1 tag', async(() => {

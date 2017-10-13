@@ -6,6 +6,7 @@ import 'rxjs/add/operator/takeUntil';
 import {Subject, Subscription} from 'rxjs/Rx';
 import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
 import { TadetailsComponent } from '../tadetails/tadetails.component';
+import {SharedService} from "../shared.service";
 
 @Component({
   selector: 'app-professor',
@@ -15,6 +16,7 @@ import { TadetailsComponent } from '../tadetails/tadetails.component';
 export class ProfessorComponent implements OnInit, OnDestroy {
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
+  header = "Welcome Professor";
 
   droppedItems = [];
   courses = {0: [], 1: [], 2: [], 3: [], 4: [], 5: []};
@@ -23,10 +25,12 @@ export class ProfessorComponent implements OnInit, OnDestroy {
   search: string;
   profCourses: any;
 
-  constructor(private dataService: DataService, public dialog: MdDialog) {
+  constructor(private dataService: DataService, private sharedService: SharedService, public dialog: MdDialog) {
   }
 
   ngOnInit() {
+
+    this.sharedService.changeHeader(this.header);
 
     this.dataService.getStudents()
         .takeUntil(this.ngUnsubscribe)
