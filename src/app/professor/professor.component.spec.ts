@@ -12,6 +12,7 @@ import * as _ from 'underscore';
 import {DebugElement} from "@angular/core";
 import {MdDialogModule, MdDialogRef, MD_DIALOG_DATA, MdDialog} from '@angular/material';
 import { TadetailsComponent } from '../tadetails/tadetails.component';
+import { PdfViewerComponent } from 'ng2-pdf-viewer';
 
 describe('ProfessorComponent', () => {
   let component: ProfessorComponent;
@@ -39,8 +40,8 @@ describe('ProfessorComponent', () => {
     TestBed.configureTestingModule({
       imports: [MdTabsModule, MdCardModule, DndModule.forRoot(), StarRatingModule.forRoot(), MdTooltipModule,
                 MdIconModule, MdMenuModule, FormsModule, HttpModule, HttpClientModule, MdDialogModule],
-      declarations: [ ProfessorComponent, TadetailsComponent ],
-      providers: [DragDropService, DragDropConfig, DataService, MdDialogModule]
+      declarations: [ ProfessorComponent, TadetailsComponent, PdfViewerComponent],
+      providers: [DragDropService, DragDropConfig, DataService, MdDialogModule, PdfViewerComponent]
     })
     .compileComponents();
   }));

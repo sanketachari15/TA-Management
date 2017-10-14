@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { StudentComponent } from './student.component';
 import { MdSidenavModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('StudentComponent', () => {
   let component: StudentComponent;
@@ -10,7 +11,7 @@ describe('StudentComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MdSidenavModule, BrowserAnimationsModule],
+      imports: [MdSidenavModule, BrowserAnimationsModule, RouterTestingModule],
       declarations: [ StudentComponent ]
     })
     .compileComponents();

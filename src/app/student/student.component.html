@@ -1,7 +1,7 @@
 <md-sidenav-container class="example-container">
   <md-sidenav #sidenav class="example-sidenav" opened="true" disableClose="true" mode="side">
     <nav>
-        <ul>
+        <ul ng-init="Home">
           <li>
           <header class="docs-logo">
           <div class="image-cropper">
@@ -11,12 +11,15 @@
           </header>
           </li>
           <li>
-              <a href="../login/login.component.html">Profile</a>
+              <a routerlinkactive="item-selected" routerLink="/login">Profile</a>
           </li>  
           <li>
-              <a href="../login/login.component.html">Home</a>
+              <a routerlinkactive="item-selected" routerLink="/login">Home</a>
           </li> 
       </ul>
     </nav>
       </md-sidenav>
+      <div class="example-sidenav-content">
+        <router-outlet></router-outlet>
+    </div>
 </md-sidenav-container>
