@@ -26,6 +26,7 @@ import { ProfessorComponent } from './professor/professor.component';
 import { StarRatingModule } from 'angular-star-rating';
 import { TadetailsComponent } from './tadetails/tadetails.component';
 import { StudentComponent } from './student/student.component';
+import {SharedService} from "./shared.service";
 
 export const ROUTES: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -63,7 +64,7 @@ export const ROUTES: Routes = [
     MdSidenavModule,
     StarRatingModule.forRoot()
   ],
-  providers: [DragDropService, DragDropConfig, DataService, MdDialogModule, MdDialog, MdSidenavModule],
+  providers: [DragDropService, DragDropConfig, DataService, SharedService, MdDialogModule, MdDialog, MdSidenavModule],
   bootstrap: [AppComponent],
   entryComponents: [TadetailsComponent] // Added for TA Info Dialog Box Issue #15
 })
