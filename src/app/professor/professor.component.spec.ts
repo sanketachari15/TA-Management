@@ -11,6 +11,7 @@ import {HttpClientModule} from "@angular/common/http";
 import * as _ from 'underscore';
 import {MdDialogModule, MdDialogRef, MD_DIALOG_DATA, MdDialog} from '@angular/material';
 import { TadetailsComponent } from '../tadetails/tadetails.component';
+import { PdfViewerComponent } from 'ng2-pdf-viewer';
 import {SharedService} from "../shared.service";
 
 describe('ProfessorComponent', () => {
@@ -39,8 +40,8 @@ describe('ProfessorComponent', () => {
     TestBed.configureTestingModule({
       imports: [MdTabsModule, MdCardModule, DndModule.forRoot(), StarRatingModule.forRoot(), MdTooltipModule,
                 MdIconModule, MdMenuModule, FormsModule, HttpModule, HttpClientModule, MdDialogModule],
-      declarations: [ ProfessorComponent, TadetailsComponent ],
-      providers: [DragDropService, DragDropConfig, DataService, SharedService, MdDialogModule]
+      declarations: [ ProfessorComponent, TadetailsComponent, PdfViewerComponent],
+      providers: [DragDropService, DragDropConfig, DataService, MdDialogModule, SharedService, PdfViewerComponent]
     })
     .compileComponents();
   }));
