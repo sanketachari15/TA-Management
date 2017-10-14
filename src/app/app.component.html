@@ -3,12 +3,12 @@
   <div class="ufHeader">
     <md-toolbar class="header-toolbar">
       <span class="header-content">
-        <a href="http://ufl.edu" target="_blank">Welcome to UF</a>
+        <p class="header-name">{{header}}</p>
       </span>
     </md-toolbar>
   </div>
 
-  <router-outlet></router-outlet>
+  <router-outlet (onRouteChange) = "setHeader($event)"></router-outlet>
 
   <div class="footer">
     <p> Copyright, University of Florida </p>

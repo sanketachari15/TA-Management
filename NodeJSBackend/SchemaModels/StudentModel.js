@@ -1,8 +1,5 @@
 var mongoose = require('mongoose');
 
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/TAManagementSystem');
-
 var Student = mongoose.model('Student', {
   UFID: {
     type: String,
@@ -60,21 +57,23 @@ var Student = mongoose.model('Student', {
   }
 });
 
-var StudentNikita = new Student({
-  UFID: '17162351',
-  FirstName: 'Nikita',
-  LastName: 'Saxena',
-  GradOrUndergrad: 'Grad',
-  SchoolYear: 2,
-  Sem: 'Fall2017',
-  CourseMostInterestedIn: 'CN123',
-  InterestLevel: '4',
-  Email: 'nikitasaxena08@ufl.edu',
-  ResumeLink: 'xyzTest'
-});
+// var StudentNikita = new Student({
+//   UFID: '17162351',
+//   FirstName: 'Nikita',
+//   LastName: 'Saxena',
+//   GradOrUndergrad: 'Grad',
+//   SchoolYear: 2,
+//   Sem: 'Fall2017',
+//   CourseMostInterestedIn: 'CN123',
+//   InterestLevel: '4',
+//   Email: 'nikitasaxena08@ufl.edu',
+//   ResumeLink: 'xyzTest'
+// });
+//
+// StudentNikita.save().then((doc) => {
+//   console.log('Saved student ', doc);
+// }, (error) => {
+//   console.log('Unable to save student ', error);
+// });
 
-StudentNikita.save().then((doc) => {
-  console.log('Saved student ', doc);
-}, (error) => {
-  console.log('Unable to save student ', error);
-});
+module.exports= { Student };
