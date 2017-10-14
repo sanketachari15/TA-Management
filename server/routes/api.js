@@ -43,7 +43,7 @@ const profCourses = [{"id":1,
 
 router.get('/students', (req, res) => {
   res.json(students);
-})
+});
 
 var getCourses = function (profName) {
   var prof;
@@ -58,6 +58,6 @@ var getCourses = function (profName) {
 
 router.get('/prof-courses', (req, res) => {
   res.json( getCourses(req.query.prof));
-})
+});
 
 module.exports = router;
