@@ -14,7 +14,9 @@ import {
   MdDialog,
   MdTabsModule,
   MdSidenavModule,
-  MdTooltipModule} from '@angular/material';
+  MdTooltipModule,
+  MdListModule
+} from '@angular/material';
 import {FormsModule} from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
 import { AppComponent } from './app.component';
@@ -28,12 +30,17 @@ import { TadetailsComponent } from './tadetails/tadetails.component';
 import { StudentComponent } from './student/student.component';
 import { PdfViewerComponent } from 'ng2-pdf-viewer';
 import {SharedService} from "./shared.service";
+import { CourseComponent } from './course/course.component';
+import { MessageComponent } from './message/message.component';
 
 export const ROUTES: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'prof', component: ProfessorComponent},
-  {path: 'student', component: StudentComponent}
+  {path: 'student', component: StudentComponent},
+  {path: 'course/:id', component: CourseComponent,
+  children: [{path: 'new-message', component: MessageComponent}]},
+
 ];
 
 @NgModule({
@@ -43,7 +50,9 @@ export const ROUTES: Routes = [
     ProfessorComponent,
     TadetailsComponent,
     StudentComponent,
-    PdfViewerComponent
+    PdfViewerComponent,
+    CourseComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,
@@ -57,6 +66,7 @@ export const ROUTES: Routes = [
     MdIconModule,
     MdTabsModule,
     MdTooltipModule,
+    MdListModule,
     FormsModule,
     FlexLayoutModule,
     DndModule.forRoot(),

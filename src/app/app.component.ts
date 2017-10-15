@@ -13,7 +13,6 @@ export class AppComponent implements OnInit {
   constructor(private sharedService: SharedService) {}
 
   setHeader(newHeader: string)  {
-    console.log("In set header");
     this.header = newHeader;
   }
 
