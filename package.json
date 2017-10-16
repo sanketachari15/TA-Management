@@ -5,7 +5,7 @@
   "main": "**/NodeJSBackend/Server/server.js",
   "scripts": {
     "ng": "ng",
-    "start": "node **/NodeJSBackend/Server/server.js",
+    "start": "node /Users/nikitasaxena/Documents/GitHub/TA-Management/NodeJSBackend/Server/server.js",
     "build": "ng build",
     "lint": "ng lint",
     "e2e": "ng e2e",
