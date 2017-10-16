@@ -7,6 +7,7 @@ var { Professor } = require('../SchemaModels/ProfessorModel.js');
 var { Course } = require('../SchemaModels/CourseModel.js');
 
 var app = express();
+const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 
@@ -97,8 +98,8 @@ app.get('/courses/:Code', (request, response) => {
   });
 });
 
-app.listen(3000, () => {
-  console.log('Started on port 3000');
+app.listen(port, () => {
+  console.log(`Started on port ${port}`);
 });
 
 module.exports = {app};
