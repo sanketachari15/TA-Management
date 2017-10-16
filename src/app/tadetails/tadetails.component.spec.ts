@@ -10,7 +10,7 @@ describe('TadetailsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ TadetailsComponent, PdfViewerComponent ],
-      providers: [PdfViewerComponent]
+      providers: []
     })
     .compileComponents();
   }));

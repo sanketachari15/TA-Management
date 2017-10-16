@@ -1,0 +1,76 @@
+<br>
+<div>
+    <h4 *ngIf="checkDataFromParent()" style="padding-left: 20px">{{courseTitle}}</h4>
+</div>
+<br>
+<div class="wrapper">
+    <div class="left-side">
+
+        <div class="left-side-wrapper">
+                <md-list>
+                    <a md-list-item (click)="getHome()" [ngClass]="{active: link === 'home'}">Home</a>
+                    <a md-list-item (click)="getAnnouncements()" [ngClass]="{active: link === 'announcements'}">Announcements</a>
+                    <a md-list-item (click)="getMessages()" [ngClass]="{active: link === 'messages'}">Messages</a>
+                    <a md-list-item (click)="getFiles()" [ngClass]="{active: link === 'files'}">Files</a>
+                </md-list>
+
+        </div>
+    </div>
+    <div class="middle">
+        <div class="middle-wrapper">
+
+            <div class="Home" *ngIf="link === 'home'">
+                <h4>Recent Announcements</h4>
+                <hr style="border-width: thick">
+                <div *ngFor="let announce of getAnnouncements()">
+                    <p>{{announce}}</p>
+                    <hr>
+                </div><br><br>
+
+                <h4>Inbox</h4>
+                <hr style="border-width: thick">
+                <div *ngFor="let msg of getMessages()">
+                    <h5>{{msg.from}}</h5>
+                    <p>{{msg.message}}</p>
+                    <hr>
+                </div><br><br>
+
+                <h4>No Files</h4>
+                <hr style="border-width: thick">
+            </div>
+
+            <div class="Announcements" *ngIf="link === 'announcements'">
+                <h4>Recent Announcements</h4>
+                <hr style="border-width: thick">
+                <div *ngFor="let announce of getAnnouncements()">
+                    <p>{{announce}}</p>
+                    <hr>
+                </div>
+            </div>
+
+            <div class="Messages" *ngIf="link === 'messages'">
+                <div class="inbox">
+                    <h4>Inbox</h4>
+                    <md-icon mdTooltip="New message" mdTooltipPosition="above" class="new-message" (click) = "newMessage()">add_circle</md-icon>
+                </div>
+
+                <hr style="border-width: thick">
+                <div *ngFor="let msg of getMessages()">
+                    <h5>{{msg.from}}</h5>
+                    <p>{{msg.message}}</p>
+                    <hr>
+                </div>
+
+                <router-outlet></router-outlet>
+            </div>
+
+            <div class="Files" *ngIf="link === 'files'">
+                <h4>No files</h4>
+                <hr style="border-width: thick">
+            </div>
+
+        </div>
+    </div>
+    <div class="right-side"></div>
+
+</div>

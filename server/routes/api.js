@@ -27,13 +27,32 @@ const students = [
   {id: 13, name: "Rita Levi-Montalcini", gpa: "3.4", interest: 2}, {id: 14, name: "Jake", gpa: "3.4", interest: 5}];
 
 
-const profs = [{id:1, "name": "Alin Dobra"}, {id:2, "name": "Beverly Sanders"}, {id:3, "name": "Alper Ungor"}]  
+const profs = [{id:1, "name": "Alin Dobra"}, {id:2, "name": "Beverly Sanders"}, {id:3, "name": "Alper Ungor"}];
 const profCourses = [{"id":1,
                       "name": "Alin Dobra",
-                      "courses":
-                          ["COP5615: Distributed Operating Systems",
-                           "CEN5035: Software Engineering", 
-                           "CIS6930: Database Implementation"]}, 
+                      "courses": [
+                          {"name":"COP5615: Distributed Operating Systems",
+                              "announcements": ["TA1 has released the grades for exam1", "TA2 is not taking office hours this week", "TA1 has is working on the evaluation of assignment 2"],
+                              "messages": [{"from": "Manager X", "message": "Please send the list of TAs. I would have to assign TAs till tomorrow"},
+                                            {"from": "TA2", "message": "Professor can you please provide the details for Grade policy for this subject ?"},
+                                            {"from": "TA1", "message": "Please have a look into the list of students who want to retake the exam 2"}
+                                          ]
+                          },
+                          {"name": "CEN5035: Software Engineering",
+                              "announcements": ["TA1 has released the grades for exam1", "TA2 is not taking office hours this week", "TA1 has is working on the evaluation of assignment 2"],
+                              "messages": [{"from": "Manager X", "message": "Please send the list of TAs. I would have to assign TAs till tomorrow"},
+                                  {"from": "TA2", "message": "Professor can you please provide the details for Grade policy for this subject ?"},
+                                  {"from": "TA1", "message": "Please have a look into the list of students who want to retake the exam 2"}
+                              ]
+                          },
+                          {"name": "CIS6930: Database Implementation",
+                              "announcements": ["TA1 has released the grades for exam1", "TA2 is not taking office hours this week", "TA1 has is working on the evaluation of assignment 2"],
+                              "messages": [{"from": "Manager X", "message": "Please send the list of TAs. I would have to assign TAs till tomorrow"},
+                                  {"from": "TA2", "message": "Professor can you please provide the details for Grade policy for this subject ?"},
+                                  {"from": "TA1", "message": "Please have a look into the list of students who want to retake the exam 2"}
+                              ]
+                          }
+                              ]},
                      {"id": 2,
                      "name": "Beverly Sanders",
                      "courses":
@@ -41,9 +60,12 @@ const profCourses = [{"id":1,
                             "CIS6930: Concurrent Programming"]}
                     ];
 
-router.get('/students', (req, res) => {
-  res.json(students);
-})
+const courseAnnouncements = {
+    "COP5615: Distributed Operating Systems": {"announcements": ["TA1 has released the grade of exam1", "TA2 is not taking office hours this week", "TA1 has is working on the evaluation of assignment 2"]},
+    "CEN5035: Software Engineering": {"announcements": ["TA1 has released the grade of exam1", "TA2 is not taking office hours this week", "TA1 has is working on the evaluation of assignment 2"]},
+    "CIS6930: Database Implementation": {"announcements": ["TA1 has released the grade of exam1", "TA2 is not taking office hours this week", "TA1 has is working on the evaluation of assignment 2"]},
+};
+
 
 var getCourses = function (profName) {
   var prof;
@@ -56,8 +78,17 @@ var getCourses = function (profName) {
   return [];
 };
 
+router.get('/students', (req, res) => {
+    res.json(students);
+});
+
 router.get('/prof-courses', (req, res) => {
   res.json( getCourses(req.query.prof));
-})
+});
+
+router.get('/course-announcements', (req, res) => {
+    res.json(courseAnnouncements[req.query.course]);
+});
+
 
 module.exports = router;

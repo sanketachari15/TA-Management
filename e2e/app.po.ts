@@ -22,18 +22,35 @@ export class AppPage {
         return element(by.css('.middle')).isPresent();
     }
 
-    /*getCoursesList(){
-        return element(by.css('.prof-courses'));
-    }*/
+    getCoursesList(profCourses){
+        // let courses = element.all(by.css('.prof-courses'));
+        // courses.sendKeys(browser.params.courses);
+        element.all(by.css('.courses1')).sendKeys(profCourses);
+        // let pp = element.all(by.css('.prof-courses')).se;
+        // pp.set(0).sendKeys(profCourses[0]);
+        let profs = element.all(by.css('.courses1'));
+        let firstOrg = profs.get(0);
+        // console.log(firstOrg.getText());
+        return firstOrg;
+        // return element.all(by.css('.prof-courses'));
+
+        // return courses
+    }
 
     getProfPageSearchInput(){
-        return element(by.model('search'));
+
+        return element(by.css('input'));
     }
 
 
     getProfPageStudentList(){
-        let students = element(by.repeater('let student of getStudents()'));
-        return students.element(by.binding('student.name'))
+        // element(by.repeater('let student of getStudents()')).sendKeys(browser.params);
+        // return element(by.binding('getStudents()'));
+        // element(by.binding('getStudents()')).sendKeys(browser.params);
+        // return element.all(by.repeater('let student of getStudents()'));
+        element(by.css('.students')).sendKeys(browser.params);
+        return element.all(by.css('.students'));
+
     }
 
     getProfPageStudentCard(){

@@ -20,7 +20,7 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   }));
 
-  it(`should not have as title 'app'`, async(() => {
+  it(`should have as title 'Welcome to UF'`, async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app.header).toEqual('Welcome to UF');

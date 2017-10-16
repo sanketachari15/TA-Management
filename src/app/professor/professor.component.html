@@ -8,7 +8,7 @@
                 <div class="wrapper-2">
                     <div class="dashboard" dnd-droppable="true" (onDropSuccess)="student=onItemDrop($event, i)">
                         <br><br>
-                        <p class="course-name"><a href="#"><b><u>{{course}}</u></b></a></p><br><br>
+                        <p class="course-name"><a href="#"><b><u>{{course.name}}</u></b></a></p><br><br>
                         <p>Teaching Assistants:</p><br>
 
                         <div class="wrapper-3">
@@ -42,11 +42,11 @@
 
                             <div class="icons">
                             <span class="material-icons" mdTooltip="Announcement" mdTooltipPosition="above"><md-icon
-                                    class="md-icons">announcement</md-icon></span>
+                                    class="md-icons" (click) = "show(i, 'announcements')">announcement</md-icon></span>
                                 <span class="material-icons" mdTooltip="Messages" mdTooltipPosition="above"><md-icon
-                                        class="md-icons">message</md-icon></span>
+                                        class="md-icons" (click) = "show(i, 'messages')">message</md-icon></span>
                                 <span class="material-icons" mdTooltip="Files" mdTooltipPosition="above"><md-icon
-                                        class="md-icons">folder</md-icon></span>
+                                        class="md-icons" (click) = "show(i, 'files')">folder</md-icon></span>
                                 <span class="material-icons" mdTooltip="Download" mdTooltipPosition="above"><md-icon
                                         class="md-icons"
                                         [mdMenuTriggerFor]="menu">file_download</md-icon></span>

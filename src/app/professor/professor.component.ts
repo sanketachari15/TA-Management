@@ -7,6 +7,7 @@ import {Subject, Subscription} from 'rxjs/Rx';
 import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
 import { TadetailsComponent } from '../tadetails/tadetails.component';
 import {SharedService} from "../shared.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-professor',
@@ -21,11 +22,13 @@ export class ProfessorComponent implements OnInit, OnDestroy {
   droppedItems = [];
   courses = {0: [], 1: [], 2: [], 3: [], 4: [], 5: []};
 
+  coursesObj: Course[];
+
   students: any;
   search: string;
   profCourses: any;
 
-  constructor(private dataService: DataService, private sharedService: SharedService, public dialog: MdDialog) {
+  constructor(private dataService: DataService, private sharedService: SharedService, public dialog: MdDialog, private router: Router) {
   }
 
   ngOnInit() {
@@ -44,7 +47,12 @@ export class ProfessorComponent implements OnInit, OnDestroy {
     this.dataService.getProfCourses()
         .takeUntil(this.ngUnsubscribe)
         .subscribe(
-            (x) => this.profCourses = x ,
+            (x) => {this.profCourses = x;
+              this.courses[0].push(this.students[1]);
+              this.droppedItems.push(this.students[1]);
+              this.courses[0].push(this.students[2]);
+              this.droppedItems.push(this.students[2]);
+            },
             (err) => console.log('Error occurred in ngOnInit subscribe ' + err),
             () => console.log('professor courses requested'));
   }
@@ -106,5 +114,24 @@ export class ProfessorComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
+  }
+
+  show(courseIndex, x): void{
+    this.sharedService.setProfCourses(this.profCourses);
+    this.sharedService.setCourseIndex(courseIndex);
+    this.sharedService.setRedirectFrom(x);
+    this.router.navigate(['/course/' + courseIndex]);
+  }
+}
+
+class Course {
+
+  tas: any[];
+  constructor(private name:string){
+
+  }
+
+  addTA(student: any){
+    this.tas.push(student)
   }
 }
