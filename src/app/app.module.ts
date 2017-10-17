@@ -30,6 +30,10 @@ import { TadetailsComponent } from './tadetails/tadetails.component';
 import { StudentComponent } from './student/student.component';
 import { PdfViewerComponent } from 'ng2-pdf-viewer';
 import {SharedService} from "./shared.service";
+import { StudentprofileComponent } from './studentprofile/studentprofile.component';
+import { CommonModule } from '@angular/common';
+import { StudenthomeComponent } from './studenthome/studenthome.component';
+import { GpaChangeComponent } from './studentprofile/studentprofile.component';
 import { CourseComponent } from './course/course.component';
 import { MessageComponent } from './message/message.component';
 
@@ -51,6 +55,9 @@ export const ROUTES: Routes = [
     TadetailsComponent,
     StudentComponent,
     PdfViewerComponent,
+    StudentprofileComponent,
+    StudenthomeComponent,
+    GpaChangeComponent,
     CourseComponent,
     MessageComponent
   ],
@@ -74,11 +81,12 @@ export const ROUTES: Routes = [
     MdSelectModule,
     MdDialogModule,
     MdSidenavModule,
-    StarRatingModule.forRoot()
+    StarRatingModule.forRoot(),
+    CommonModule
   ],
   providers: [DragDropService, DragDropConfig, DataService, SharedService, MdDialogModule, MdDialog, MdSidenavModule, PdfViewerComponent],
   bootstrap: [AppComponent],
-  entryComponents: [TadetailsComponent] // Added for TA Info Dialog Box Issue #15
+  entryComponents: [TadetailsComponent, GpaChangeComponent] // Added for TA Info Dialog Box Issue #15
 })
 export class AppModule {
 }
