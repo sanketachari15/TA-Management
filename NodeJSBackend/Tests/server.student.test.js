@@ -100,3 +100,23 @@ describe('Get /students', () => {
     .end(done);
   })
 });
+
+describe('Get students/UFID', () => {
+  it('should return student doc', (done) => {
+    request(app)
+    .get(`/students/${testStudents[0].UFID}`)
+    .expect(200)
+    .expect((response) => {
+      expect(response.body.student[0].UFID).toBe(testStudents[0].UFID)
+    })
+    .end(done);
+  });
+
+  it('should return 404 if student not found', (done) => {
+    var falseStudentUFID = "invalidUFID"
+    request(app)
+    .get(`/students/${falseStudentUFID}`)
+    .expect(404)
+    .end(done);
+  });
+});
