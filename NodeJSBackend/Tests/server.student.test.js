@@ -1,7 +1,7 @@
 const expect = require('expect');
 const request = require('supertest');
 
-const { app } = require('../Server/server');
+const { app } = require('../server');
 const { Student } = require('../SchemaModels/StudentModel');
 
 const testStudents = [{
