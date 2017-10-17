@@ -93,3 +93,23 @@ describe('Get /professors', () => {
     .end(done);
   })
 });
+
+describe('Get professors/Email', () => {
+  it('should return professor doc', (done) => {
+    request(app)
+    .get(`/professors/${testProfessors[0].Email}`)
+    .expect(200)
+    .expect((response) => {
+      expect(response.body.professor[0].Email).toBe(testProfessors[0].Email)
+    })
+    .end(done);
+  });
+
+  it('should return 404 if professor not found', (done) => {
+    var falseProfEmail = "invalidProfessorEmail"
+    request(app)
+    .get(`/professors/${falseProfEmail}`)
+    .expect(404)
+    .end(done);
+  });
+});

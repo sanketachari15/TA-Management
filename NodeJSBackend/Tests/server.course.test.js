@@ -107,3 +107,23 @@ describe('Get /courses', () => {
     .end(done);
   })
 });
+
+describe('Get courses/Code', () => {
+  it('should return course doc', (done) => {
+    request(app)
+    .get(`/courses/${testCourses[0].Code}`)
+    .expect(200)
+    .expect((response) => {
+      expect(response.body.course[0].Code).toBe(testCourses[0].Code)
+    })
+    .end(done);
+  });
+
+  it('should return 404 if course not found', (done) => {
+    var falseCourseCode = "invalidCourseCode"
+    request(app)
+    .get(`/courses/${falseCourseCode}`)
+    .expect(404)
+    .end(done);
+  });
+});

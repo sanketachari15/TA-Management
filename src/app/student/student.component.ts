@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgIf } from '@angular/common';
+import {SharedService} from "../shared.service";
+
 @Component({
   selector: 'app-student',
   templateUrl: './student.component.html',
@@ -8,14 +10,18 @@ import { NgIf } from '@angular/common';
 
 export class StudentComponent implements OnInit {
 
-  constructor() { }
+  header = 'Welcome Student';
+  constructor(private sharedService: SharedService) { }
   toShow = 'profile';
   isHome: boolean = this.toShow === 'home';
   show(path: string) {
     this.toShow = path;
     this.isHome = this.toShow === 'home';
   }
+
+
   ngOnInit() {
+    this.sharedService.changeHeader(this.header);
   }
 
 }

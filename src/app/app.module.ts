@@ -14,7 +14,9 @@ import {
   MdDialog,
   MdTabsModule,
   MdSidenavModule,
-  MdTooltipModule} from '@angular/material';
+  MdTooltipModule,
+  MdListModule
+} from '@angular/material';
 import {FormsModule} from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
 import { AppComponent } from './app.component';
@@ -32,13 +34,17 @@ import { StudentprofileComponent } from './studentprofile/studentprofile.compone
 import { CommonModule } from '@angular/common';
 import { StudenthomeComponent } from './studenthome/studenthome.component';
 import { GpaChangeComponent } from './studentprofile/studentprofile.component';
+import { CourseComponent } from './course/course.component';
+import { MessageComponent } from './message/message.component';
 
 export const ROUTES: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'prof', component: ProfessorComponent},
   {path: 'student', component: StudentComponent},
-  {path: 'student/profile',  component: StudentprofileComponent }
+  {path: 'course/:id', component: CourseComponent,
+  children: [{path: 'new-message', component: MessageComponent}]},
+
 ];
 
 @NgModule({
@@ -51,7 +57,9 @@ export const ROUTES: Routes = [
     PdfViewerComponent,
     StudentprofileComponent,
     StudenthomeComponent,
-    GpaChangeComponent
+    GpaChangeComponent,
+    CourseComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,
@@ -65,6 +73,7 @@ export const ROUTES: Routes = [
     MdIconModule,
     MdTabsModule,
     MdTooltipModule,
+    MdListModule,
     FormsModule,
     FlexLayoutModule,
     DndModule.forRoot(),
