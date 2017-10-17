@@ -1,7 +1,7 @@
 <md-sidenav-container class="example-container">
   <md-sidenav #sidenav class="example-sidenav" opened="true" disableClose="true" mode="side">
     <nav>
-        <ul ng-init="Home">
+        <ul>
           <li>
           <header class="docs-logo">
           <div class="image-cropper">
@@ -11,15 +11,18 @@
           </header>
           </li>
           <li>
-              <a routerlinkactive="item-selected" routerLink="/login">Profile</a>
+              <a (click)="show('profile')">Profile</a>
           </li>  
           <li>
-              <a routerlinkactive="item-selected" routerLink="/login">Home</a>
+              <a (click)="show('home')">Home</a>
           </li> 
       </ul>
     </nav>
       </md-sidenav>
-      <div class="example-sidenav-content">
-        <router-outlet></router-outlet>
-    </div>
+        <div *ngIf="isHome" item-width="80%" item-height="80%">
+            <app-studenthome></app-studenthome>   
+        </div>   
+        <div *ngIf="!isHome" item-width="80%" item-height="80%">
+            <app-studentprofile></app-studentprofile>   
+        </div> 
 </md-sidenav-container>
