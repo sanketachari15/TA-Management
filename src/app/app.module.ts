@@ -17,7 +17,7 @@ import {
   MdTooltipModule,
   MdListModule
 } from '@angular/material';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
 import { AppComponent } from './app.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
@@ -36,6 +36,7 @@ import { StudenthomeComponent } from './studenthome/studenthome.component';
 import { GpaChangeComponent } from './studentprofile/studentprofile.component';
 import { CourseComponent } from './course/course.component';
 import { MessageComponent } from './message/message.component';
+import { FileSelectDirective } from 'ng2-file-upload';
 
 export const ROUTES: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -59,7 +60,8 @@ export const ROUTES: Routes = [
     StudenthomeComponent,
     GpaChangeComponent,
     CourseComponent,
-    MessageComponent
+    MessageComponent,
+    FileSelectDirective
   ],
   imports: [
     BrowserModule,
@@ -75,6 +77,7 @@ export const ROUTES: Routes = [
     MdTooltipModule,
     MdListModule,
     FormsModule,
+    ReactiveFormsModule,
     FlexLayoutModule,
     DndModule.forRoot(),
     MdMenuModule,
