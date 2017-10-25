@@ -1,5 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+let _ = require('lodash');
 
 var { mongoose } = require('./Db/mongoose.js');
 var { Student } = require('./SchemaModels/StudentModel.js');
@@ -97,6 +98,60 @@ app.get('/courses/:Code', (request, response) => {
     response.status(400).send();
   });
 });
+
+
+// Updates only the semester attribute of professor
+app.patch('/professors/:Email' , (req, res) => {
+  let email = req.params.Email;
+  Professor.findOneAndUpdate({Email: email}, { $set : { Sem: req.body.Sem} } , {new: true}).then((professor) => {
+      if(!professor) {
+          return res.status(404).send();
+      }
+      res.send(professor);
+  }).catch((error) => {
+      res.status(400).send(error);
+  });
+});
+
+// Update complete entry of professor identified by email
+app.put('/professors/:Email' , (req, res) => {
+    let email = req.params.Email;
+    Professor.findOne({Email: email}).then((professor) => {
+        if(!professor){
+            console.log("Unable to find professor returning 404 ");
+            return res.status(404).send();
+        }
+
+        professor.Email = req.body.Email;
+        professor.FirstName = req.body.FirstName;
+        professor.Sem = req.body.Sem;
+        professor.LastName = req.body.LastName;
+        professor.WebsiteLink = req.body.WebsiteLink;
+        professor.TeachingCourses = req.body.TeachingCourses;
+
+        professor.save().then((doc) => {
+            res.send(doc);
+        }, (error) => {
+            res.status(400).send(error);
+        })
+    }).catch((error) => {
+        res.status(400).send(error);
+    });
+});
+
+//delete the entry of professor identified by email
+app.delete('/professors/:Email', (req, res) => {
+  let email = req.params.Email;
+  Professor.findOneAndRemove({Email: email}).then((professor) => {
+    if (!professor){
+      return res.status(404).send();
+    }
+    res.send(professor);
+  }).catch((error) => {
+    res.status(400).send(error);
+  })
+});
+
 
 app.listen(port, () => {
   console.log(`Started on port ${port}`);
