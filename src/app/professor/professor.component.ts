@@ -38,7 +38,10 @@ export class ProfessorComponent implements OnInit, OnDestroy {
     this.dataService.getStudents()
         .takeUntil(this.ngUnsubscribe)
         .subscribe(
-            (x) =>  this.students = x,
+            (x) =>  {this.students = x;
+              console.log("Students");
+              console.log(JSON.stringify(this.students));
+            },
             (err) => console.log('Error occurred in ngOnInit subscribe ' + err),
             () => console.log('students requested')
         );
@@ -48,10 +51,12 @@ export class ProfessorComponent implements OnInit, OnDestroy {
         .takeUntil(this.ngUnsubscribe)
         .subscribe(
             (x) => {this.profCourses = x;
-              this.courses[0].push(this.students[1]);
+              console.log("Prof courses");
+              console.log(JSON.stringify(this.profCourses));
+              /*this.courses[0].push(this.students[1]);
               this.droppedItems.push(this.students[1]);
               this.courses[0].push(this.students[2]);
-              this.droppedItems.push(this.students[2]);
+              this.droppedItems.push(this.students[2]);*/
             },
             (err) => console.log('Error occurred in ngOnInit subscribe ' + err),
             () => console.log('professor courses requested'));

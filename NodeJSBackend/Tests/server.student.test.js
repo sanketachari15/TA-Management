@@ -95,7 +95,7 @@ describe('Get /students', () => {
     .get('/students')
     .expect(200)
     .expect((response) => {
-      expect(response.body.students.length).toBe(2)
+      expect(response.body.length).toBe(2)
     })
     .end(done);
   })
@@ -107,7 +107,7 @@ describe('Get students/UFID', () => {
     .get(`/students/${testStudents[0].UFID}`)
     .expect(200)
     .expect((response) => {
-      expect(response.body.student[0].UFID).toBe(testStudents[0].UFID)
+      expect(response.body[0].UFID).toBe(testStudents[0].UFID)
     })
     .end(done);
   });

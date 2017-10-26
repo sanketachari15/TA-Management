@@ -89,7 +89,7 @@ describe('Get /professors', () => {
     .get('/professors')
     .expect(200)
     .expect((response) => {
-      expect(response.body.professors.length).toBe(2)
+      expect(response.body.length).toBe(2)
     })
     .end(done);
   })
@@ -101,7 +101,7 @@ describe('Get professors/Email', () => {
     .get(`/professors/${testProfessors[0].Email}`)
     .expect(200)
     .expect((response) => {
-      expect(response.body.professor[0].Email).toBe(testProfessors[0].Email)
+      expect(response.body[0].Email).toBe(testProfessors[0].Email)
     })
     .end(done);
   });
@@ -151,14 +151,6 @@ describe('Delete /professors', () => {
         request(app)
             .delete(`/professors/${falseProfEmail}`)
             .expect(404)
-            /*.expect((response) => {
-                expect(_.isEmpty(response.body)).toBe(true);
-            })
-            .end((error, response) => {
-                if(error)
-                    return done(error);
-                done();
-            });*/
             .end(done);
     });
 });
@@ -188,7 +180,7 @@ describe('Patch /professors', () => {
                     .get(`/professors/${testProfessors[0].Email}`)
                     .expect(200)
                     .expect((response) => {
-                        expect(response.body.professor[0].Sem).toBe(newSem);
+                        expect(response.body[0].Sem).toBe(newSem);
                     })
                     .end((error, response) => {
                         if (error)
@@ -257,7 +249,6 @@ describe('Put /professors', () => {
     });
 });
 
-
 describe('CRUD /professors', () => {
 
   it('should create -> read -> update -> read -> delete -> read new professor', (done) => {
@@ -289,7 +280,7 @@ describe('CRUD /professors', () => {
                   .get(`/professors/${prof.Email}`)
                   .expect(200)
                   .expect((response) => {
-                      expect(response.body.professor[0].Email).toBe(prof.Email);
+                      expect(response.body[0].Email).toBe(prof.Email);
                   })
                   .end((error, response) => {
 
@@ -316,7 +307,7 @@ describe('CRUD /professors', () => {
                                   .get(`/professors/${prof.Email}`)
                                   .expect(200)
                                   .expect((response) => {
-                                      expect(response.body.professor[0].Sem).toBe(newSem);
+                                      expect(response.body[0].Sem).toBe(newSem);
                                   })
                                   .end((error, response) => {
 
