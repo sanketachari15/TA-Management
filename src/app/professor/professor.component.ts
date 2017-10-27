@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Inject} from '@angular/core';
 import {Angular2Csv} from 'angular2-csv';
 import {DataService} from '../data.service';
-import * as _ from 'underscore';
+import * as _ from 'lodash';
 import 'rxjs/add/operator/takeUntil';
 import {Subject, Subscription} from 'rxjs/Rx';
 import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
@@ -18,6 +18,7 @@ export class ProfessorComponent implements OnInit, OnDestroy {
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   header = "Welcome Professor";
+  prof = 'Alin Dobra';
 
   droppedItems = [];
   courses = {0: [], 1: [], 2: [], 3: [], 4: [], 5: []};
@@ -39,9 +40,9 @@ export class ProfessorComponent implements OnInit, OnDestroy {
         .takeUntil(this.ngUnsubscribe)
         .subscribe(
             (x) =>  {this.students = x;
-              console.log("Students");
-              console.log(JSON.stringify(this.students));
+                console.log(JSON.stringify(this.students));
             },
+
             (err) => console.log('Error occurred in ngOnInit subscribe ' + err),
             () => console.log('students requested')
         );
@@ -50,9 +51,9 @@ export class ProfessorComponent implements OnInit, OnDestroy {
     this.dataService.getProfCourses()
         .takeUntil(this.ngUnsubscribe)
         .subscribe(
-            (x) => {this.profCourses = x;
-              console.log("Prof courses");
-              console.log(JSON.stringify(this.profCourses));
+            (x) => {
+              let profCourseDetails = _.filter(x, (details) => {return details.FullName == this.prof});
+              this.profCourses = profCourseDetails[0].Courses;
               /*this.courses[0].push(this.students[1]);
               this.droppedItems.push(this.students[1]);
               this.courses[0].push(this.students[2]);
@@ -73,13 +74,16 @@ export class ProfessorComponent implements OnInit, OnDestroy {
     return event.dragData;
   }
 
-  getStudents() {
+  getStudents(courseIndex) {
+
+    let students = _.filter(this.students, (s) => { return _.findIndex(s.CourseMostInterestedIn, (c) => {return c == this.profCourses[courseIndex].name}) > -1});
 
     if (_.isEmpty( this.search )) {
-      return this.students;
+
+      return _.orderBy(students, ['InterestLevel','GPA'], ['desc', 'desc']);
     }
 
-    return _.chain(this.students).filter(student =>  student.name.toLowerCase().startsWith(this.search.toLowerCase())).value();
+    return _.chain(students).filter(student =>  (student.FirstName + " " + student.LastName).toLowerCase().startsWith(this.search.toLowerCase())).value();
   }
 
   getColor(student: any) {

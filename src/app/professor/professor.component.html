@@ -23,7 +23,7 @@
                                             </p>
                                             <p style="margin-left:10px;">
                                                 <star-rating-comp [size]="'small'" [starType]="'svg'"
-                                                                  [rating]="student.interest" [staticColor]="'ok'"
+                                                                  [rating]="student.InterestLevel" [staticColor]="'ok'"
                                                                   [readOnly]="true"></star-rating-comp>
                                             </p>
                                             <p>
@@ -33,9 +33,9 @@
                                             </p>
                                         </div>
                                         <p class="student-name" style="margin-left: 5px;"
-                                           mdTooltip="{{student.name}}"
-                                           mdTooltipPosition="above">{{student.name}}</p>
-                                        <p class="student-gpa" style="margin-left: 5px;">GPA: {{student.gpa}}</p>
+                                           mdTooltip="{{student.FirstName}} {{student.LastName}}"
+                                           mdTooltipPosition="above">{{student.FirstName}} {{student.LastName}}</p>
+                                        <p class="student-gpa" style="margin-left: 5px;">GPA: {{student.GPA}}</p>
                                     </md-card>
                                 </div>
                             </div>
@@ -67,7 +67,7 @@
                         </form>
 
                         <md-list>
-                            <div *ngFor="let student of getStudents()">
+                            <div *ngFor="let student of getStudents(i)">
                                 <md-card class="student-details" dnd-draggable [dragEnabled]="isAvailable(student)"
                                          [dragData]="student"
                                          [ngStyle]="{backgroundColor: getColor(student)}" (click)="openDialog()">
@@ -76,14 +76,14 @@
                                             <md-icon class="material-icons">person</md-icon>
                                         </p>
                                         <p style="margin-left: 10px;">
-                                            <star-rating-comp [starType]="'svg'" [rating]="student.interest"
+                                            <star-rating-comp [starType]="'svg'" [rating]="student.InterestLevel"
                                                               [staticColor]="'ok'"
                                                               [readOnly]="true"></star-rating-comp>
                                         </p>
                                     </div>
                                     <p class="student-name" style="margin-left: 5px;" mdTooltip="{{student.FirstName}} {{student.LastName}}"
                                        mdTooltipPosition="above">{{student.FirstName}} {{student.LastName}}</p>
-                                    <p class="student-gpa" style="margin-left: 5px;">GPA: {{student.gpa}}</p>
+                                    <p class="student-gpa" style="margin-left: 5px;">GPA: {{student.GPA}}</p>
                                 </md-card>
                             </div>
                         </md-list>
