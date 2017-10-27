@@ -37,6 +37,10 @@ let courses =  new Schema({
 
     messages:{
         type: [messages]
+    },
+
+    files:{
+        type:[String]
     }
 
 

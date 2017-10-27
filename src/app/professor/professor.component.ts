@@ -22,6 +22,8 @@ export class ProfessorComponent implements OnInit, OnDestroy {
 
   droppedItems = [];
   courses = {0: [], 1: [], 2: [], 3: [], 4: [], 5: []};
+  messages = {0: [], 1: [], 2: [], 3: [], 4: [], 5: []};
+  announcements = {0: [], 1: [], 2: [], 3: [], 4: [], 5: []};
 
   coursesObj: Course[];
 
@@ -40,7 +42,7 @@ export class ProfessorComponent implements OnInit, OnDestroy {
         .takeUntil(this.ngUnsubscribe)
         .subscribe(
             (x) =>  {this.students = x;
-                console.log(JSON.stringify(this.students));
+                // console.log(JSON.stringify(this.students));
             },
 
             (err) => console.log('Error occurred in ngOnInit subscribe ' + err),
@@ -54,6 +56,13 @@ export class ProfessorComponent implements OnInit, OnDestroy {
             (x) => {
               let profCourseDetails = _.filter(x, (details) => {return details.FullName == this.prof});
               this.profCourses = profCourseDetails[0].Courses;
+
+              // _.chain(this.profCourses);
+              _.forEach(this.profCourses, (details) => {
+                details.messagesLength = details.messages.length;
+                details.announcementsLength = details.announcements.length;
+                details.filesLength = details.files.length;
+              });
               /*this.courses[0].push(this.students[1]);
               this.droppedItems.push(this.students[1]);
               this.courses[0].push(this.students[2]);
@@ -109,7 +118,7 @@ export class ProfessorComponent implements OnInit, OnDestroy {
   exportToCSV(courseNo: number) {
 
     if (!_.isEmpty(this.courses[courseNo])) {
-       new Angular2Csv(this.courses[courseNo], this.profCourses[courseNo], {headers: Object.keys(this.courses[courseNo][0])});
+       new Angular2Csv(this.courses[courseNo], this.profCourses[courseNo].name, {headers: Object.keys(this.courses[courseNo][0])});
        return true;
     }
     return false;
