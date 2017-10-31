@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Inject} from '@angular/core';
 import {Angular2Csv} from 'angular2-csv';
 import {DataService} from '../data.service';
-import * as _ from 'underscore';
+import * as _ from 'lodash';
 import 'rxjs/add/operator/takeUntil';
 import {Subject, Subscription} from 'rxjs/Rx';
 import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
@@ -18,9 +18,12 @@ export class ProfessorComponent implements OnInit, OnDestroy {
 
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   header = "Welcome Professor";
+  prof = 'Alin Dobra';
 
   droppedItems = [];
   courses = {0: [], 1: [], 2: [], 3: [], 4: [], 5: []};
+  messages = {0: [], 1: [], 2: [], 3: [], 4: [], 5: []};
+  announcements = {0: [], 1: [], 2: [], 3: [], 4: [], 5: []};
 
   coursesObj: Course[];
 
@@ -38,7 +41,10 @@ export class ProfessorComponent implements OnInit, OnDestroy {
     this.dataService.getStudents()
         .takeUntil(this.ngUnsubscribe)
         .subscribe(
-            (x) =>  this.students = x,
+            (x) =>  {this.students = x;
+                // console.log(JSON.stringify(this.students));
+            },
+
             (err) => console.log('Error occurred in ngOnInit subscribe ' + err),
             () => console.log('students requested')
         );
@@ -47,11 +53,20 @@ export class ProfessorComponent implements OnInit, OnDestroy {
     this.dataService.getProfCourses()
         .takeUntil(this.ngUnsubscribe)
         .subscribe(
-            (x) => {this.profCourses = x;
-              this.courses[0].push(this.students[1]);
+            (x) => {
+              let profCourseDetails = _.filter(x, (details) => {return details.FullName == this.prof});
+              this.profCourses = profCourseDetails[0].Courses;
+
+              // _.chain(this.profCourses);
+              _.forEach(this.profCourses, (details) => {
+                details.messagesLength = details.messages.length;
+                details.announcementsLength = details.announcements.length;
+                details.filesLength = details.files.length;
+              });
+              /*this.courses[0].push(this.students[1]);
               this.droppedItems.push(this.students[1]);
               this.courses[0].push(this.students[2]);
-              this.droppedItems.push(this.students[2]);
+              this.droppedItems.push(this.students[2]);*/
             },
             (err) => console.log('Error occurred in ngOnInit subscribe ' + err),
             () => console.log('professor courses requested'));
@@ -68,13 +83,16 @@ export class ProfessorComponent implements OnInit, OnDestroy {
     return event.dragData;
   }
 
-  getStudents() {
+  getStudents(courseIndex) {
+
+    let students = _.filter(this.students, (s) => { return _.findIndex(s.CourseMostInterestedIn, (c) => {return c == this.profCourses[courseIndex].name}) > -1});
 
     if (_.isEmpty( this.search )) {
-      return this.students;
+
+      return _.orderBy(students, ['InterestLevel','GPA'], ['desc', 'desc']);
     }
 
-    return _.chain(this.students).filter(student =>  student.name.toLowerCase().startsWith(this.search.toLowerCase())).value();
+    return _.chain(students).filter(student =>  (student.FirstName + " " + student.LastName).toLowerCase().startsWith(this.search.toLowerCase())).value();
   }
 
   getColor(student: any) {
@@ -100,7 +118,7 @@ export class ProfessorComponent implements OnInit, OnDestroy {
   exportToCSV(courseNo: number) {
 
     if (!_.isEmpty(this.courses[courseNo])) {
-       new Angular2Csv(this.courses[courseNo], this.profCourses[courseNo], {headers: Object.keys(this.courses[courseNo][0])});
+       new Angular2Csv(this.courses[courseNo], this.profCourses[courseNo].name, {headers: Object.keys(this.courses[courseNo][0])});
        return true;
     }
     return false;

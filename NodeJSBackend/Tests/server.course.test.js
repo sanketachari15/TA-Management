@@ -102,7 +102,7 @@ describe('Get /courses', () => {
     .get('/courses')
     .expect(200)
     .expect((response) => {
-      expect(response.body.courses.length).toBe(2)
+      expect(response.body.length).toBe(2)
     })
     .end(done);
   })
@@ -114,13 +114,13 @@ describe('Get courses/Code', () => {
     .get(`/courses/${testCourses[0].Code}`)
     .expect(200)
     .expect((response) => {
-      expect(response.body.course[0].Code).toBe(testCourses[0].Code)
+      expect(response.body[0].Code).toBe(testCourses[0].Code)
     })
     .end(done);
   });
 
   it('should return 404 if course not found', (done) => {
-    var falseCourseCode = "invalidCourseCode"
+    var falseCourseCode = "invalidCourseCode";
     request(app)
     .get(`/courses/${falseCourseCode}`)
     .expect(404)

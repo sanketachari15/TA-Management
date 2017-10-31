@@ -1,5 +1,6 @@
 const expect = require('expect');
 const request = require('supertest');
+const  _ = require('lodash');
 
 const { app } = require('../server');
 const { Professor } = require('../SchemaModels/ProfessorModel');
@@ -88,7 +89,7 @@ describe('Get /professors', () => {
     .get('/professors')
     .expect(200)
     .expect((response) => {
-      expect(response.body.professors.length).toBe(2)
+      expect(response.body.length).toBe(2)
     })
     .end(done);
   })
@@ -100,16 +101,251 @@ describe('Get professors/Email', () => {
     .get(`/professors/${testProfessors[0].Email}`)
     .expect(200)
     .expect((response) => {
-      expect(response.body.professor[0].Email).toBe(testProfessors[0].Email)
+      expect(response.body[0].Email).toBe(testProfessors[0].Email)
     })
     .end(done);
   });
 
   it('should return 404 if professor not found', (done) => {
-    var falseProfEmail = "invalidProfessorEmail"
+    let falseProfEmail = "invalidProfessorEmail";
     request(app)
     .get(`/professors/${falseProfEmail}`)
     .expect(404)
     .end(done);
+  });
+});
+
+describe('Delete /professors', () => {
+
+    it('should delete the professor', (done) => {
+
+        //----- Delete -----
+        request(app)
+            .delete(`/professors/${testProfessors[1].Email}`)
+            .expect(200)
+            .expect((response) => {
+                    expect(response.body.Email).toBe(testProfessors[1].Email)
+                }
+            )
+            .end((error, response) => {
+                if (error)
+                    return done(error);
+
+                //----- Read -----
+                request(app)
+                    .get(`/professors/${testProfessors[1].Email}`)
+                    .expect(404)
+                    .expect((response) => {
+                        expect(_.isEmpty(response.body)).toBe(true);
+                    })
+                    .end((error, response) => {
+                        if (error)
+                            return done(error);
+                        done();
+                    });
+            });
+    });
+
+    it('should return 404 if professor\'s email not found', (done) => {
+        let falseProfEmail = "invalidProfessorEmail";
+        request(app)
+            .delete(`/professors/${falseProfEmail}`)
+            .expect(404)
+            .end(done);
+    });
+});
+
+describe('Patch /professors', () => {
+
+    it('should update the existing professor\'s attribute ', (done) => {
+
+        //----- Patch -----
+
+        let newSem = "Fall2018";
+        request(app)
+            .patch(`/professors/${testProfessors[0].Email}`)
+            .send({"Sem": newSem})
+            .expect(200)
+            .expect((response) => {
+                expect(response.body.Sem).toBe(newSem);
+            })
+            .end((error, response) => {
+
+                if (error)
+                    return done(error);
+
+                //----- Read -----
+
+                request(app)
+                    .get(`/professors/${testProfessors[0].Email}`)
+                    .expect(200)
+                    .expect((response) => {
+                        expect(response.body[0].Sem).toBe(newSem);
+                    })
+                    .end((error, response) => {
+                        if (error)
+                            return done(error);
+                        done();
+                    });
+            });
+    });
+
+    it('should return 404 if professor not found', (done) => {
+        let falseProfEmail = "invalidProfessorEmail";
+        request(app)
+            .patch(`/professors/${falseProfEmail}`)
+            .expect(404)
+            .end(done);
+    });
+});
+
+describe('Put /professors', () => {
+
+    it('should update the existing professor\'s attribute ', (done) => {
+
+        let prof = new Professor({
+            FirstName: 'PUTTestProf11',
+            LastName: 'PUTTestProf11',
+            Sem: 'Fall2017',
+            Email: 'PUTTestProf11@ufl.edu',
+            WebsiteLink: 'xyzPUTTestProf',
+            TeachingCourses: ['TestSub1', 'TestSub2']
+        });
+
+        //----- Put -----
+        request(app)
+            .put(`/professors/${testProfessors[0].Email}`)
+            .send(prof)
+            .expect(200)
+            .expect((response) => {
+                expect(response.body.Email).toBe(prof.Email);
+            })
+            .end((error, response) => {
+                if (error)
+                    return done(error);
+
+                //----- Read -----
+
+                request(app)
+                    .get(`/professors/${testProfessors[0].Email}`)
+                    .expect(404)
+                    .expect((response) => {
+                        expect(_.isEmpty(response.body)).toBe(true);
+                    })
+                    .end((error, response) => {
+                        if (error)
+                            return done(error);
+                        done();
+                    });
+            });
+    });
+
+    it('should return 404 if professor not found', (done) => {
+        let falseProfEmail = "invalidProfessorEmail";
+        request(app)
+            .put(`/professors/${falseProfEmail}`)
+            .expect(404)
+            .end(done);
+    });
+});
+
+describe('CRUD /professors', () => {
+
+  it('should create -> read -> update -> read -> delete -> read new professor', (done) => {
+      let prof = new Professor({
+          FirstName: 'CRUDTestProf11',
+          LastName: 'CRUDTestProf11',
+          Sem: 'Fall2017',
+          Email: 'CRUDTestProf11@ufl.edu',
+          WebsiteLink: 'xyzCRUDTestProf',
+          TeachingCourses: ['TestSub1', 'TestSub2']
+      });
+
+      let newSem = "Spring2017";
+      //----- Create -----
+      request(app)
+          .post('/professors')
+          .send(prof)
+          .expect(200)
+          .expect((response) => {
+              expect(response.body.Email).toBe(prof.Email);
+          })
+          .end((error, response) => {
+
+              if (error)
+                  return done(error);
+
+              //----- Read -----
+              request(app)
+                  .get(`/professors/${prof.Email}`)
+                  .expect(200)
+                  .expect((response) => {
+                      expect(response.body[0].Email).toBe(prof.Email);
+                  })
+                  .end((error, response) => {
+
+                      if (error)
+                          return done(error);
+
+                      //----- Update/Patch -----
+
+                      request(app)
+                          .patch(`/professors/${prof.Email}`)
+                          .send({"Sem": newSem})
+                          .expect(200)
+                          .expect((response) => {
+                              expect(response.body.Sem).toBe(newSem);
+                          })
+                          .end((error, response) => {
+
+                              if (error)
+                                  return done(error);
+
+                              //----- Read -----
+
+                              request(app)
+                                  .get(`/professors/${prof.Email}`)
+                                  .expect(200)
+                                  .expect((response) => {
+                                      expect(response.body[0].Sem).toBe(newSem);
+                                  })
+                                  .end((error, response) => {
+
+                                      if (error)
+                                          return done(error);
+
+
+                                      // ----- Delete -----
+
+                                      request(app)
+                                          .delete(`/professors/${prof.Email}`)
+                                          .expect(200)
+                                          .expect((response) => {
+                                              expect(response.body.Sem).toBe(newSem);
+                                          })
+                                          .end((error, response) => {
+
+                                              if (error)
+                                                  return done(error);
+
+                                              //----- Read -----
+
+                                              request(app)
+                                                  .get(`/professors/${prof.Email}`)
+                                                  .expect(404)
+                                                  .expect((response) => {
+                                                      expect(_.isEmpty(response.body)).toBe(true);
+                                                  })
+                                                  .end((error, response) => {
+
+                                                      if (error)
+                                                          return done(error);
+                                                      done()
+                                                  });
+                                          });
+                                  });
+                          });
+                  });
+          });
   });
 });
