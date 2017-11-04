@@ -6,6 +6,7 @@ let { Student } = require('../SchemaModels/StudentModel.js');
 let { Professor } = require('../SchemaModels/ProfessorModel.js');
 let { Course } = require('../SchemaModels/CourseModel.js');
 let {ProfCourses} = require('../SchemaModels/ProfCoursesModel');
+let {TA} = require('../SchemaModels/TAModel');
 
 
 router.post('/students', (request, response) => {
@@ -239,5 +240,29 @@ router.patch('/profcourses/:Email/to' , (req, res) => {
     res.status(400).send(error);
   });
 });
+
+// Get all the tas
+router.get('/tas', (request, response) => {
+
+  TA.find().then((tas) => {
+    response.send(tas);
+  }, (error) => {
+    response.status(400).send(error);
+  });
+});
+
+// Get all the tas of a given course
+router.get('/tas/:course', (request, response) => {
+  let course = request.params.course;
+  TA.find({TAofCourse: course}).then((tas) => {
+    if(tas.length == 0){
+      response.status(404).send();
+    }
+    response.send(tas);
+  }).catch((error) => {
+    response.status(400).send();
+  });
+});
+
 
 module.exports = router;

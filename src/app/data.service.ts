@@ -28,4 +28,9 @@ export class DataService {
     this.getProf();
     return this.http.patch(this.api + '/profcourses/' + this.profEmail + '/to', msgbody);
   }
+
+  getTAs(course: string){
+    console.log("In getTAs " + course);
+    return this.http.get(this.api + '/tas/' + course);
+  }
 }

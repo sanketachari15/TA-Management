@@ -54,7 +54,7 @@ export class ProfessorComponent implements OnInit, OnDestroy {
               let profCourseDetails = _.filter(x, (details) => {return details.FullName == this.prof});
               this.profCourses = profCourseDetails[0].Courses;
               _.forEach(this.profCourses, (details) => {
-                details.messagesLength = details.messages.length;
+                details.messagesLength = _.filter(details.messages, (msg) => {return (msg.from) && !_.isEmpty(msg.from)}).length;
                 details.announcementsLength = details.announcements.length;
                 details.filesLength = details.files.length;
               });
