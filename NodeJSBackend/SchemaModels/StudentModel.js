@@ -34,7 +34,7 @@ var Student = mongoose.model('Student', {
     trim: true
   },
   CourseMostInterestedIn: {
-    type: String,
+    type: [String],
     required: true,
     minLength: 1,
     trim: true
@@ -54,7 +54,14 @@ var Student = mongoose.model('Student', {
     required: true,
     minLength: 1,
     trim: true
+  },
+  GPA:{
+    type: Number,
+    required: true,
+    minLength: 1,
+    trim: true
   }
+
 });
 
 // var StudentNikita = new Student({

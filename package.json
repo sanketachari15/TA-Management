@@ -2,7 +2,7 @@
   "name": "ta-management",
   "version": "0.0.0",
   "license": "MIT",
-  "main": "**/NodeJSBackend/Server/server.js",
+  "main": "**/NodeJSBackend/server.js",
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
