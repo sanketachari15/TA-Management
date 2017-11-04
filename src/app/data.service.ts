@@ -12,20 +12,20 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
   getStudents(){
-    console.log("Getting students");
     return this.http.get(this.api + '/students');
   }
 
   getProfCourses(){
-    let params = new HttpParams();
-    this.getProf();
-    params = params.append('prof', this.prof);
-
-    return this.http.get(this.api + '/profcourses', {params: params});
+    return this.http.get(this.api + '/profcourses');
   }
 
   getProf(){
     this.prof = "Alin Dobra";
     this.profEmail = "ad@ufl.edu"
+  }
+
+  sendMessage(msgbody: any){
+    this.getProf();
+    return this.http.patch(this.api + '/profcourses/' + this.profEmail + '/to', msgbody);
   }
 }

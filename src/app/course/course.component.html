@@ -8,10 +8,10 @@
 
         <div class="left-side-wrapper">
                 <md-list>
-                    <a md-list-item (click)="getHome()" [ngClass]="{active: link === 'home'}">Home</a>
-                    <a md-list-item (click)="getAnnouncements()" [ngClass]="{active: link === 'announcements'}">Announcements</a>
-                    <a md-list-item (click)="getMessages()" [ngClass]="{active: link === 'messages'}">Messages</a>
-                    <a md-list-item (click)="getFiles()" [ngClass]="{active: link === 'files'}">Files</a>
+                    <a md-list-item (click)="setLink('home')" [ngClass]="{active: link === 'home'}">Home</a>
+                    <a md-list-item (click)="setLink('announcements')" [ngClass]="{active: link === 'announcements'}">Announcements</a>
+                    <a md-list-item (click)="setLink('messages')" [ngClass]="{active: link === 'messages'}">Messages</a>
+                    <a md-list-item (click)="setLink('files')" [ngClass]="{active: link === 'files'}">Files</a>
                 </md-list>
 
         </div>
@@ -61,7 +61,19 @@
                     <hr>
                 </div>
 
+                <!--<div *ngIf = "!newMsgEnabled">
+                    <app-message></app-message>
+                </div>-->
                 <router-outlet></router-outlet>
+
+                <br><br>
+                <h4>Sent</h4>
+                <hr style="border-width: thick">
+                <div *ngFor="let msg of getSentMessages()">
+                    <h5>{{msg.to}}</h5>
+                    <p>{{msg.message}}</p>
+                    <hr>
+                </div>
             </div>
 
             <div class="Files" *ngIf="link === 'files'">

@@ -37,12 +37,14 @@ import { GpaChangeComponent } from './studentprofile/studentprofile.component';
 import { CourseComponent } from './course/course.component';
 import { MessageComponent } from './message/message.component';
 import { FileSelectDirective } from 'ng2-file-upload';
+import { ManagerComponent } from './manager/manager.component';
 
 export const ROUTES: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'prof', component: ProfessorComponent},
   {path: 'student', component: StudentComponent},
+  {path: 'manager', component: ManagerComponent},
   {path: 'course/:id', component: CourseComponent,
   children: [{path: 'new-message', component: MessageComponent}]},
 
@@ -61,7 +63,8 @@ export const ROUTES: Routes = [
     GpaChangeComponent,
     CourseComponent,
     MessageComponent,
-    FileSelectDirective
+    FileSelectDirective,
+    ManagerComponent
   ],
   imports: [
     BrowserModule,

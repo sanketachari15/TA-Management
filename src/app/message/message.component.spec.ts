@@ -5,6 +5,10 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {CourseComponent} from "../course/course.component";
 import {FormsModule} from "@angular/forms";
 import {MdListModule, MdInputModule, MdTooltipModule} from "@angular/material";
+import {DataService} from "../data.service";
+import {SharedService} from "../shared.service";
+import {HttpModule} from "@angular/http";
+import {HttpClientModule} from "@angular/common/http";
 
 describe('MessageComponent', () => {
   let component: MessageComponent;
@@ -12,8 +16,9 @@ describe('MessageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports:[RouterTestingModule, FormsModule, MdListModule, MdInputModule, MdTooltipModule],
-      declarations: [ MessageComponent, CourseComponent]
+      imports:[RouterTestingModule, FormsModule, MdListModule, MdInputModule, MdTooltipModule, HttpModule, HttpClientModule],
+      declarations: [ MessageComponent, CourseComponent],
+      providers: [SharedService, DataService]
     })
     .compileComponents();
   }));

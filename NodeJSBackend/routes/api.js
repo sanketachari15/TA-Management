@@ -227,4 +227,17 @@ router.delete('/profcourses/:Email', (req, res) => {
     });
 });
 
+// Updates only the messages attribute of professor. Push new message
+router.patch('/profcourses/:Email/to' , (req, res) => {
+  let email = req.params.Email;
+  ProfCourses.findOneAndUpdate({Email: email}, { $push : { 'Courses.0.messages': {'to': req.body.to, 'message': req.body.message} }} , {new: true}).then((profCourses) => {
+    if(!profCourses) {
+      return res.status(404).send();
+    }
+    return res.send(profCourses);
+  }).catch((error) => {
+    res.status(400).send(error);
+  });
+});
+
 module.exports = router;
