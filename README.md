@@ -6,10 +6,11 @@
 
 1. Download mongodb
 2. Configure db path. Run "mongod --dbpath /your/db/directory" from terminal
-3. npm install
-4. Open terminal. Run "npm start"
-5. Open another terminal. Run "ng build --w"
-6. Go to browser & check "localhost:3000
+3. Run npm test. This will add initial values in db.
+4. npm install
+5. Open terminal. Run "npm start"
+6. Open another terminal. Run "ng build --w"
+7. Go to browser & check "localhost:3000
 
 
 
