@@ -244,3 +244,32 @@ describe('Get students/UFID', () => {
     .end(done);
   });
 });
+
+describe('Delete students/UFID', () => {
+  it('should remove a student', (done) => {
+    var studentId = testStudents[0].UFID;
+    request(app)
+    .delete(`/students/${studentId}`)
+    .expect(200)
+    .expect((response) => {
+      expect(response.body.student.UFID).toBe(studentId)
+    })
+    .end((error, response) => {
+      if(error){
+        return done(error);
+      }
+      Student.find({UFID: studentId}).then((student) => {
+        expect(student.length).toBe(0);
+        done();
+      }).catch((error) => done(error));
+    });
+  });
+
+  it('should return 404 if student not found', (done) => {
+    var falseStudentUFID = "invalidUFID"
+    request(app)
+    .delete(`/students/${falseStudentUFID}`)
+    .expect(404)
+    .end(done);
+  });
+});
