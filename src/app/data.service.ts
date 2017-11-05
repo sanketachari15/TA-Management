@@ -30,7 +30,6 @@ export class DataService {
   }
 
   getTAs(course: string){
-    console.log("In getTAs " + course);
     return this.http.get(this.api + '/tas/' + course);
   }
 }

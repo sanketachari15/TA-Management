@@ -39,6 +39,16 @@ let TA = mongoose.model('TA', {
     minLength: 1,
     trim: true
   },
+  CourseMostInterestedIn: {
+    type: [String],
+    required: true,
+    minLength: 1,
+    trim: true
+  },
+  InterestLevel: {
+    type: Number,
+    required: true
+  },
   Email: {
     type: String,
     required: true,

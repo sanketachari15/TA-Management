@@ -39,37 +39,50 @@ export class ProfessorComponent implements OnInit, OnDestroy {
     this.dataService.getStudents()
         .takeUntil(this.ngUnsubscribe)
         .subscribe(
-            (x) =>  {this.students = x;},
+            (y) =>  {
+                this.students = y;
+
+                this.dataService.getProfCourses()
+                    .takeUntil(this.ngUnsubscribe)
+                    .subscribe(
+                        (z) => {
+                            let profCourseDetails = _.filter(z, (details) => {return details.FullName == this.prof});
+                            this.profCourses = profCourseDetails[0].Courses;
+                            _.forEach(this.profCourses, (courseDetails) => {
+                                courseDetails.messagesLength = _.filter(courseDetails.messages, (msg) => {return (msg.from) && !_.isEmpty(msg.from)}).length;
+                                courseDetails.announcementsLength = courseDetails.announcements.length;
+                                courseDetails.filesLength = courseDetails.files.length;
+
+                                this.dataService.getTAs(courseDetails.name)
+                                    .takeUntil(this.ngUnsubscribe)
+                                    .subscribe(
+                                        (x) => {
+                                            courseDetails.TAs = x;
+                                            _.forEach(courseDetails.TAs, (ta) => {
+                                                ta.isTA = true;
+                                                _.forEach(this.students, (student) => {
+                                                    if(student.UFID ===  ta.UFID)
+                                                        this.droppedItems.push(student);
+                                                });
+                                            });
+                                        },
+                                        (err) => console.log('Error occurred in ngOnInit subscribe ' + err),
+                                        () => {});
+                            });
+                            /*this.courses[0].push(this.students[1]);
+                             this.droppedItems.push(this.students[1]);
+                             this.courses[0].push(this.students[2]);
+                             this.droppedItems.push(this.students[2]);*/
+                        },
+                        (err) => console.log('Error occurred in ngOnInit subscribe ' + err),
+                        () => console.log('professor courses requested'));
+            },
             (err) => console.log('Error occurred in ngOnInit subscribe ' + err),
             () => console.log('students requested')
         );
 
 
-    this.dataService.getProfCourses()
-        .takeUntil(this.ngUnsubscribe)
-        .subscribe(
-            (x) => {
-              let profCourseDetails = _.filter(x, (details) => {return details.FullName == this.prof});
-              this.profCourses = profCourseDetails[0].Courses;
-              _.forEach(this.profCourses, (courseDetails) => {
-                courseDetails.messagesLength = _.filter(courseDetails.messages, (msg) => {return (msg.from) && !_.isEmpty(msg.from)}).length;
-                courseDetails.announcementsLength = courseDetails.announcements.length;
-                courseDetails.filesLength = courseDetails.files.length;
 
-                this.dataService.getTAs(courseDetails.name)
-                    .takeUntil(this.ngUnsubscribe)
-                    .subscribe(
-                        (x) => {courseDetails.TAs = x;},
-                        (err) => console.log('Error occurred in ngOnInit subscribe ' + err),
-                        () => {});
-              });
-              /*this.courses[0].push(this.students[1]);
-              this.droppedItems.push(this.students[1]);
-              this.courses[0].push(this.students[2]);
-              this.droppedItems.push(this.students[2]);*/
-            },
-            (err) => console.log('Error occurred in ngOnInit subscribe ' + err),
-            () => console.log('professor courses requested'));
   }
 
   ngOnDestroy() {
@@ -143,14 +156,3 @@ export class ProfessorComponent implements OnInit, OnDestroy {
   }
 }
 
-class Course {
-
-  tas: any[];
-  constructor(private name:string){
-
-  }
-
-  addTA(student: any){
-    this.tas.push(student)
-  }
-}
