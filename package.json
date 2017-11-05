@@ -5,7 +5,7 @@
   "main": "**/NodeJSBackend/server.js",
   "scripts": {
     "ng": "ng",
-    "start": "node server.js",
+    "start": "nodemon NodeJSBackend/server.js",
     "build": "ng build",
     "lint": "ng lint",
     "e2e": "ng e2e",
