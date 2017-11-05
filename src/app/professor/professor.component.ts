@@ -25,8 +25,6 @@ export class ProfessorComponent implements OnInit, OnDestroy {
   messages = {0: [], 1: [], 2: [], 3: [], 4: [], 5: []};
   announcements = {0: [], 1: [], 2: [], 3: [], 4: [], 5: []};
 
-  coursesObj: Course[];
-
   students: any;
   search: string;
   profCourses: any;
@@ -53,10 +51,17 @@ export class ProfessorComponent implements OnInit, OnDestroy {
             (x) => {
               let profCourseDetails = _.filter(x, (details) => {return details.FullName == this.prof});
               this.profCourses = profCourseDetails[0].Courses;
-              _.forEach(this.profCourses, (details) => {
-                details.messagesLength = _.filter(details.messages, (msg) => {return (msg.from) && !_.isEmpty(msg.from)}).length;
-                details.announcementsLength = details.announcements.length;
-                details.filesLength = details.files.length;
+              _.forEach(this.profCourses, (courseDetails) => {
+                courseDetails.messagesLength = _.filter(courseDetails.messages, (msg) => {return (msg.from) && !_.isEmpty(msg.from)}).length;
+                courseDetails.announcementsLength = courseDetails.announcements.length;
+                courseDetails.filesLength = courseDetails.files.length;
+
+                this.dataService.getTAs(courseDetails.name)
+                    .takeUntil(this.ngUnsubscribe)
+                    .subscribe(
+                        (x) => {courseDetails.TAs = x;},
+                        (err) => console.log('Error occurred in ngOnInit subscribe ' + err),
+                        () => {});
               });
               /*this.courses[0].push(this.students[1]);
               this.droppedItems.push(this.students[1]);
@@ -107,7 +112,7 @@ export class ProfessorComponent implements OnInit, OnDestroy {
   }
 
   getTAs(courseNo: number) {
-    return this.courses[courseNo];
+    return this.courses[courseNo].concat(this.profCourses[courseNo].TAs);
   }
 
   exportToCSV(courseNo: number) {
