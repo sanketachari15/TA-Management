@@ -40,6 +40,18 @@ app.get('/students/:UFID', (request, response) => {
   });
 });
 
+app.delete('/students/:UFID', (request, response) => {
+  var UFID = request.params.UFID;
+  Student.findOneAndRemove({UFID}).then((student) => {
+    if(student.length == 0){
+      response.status(404).send();
+    }
+    response.send({student});
+  }).catch((error) => {
+    response.status(400).send();
+  });
+});
+
 app.post('/professors', (request, response) => {
   var newProfessor = new Professor(request.body);
   newProfessor.save().then((doc) => {
@@ -69,6 +81,18 @@ app.get('/professors/:Email', (request, response) => {
   });
 });
 
+app.delete('/professors/:Email', (request, response) => {
+  var Email = request.params.Email;
+  Professor.findOneAndRemove({Email}).then((professor) => {
+    if(professor.length == 0){
+      response.status(404).send();
+    }
+    response.send({professor});
+  }).catch((error) => {
+    response.status(400).send();
+  });
+});
+
 app.post('/courses', (request, response) => {
   var newCourse = new Course(request.body);
   newCourse.save().then((doc) => {
@@ -89,6 +113,18 @@ app.get('/courses', (request, response) => {
 app.get('/courses/:Code', (request, response) => {
   var Code = request.params.Code;
   Course.find({Code}).then((course) => {
+    if(course.length == 0){
+      response.status(404).send();
+    }
+    response.send({course});
+  }).catch((error) => {
+    response.status(400).send();
+  });
+});
+
+app.delete('/courses/:Code', (request, response) => {
+  var Code = request.params.Code;
+  Course.findOneAndRemove({Code}).then((course) => {
     if(course.length == 0){
       response.status(404).send();
     }
