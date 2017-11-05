@@ -57,13 +57,14 @@
                                     <span *ngIf= "course.filesLength == 0" class="material-icons"></span>
                                 </span>
                                 <span>
-                                    <md-icon class="md-icons material-icons" mdTooltip="Download" mdTooltipPosition="above" [mdMenuTriggerFor]="menu">file_download</md-icon>
+                                    <!--<md-icon class="md-icons material-icons" mdTooltip="Download" mdTooltipPosition="above" [mdMenuTriggerFor]="menu">file_download</md-icon>-->
+                                    <md-icon class="md-icons material-icons" mdTooltip="Download" mdTooltipPosition="above" (click)="exportToCSV(i)">file_download</md-icon>
                                     <span class="material-icons"></span>
                                 </span>
-                                <md-menu #menu="mdMenu">
+                                <!--<md-menu #menu="mdMenu">
                                     <button md-menu-item (click)="exportToCSV(i)">to CSV</button>
                                     <button md-menu-item>to JSON</button>
-                                </md-menu>
+                                </md-menu>-->
                             </div>
                         </div>
                     </div>

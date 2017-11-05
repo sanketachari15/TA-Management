@@ -41,10 +41,7 @@ export class ProfessorComponent implements OnInit, OnDestroy {
     this.dataService.getStudents()
         .takeUntil(this.ngUnsubscribe)
         .subscribe(
-            (x) =>  {this.students = x;
-                // console.log(JSON.stringify(this.students));
-            },
-
+            (x) =>  {this.students = x;},
             (err) => console.log('Error occurred in ngOnInit subscribe ' + err),
             () => console.log('students requested')
         );
@@ -56,10 +53,8 @@ export class ProfessorComponent implements OnInit, OnDestroy {
             (x) => {
               let profCourseDetails = _.filter(x, (details) => {return details.FullName == this.prof});
               this.profCourses = profCourseDetails[0].Courses;
-
-              // _.chain(this.profCourses);
               _.forEach(this.profCourses, (details) => {
-                details.messagesLength = details.messages.length;
+                details.messagesLength = _.filter(details.messages, (msg) => {return (msg.from) && !_.isEmpty(msg.from)}).length;
                 details.announcementsLength = details.announcements.length;
                 details.filesLength = details.files.length;
               });
@@ -138,6 +133,7 @@ export class ProfessorComponent implements OnInit, OnDestroy {
     this.sharedService.setProfCourses(this.profCourses);
     this.sharedService.setCourseIndex(courseIndex);
     this.sharedService.setRedirectFrom(x);
+    this.sharedService.setProfName(this.prof);
     this.router.navigate(['/course/' + courseIndex]);
   }
 }

@@ -15,7 +15,7 @@ import {
   MdTabsModule,
   MdSidenavModule,
   MdTooltipModule,
-  MdListModule
+  MdListModule, MdSlideToggleModule
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
@@ -35,17 +35,15 @@ import { CommonModule } from '@angular/common';
 import { StudenthomeComponent } from './studenthome/studenthome.component';
 import { GpaChangeComponent } from './studentprofile/studentprofile.component';
 import { CourseComponent } from './course/course.component';
-import { MessageComponent } from './message/message.component';
 import { FileSelectDirective } from 'ng2-file-upload';
+import { ManagerComponent } from './manager/manager.component';
 
 export const ROUTES: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'prof', component: ProfessorComponent},
   {path: 'student', component: StudentComponent},
-  {path: 'course/:id', component: CourseComponent,
-  children: [{path: 'new-message', component: MessageComponent}]},
-
+  {path: 'course/:id', component: CourseComponent}
 ];
 
 @NgModule({
@@ -60,8 +58,8 @@ export const ROUTES: Routes = [
     StudenthomeComponent,
     GpaChangeComponent,
     CourseComponent,
-    MessageComponent,
-    FileSelectDirective
+    FileSelectDirective,
+    ManagerComponent
   ],
   imports: [
     BrowserModule,
@@ -76,6 +74,7 @@ export const ROUTES: Routes = [
     MdTabsModule,
     MdTooltipModule,
     MdListModule,
+    MdSlideToggleModule,
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,

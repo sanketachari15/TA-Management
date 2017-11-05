@@ -16,6 +16,15 @@ export class SharedService {
   private redirectFromSource = new BehaviorSubject<string>('');
   currentRedirectFrom = this.redirectFromSource.asObservable();
 
+  private profNameSource = new BehaviorSubject<string>('');
+  currentProfName = this.profNameSource.asObservable();
+
+  private messageSource = new BehaviorSubject<string>('');
+  currentMessage = this.messageSource.asObservable();
+
+  private newMsgSource = new BehaviorSubject<boolean>(null);
+  currentNewMsg = this.newMsgSource.asObservable();
+
   constructor() { }
 
   changeHeader(header: string){
@@ -34,4 +43,15 @@ export class SharedService {
     this.redirectFromSource.next(from);
   }
 
+  setProfName(name: string){
+    this.profNameSource.next(name);
+  }
+
+  setMessage(msg: any){
+    this.messageSource.next(msg);
+  }
+
+  setNewMsg(enabled: boolean){
+    this.newMsgSource.next(enabled);
+  }
 }
