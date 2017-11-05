@@ -13,6 +13,12 @@ let messages = new Schema({
         minLength: 1,
         trim: true
     },
+    to: {
+      type: String,
+      required: false,
+      minLength: 1,
+      trim: true
+    },
     message: {
         type: String,
         required: true,
@@ -77,84 +83,4 @@ let ProfCourses = mongoose.model('ProfCourses', {
     },
 
 });
-
-module.exports = {ProfCourses};
-=======
-  from: {
-    type: String,
-    required: false,
-    minLength: 1,
-    trim: true
-  },
-  to: {
-    type: String,
-    required: false,
-    minLength: 1,
-    trim: true
-  },
-  message: {
-    type: String,
-    required: true,
-    minLength: 1,
-    trim: true
-  }
-}, {_id: false});
-
-
-let courses = new Schema({
-
-  name: {
-    type: String,
-    required: true,
-    minLength: 1,
-    trim: true
-  },
-
-  announcements: {
-    type: [String]
-  },
-
-  messages: {
-    type: [messages]
-  },
-
-  files: {
-    type: [String]
-  }
-
-
-}, {_id: false});
-
-let ProfCourses = mongoose.model('ProfCourses', {
-
-  FullName: {
-    type: String,
-    required: true,
-    minLength: 1,
-    trim: true
-  },
-
-  Email: {
-    type: String,
-    required: true,
-    minLength: 1,
-    trim: true
-  },
-
-  Sem: {
-    type: String,
-    required: true,
-    minLength: 1,
-    trim: true
-  },
-
-  Courses: {
-    type: [courses],
-    required: true,
-    minLength: 1,
-    trim: true
-  },
-
-});
-
 module.exports = {ProfCourses};
