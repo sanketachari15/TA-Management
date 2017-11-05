@@ -43,7 +43,7 @@ app.get('/students/:UFID', (request, response) => {
 app.delete('/students/:UFID', (request, response) => {
   var UFID = request.params.UFID;
   Student.findOneAndRemove({UFID}).then((student) => {
-    if(student.length == 0){
+    if(!student){
       response.status(404).send();
     }
     response.send({student});
@@ -84,7 +84,7 @@ app.get('/professors/:Email', (request, response) => {
 app.delete('/professors/:Email', (request, response) => {
   var Email = request.params.Email;
   Professor.findOneAndRemove({Email}).then((professor) => {
-    if(professor.length == 0){
+    if(!professor){
       response.status(404).send();
     }
     response.send({professor});
@@ -125,7 +125,7 @@ app.get('/courses/:Code', (request, response) => {
 app.delete('/courses/:Code', (request, response) => {
   var Code = request.params.Code;
   Course.findOneAndRemove({Code}).then((course) => {
-    if(course.length == 0){
+    if(!course){
       response.status(404).send();
     }
     response.send({course});

@@ -113,3 +113,32 @@ describe('Get professors/Email', () => {
     .end(done);
   });
 });
+
+describe('Delete professors/Email', () => {
+  it('should remove a professor', (done) => {
+    var profEmail = testProfessors[0].Email;
+    request(app)
+    .delete(`/professors/${profEmail}`)
+    .expect(200)
+    .expect((response) => {
+      expect(response.body.professor.Email).toBe(profEmail)
+    })
+    .end((error, response) => {
+      if(error){
+        return done(error);
+      }
+      Professor.find({Email: profEmail}).then((professors) => {
+        expect(professors.length).toBe(0);
+        done();
+      }).catch((error) => done(error));
+    });
+  });
+
+  it('should return 404 if professor not found', (done) => {
+    var falseProfessorEmail = "invalidProfessorEmail"
+    request(app)
+    .delete(`/professors/${falseProfessorEmail}`)
+    .expect(404)
+    .end(done);
+  });
+});
