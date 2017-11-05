@@ -14,8 +14,10 @@ import {
   MdDialog,
   MdTabsModule,
   MdSidenavModule,
-  MdTooltipModule} from '@angular/material';
-import {FormsModule} from '@angular/forms';
+  MdTooltipModule,
+  MdListModule, MdSlideToggleModule
+} from '@angular/material';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
 import { AppComponent } from './app.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
@@ -26,12 +28,22 @@ import { ProfessorComponent } from './professor/professor.component';
 import { StarRatingModule } from 'angular-star-rating';
 import { TadetailsComponent } from './tadetails/tadetails.component';
 import { StudentComponent } from './student/student.component';
+import { PdfViewerComponent } from 'ng2-pdf-viewer';
+import {SharedService} from "./shared.service";
+import { StudentprofileComponent } from './studentprofile/studentprofile.component';
+import { CommonModule } from '@angular/common';
+import { StudenthomeComponent } from './studenthome/studenthome.component';
+import { GpaChangeComponent } from './studentprofile/studentprofile.component';
+import { CourseComponent } from './course/course.component';
+import { FileSelectDirective } from 'ng2-file-upload';
+import { ManagerComponent } from './manager/manager.component';
 
 export const ROUTES: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'prof', component: ProfessorComponent},
-  {path: 'student', component: StudentComponent}
+  {path: 'student', component: StudentComponent},
+  {path: 'course/:id', component: CourseComponent}
 ];
 
 @NgModule({
@@ -40,7 +52,14 @@ export const ROUTES: Routes = [
     LoginComponent,
     ProfessorComponent,
     TadetailsComponent,
-    StudentComponent
+    StudentComponent,
+    PdfViewerComponent,
+    StudentprofileComponent,
+    StudenthomeComponent,
+    GpaChangeComponent,
+    CourseComponent,
+    FileSelectDirective,
+    ManagerComponent
   ],
   imports: [
     BrowserModule,
@@ -54,18 +73,22 @@ export const ROUTES: Routes = [
     MdIconModule,
     MdTabsModule,
     MdTooltipModule,
+    MdListModule,
+    MdSlideToggleModule,
     FormsModule,
+    ReactiveFormsModule,
     FlexLayoutModule,
     DndModule.forRoot(),
     MdMenuModule,
     MdSelectModule,
     MdDialogModule,
     MdSidenavModule,
-    StarRatingModule.forRoot()
+    StarRatingModule.forRoot(),
+    CommonModule
   ],
-  providers: [DragDropService, DragDropConfig, DataService, MdDialogModule, MdDialog, MdSidenavModule],
+  providers: [DragDropService, DragDropConfig, DataService, SharedService, MdDialogModule, MdDialog, MdSidenavModule, PdfViewerComponent],
   bootstrap: [AppComponent],
-  entryComponents: [TadetailsComponent] // Added for TA Info Dialog Box Issue #15
+  entryComponents: [TadetailsComponent, GpaChangeComponent] // Added for TA Info Dialog Box Issue #15
 })
 export class AppModule {
 }

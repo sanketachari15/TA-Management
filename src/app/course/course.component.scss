@@ -1,0 +1,65 @@
+
+.wrapper {
+  position: relative;
+  padding-top: 1%;
+  padding-bottom: 140px;
+  bottom: 10%;
+  display: flex;
+}
+
+.active {
+  background-color: #ff7f00;
+}
+
+.left-side {
+  flex: 1;
+}
+
+.left-side-wrapper {
+  padding-left: 10px;
+}
+
+.middle-wrapper {
+  padding: 10px 5px 20px 20px;
+}
+
+.right-side {
+  flex: 1;
+}
+
+.middle {
+  flex: 5;
+}
+
+.inbox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.new-message{
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+}
+
+.msg-wrapper{
+  bottom: 0;
+  padding-top: 30px;
+  width: 100%;
+}
+
+.button{
+  background-color: #FFFFFF;
+}
+
+.button:hover{
+  background-color: #ff7f00;
+}
+
+.msg{
+  width: 60%;
+  border: 1px solid #F0F0F0B0;
+  font-size: 16px;
+  padding-bottom:5px;
+}

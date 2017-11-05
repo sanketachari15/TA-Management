@@ -5,8 +5,9 @@ import 'rxjs/Rx'
 @Injectable()
 export class DataService {
 
-  api: string = 'http://localhost:3000/api';
+  api: string = 'http://localhost:3000';
   prof: string;
+  profEmail: string;
 
   constructor(private http: HttpClient) { }
 
@@ -15,14 +16,21 @@ export class DataService {
   }
 
   getProfCourses(){
-    let params = new HttpParams();
-    this.getProf();
-    params = params.append('prof', this.prof);
-
-    return this.http.get(this.api + '/prof-courses', {params: params});
+    return this.http.get(this.api + '/profcourses');
   }
 
   getProf(){
     this.prof = "Alin Dobra";
+    this.profEmail = "ad@ufl.edu"
+  }
+
+  sendMessage(msgbody: any){
+    this.getProf();
+    return this.http.patch(this.api + '/profcourses/' + this.profEmail + '/to', msgbody);
+  }
+
+  getTAs(course: string){
+    console.log("In getTAs " + course);
+    return this.http.get(this.api + '/tas/' + course);
   }
 }

@@ -73,11 +73,11 @@
 }
 
 .material-icons{
-  padding: 0 10px 0 10px;
+  padding-left: 10px;
 }
 
 .md-icons{
-  color: #212121;
+  color: #424242;
 }
 
 a{
@@ -128,4 +128,52 @@ a{
   // This fills the remaining space, by using flexbox.
   // Every toolbar row uses a flexbox row layout.
   flex: 1 1 auto;
+}
+
+
+.badges{
+  font-size: .6875rem;
+  min-width: 18px;
+  line-height: 18px;
+  border-radius: 9px;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  box-sizing: border-box;
+  padding: 0 6px;
+  box-shadow: 0 0 0 1px #fff;
+  transition: all 0.2s;
+  position: absolute;
+  top: -0.5rem;
+  right: -0.875rem;
+  z-index: 1;
+}
+
+.badge-container{
+  position:relative;
+  display: inline-block;
+  //overflow-wrap: break-word;
+  //font-size:.7em;
+  top:-20px;
+  right:-1px;
+  background-color: teal;
+  //width:18px;
+  //height:18px;
+  //text-align: center;
+  //line-height:18px;
+  border-radius:70%;
+}
+
+.unread_notif{
+  position: absolute;
+  display: inline-block;
+  color: black;
+  text-align:center;
+  z-index: 11;
+}
+
+.badge-text{
+  position: relative;
+  left: 0;
+  //padding: 2px 2px 2px 2px;
 }

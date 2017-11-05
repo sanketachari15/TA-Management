@@ -1,7 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProfessorComponent } from './professor.component';
-import {MdTabsModule, MdCardModule, MdTooltipModule, MdIconModule, MdMenuModule} from "@angular/material";
+import {
+  MdTabsModule, MdCardModule, MdTooltipModule, MdIconModule, MdMenuModule, MdListModule,
+  MdSidenavModule
+} from "@angular/material";
 import {DndModule, DragDropService, DragDropConfig} from "ng2-dnd";
 import {DataService} from "../data.service";
 import {StarRatingModule} from "angular-star-rating";
@@ -9,9 +12,11 @@ import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 import {HttpClientModule} from "@angular/common/http";
 import * as _ from 'underscore';
-import {DebugElement} from "@angular/core";
 import {MdDialogModule, MdDialogRef, MD_DIALOG_DATA, MdDialog} from '@angular/material';
 import { TadetailsComponent } from '../tadetails/tadetails.component';
+import { PdfViewerComponent } from 'ng2-pdf-viewer';
+import {SharedService} from "../shared.service";
+import {RouterTestingModule} from "@angular/router/testing";
 
 describe('ProfessorComponent', () => {
   let component: ProfessorComponent;
@@ -38,9 +43,9 @@ describe('ProfessorComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [MdTabsModule, MdCardModule, DndModule.forRoot(), StarRatingModule.forRoot(), MdTooltipModule,
-                MdIconModule, MdMenuModule, FormsModule, HttpModule, HttpClientModule, MdDialogModule],
-      declarations: [ ProfessorComponent, TadetailsComponent ],
-      providers: [DragDropService, DragDropConfig, DataService, MdDialogModule]
+                MdIconModule, MdMenuModule, FormsModule, HttpModule, HttpClientModule, MdDialogModule, MdListModule, RouterTestingModule],
+      declarations: [ ProfessorComponent, TadetailsComponent, PdfViewerComponent],
+      providers: [DragDropService, DragDropConfig, DataService, MdDialogModule, SharedService, PdfViewerComponent]
     })
     .compileComponents();
   }));

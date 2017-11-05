@@ -1,0 +1,103 @@
+<br>
+<div>
+    <h4 *ngIf="checkDataFromParent()" style="padding-left: 20px">{{courseTitle}}</h4>
+</div>
+<br>
+<div class="wrapper">
+    <div class="left-side">
+
+        <div class="left-side-wrapper">
+            <md-list>
+                <a md-list-item (click)="setLink('home')" [ngClass]="{active: link === 'home'}">Home</a>
+                <a md-list-item (click)="setLink('announcements')" [ngClass]="{active: link === 'announcements'}">Announcements</a>
+                <a md-list-item (click)="setLink('messages')" [ngClass]="{active: link === 'messages'}">Messages</a>
+                <a md-list-item (click)="setLink('files')" [ngClass]="{active: link === 'files'}">Files</a>
+            </md-list>
+
+        </div>
+    </div>
+    <div class="middle">
+        <div class="middle-wrapper">
+
+            <div class="Home" *ngIf="link === 'home'">
+                <h4>Recent Announcements</h4>
+                <hr style="border-width: thick">
+                <div *ngFor="let announce of getAnnouncements()">
+                    <p>{{announce}}</p>
+                    <hr>
+                </div>
+                <br><br>
+
+                <h4>Inbox</h4>
+                <hr style="border-width: thick">
+                <div *ngFor="let msg of getMessages()">
+                    <h5>{{msg.from}}</h5>
+                    <p>{{msg.message}}</p>
+                    <hr>
+                </div>
+                <br><br>
+
+                <h4>No Files</h4>
+                <hr style="border-width: thick">
+            </div>
+
+            <div class="Announcements" *ngIf="link === 'announcements'">
+                <h4>Recent Announcements</h4>
+                <hr style="border-width: thick">
+                <div *ngFor="let announce of getAnnouncements()">
+                    <p>{{announce}}</p>
+                    <hr>
+                </div>
+            </div>
+
+            <div class="Messages" *ngIf="link === 'messages'">
+                <div class="inbox">
+                    <h4>Inbox</h4>
+                    <md-icon mdTooltip="New message" mdTooltipPosition="above" class="new-message"
+                             (click)="newMessage()">add_circle
+                    </md-icon>
+                </div>
+
+                <hr style="border-width: thick">
+                <div *ngFor="let msg of getMessages()">
+                    <h5>{{msg.from}}</h5>
+                    <p>{{msg.message}}</p>
+                    <hr>
+                </div>
+
+                <div class="msg-wrapper" *ngIf="newMsgEnabled">
+                    <hr>
+                    <h5>To: </h5>
+                    <div *ngFor="let ta of TAs; let i = index">
+                        <md-slide-toggle [(ngModel)] = "ta.checked">{{ta.FirstName}} {{ta.LastName}}</md-slide-toggle>
+                    </div>
+                    <br>
+                    <input class="msg" name="msg-input" mdInput placeholder="Type message"
+                           [(ngModel)]="message"><br><br>
+                    <button md-button class="button" (click)="sendMessage()">Send</button>
+                    <button md-button class="button" (click)="cancel()">Cancel</button>
+                    <br>
+                    <hr>
+                </div>
+                <!--<router-outlet></router-outlet>-->
+
+                <br><br>
+                <h4>Sent</h4>
+                <hr style="border-width: thick">
+                <div *ngFor="let msg of getSentMessages()">
+                    <h5>{{msg.to}}</h5>
+                    <p>{{msg.message}}</p>
+                    <hr>
+                </div>
+            </div>
+
+            <div class="Files" *ngIf="link === 'files'">
+                <h4>No files</h4>
+                <hr style="border-width: thick">
+            </div>
+
+        </div>
+    </div>
+    <div class="right-side"></div>
+
+</div>
