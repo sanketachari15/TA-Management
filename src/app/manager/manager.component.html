@@ -1,3 +1,78 @@
-<p>
-  manager works!
-</p>
+<br>
+<div class="wrapper">
+    <div class="left-side"></div>
+    <div class="middle">
+        <md-tab-group>
+            <md-tab label="Home">
+                <div class="wrapper-2">
+                    <div class="left-side-2">
+                        <div class="left-side-wrapper">
+                            <md-list>
+                                <div *ngFor="let course of courses">
+                                    <md-card class="course-card" (click)="setCourse(course)"
+                                             [ngClass]="{active: courseName === course.name}">
+                                        <p>{{course.name}}</p>
+                                    </md-card>
+                                </div>
+                            </md-list>
+                        </div>
+                    </div>
+                    <div class="middle-2">
+                        <div class="middle-wrapper">
+                            <br>
+                            <md-card>
+                                <p class="font-bold" style="font-size: medium;">{{courseName}}</p>
+                                <br>
+                                <div class="row-flex"><p class="font-bold">Professor: &nbsp;</p>
+                                    <p>{{profName}}</p></div>
+
+                                <div class="row-flex"><p class="font-bold">Seats: &nbsp; </p>
+                                    <p>{{seats}}</p></div>
+                                <br>
+
+                                <p class="font-bold">Teaching Assistants:</p>
+                                <div *ngFor="let ta of TAs">
+                                    <div class="ta-name">
+                                        <md-card>
+                                            <div class="row-flex" style="justify-content: space-between">
+                                                <p>{{ta.FirstName}} {{ta.LastName}}</p>
+                                                <md-icon class="icon-details" (click)="removeTA(ta)" cursor>cancel
+                                                </md-icon>
+                                            </div>
+                                        </md-card>
+                                    </div>
+                                </div>
+                            </md-card>
+                        </div>
+                    </div>
+                    <div class="right-side-2"></div>
+                </div>
+            </md-tab>
+            <md-tab label="Students"></md-tab>
+            <md-tab label="Details">
+                <div class="wrapper-2">
+                    <div class="left-side">
+                        <div class="left-side-wrapper">
+                            <md-list>
+                                <a md-list-item (click)="setLink('home')" [ngClass]="{active: link === 'home'}">Home</a>
+                                <a md-list-item (click)="setLink('announcements')"
+                                   [ngClass]="{active: link === 'announcements'}">Announcements</a>
+                                <a md-list-item (click)="setLink('messages')"
+                                   [ngClass]="{active: link === 'messages'}">Messages</a>
+                                <a md-list-item (click)="setLink('files')"
+                                   [ngClass]="{active: link === 'files'}">Files</a>
+                            </md-list>
+                        </div>
+                    </div>
+                    <div class="middle">
+                        <div class="middle-wrapper">
+                            <md-card style="height: 400px;"></md-card>
+                        </div>
+                    </div>
+                    <div class="right-side"></div>
+                </div>
+            </md-tab>
+        </md-tab-group>
+    </div>
+    <div class="right-side"></div>
+</div>

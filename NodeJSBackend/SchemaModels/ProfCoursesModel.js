@@ -37,6 +37,13 @@ let courses = new Schema({
     trim: true
   },
 
+  seats:{
+    type: Number,
+    required: true,
+    minLength: 1,
+    trim: true
+  },
+
   announcements: {
     type: [String]
   },
