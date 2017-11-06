@@ -18,6 +18,7 @@ const testTAs = [
     CourseMostInterestedIn: ['COP5615: Distributed Operating Systems', 'CEN5035: Software Engineering'],
     InterestLevel: '2',
     Email: 'johnjohansson@ufl.edu',
+    ResumeLink: 'testResumeLink',
     GPA: 3.66
   },
   {
@@ -158,5 +159,57 @@ describe('Delete /tas/:UFID', () => {
       .delete(`/tas/${falseUFID}`)
       .expect(404)
       .end(done);
+  });
+});
+
+describe('POST /tas', () => {
+
+  it('should create a new course', (done) => {
+    let taTest = new TA({
+      UFID: '123456789034',
+      FirstName: 'Pablo',
+      LastName: 'Escobar',
+      GradOrUndergrad: 'Undergrad',
+      SchoolYear: 2,
+      Sem: 'Fall2017',
+      TAofCourse: 'COP5615: Distributed Operating Systems',
+      isTA: false,
+      CourseMostInterestedIn: ['COP5615: Distributed Operating Systems', 'CEN5035: Software Engineering'],
+      InterestLevel: '2',
+      Email: 'pbebr@ufl.edu',
+      ResumeLink: 'testResumeLink',
+      GPA: 3.66
+    });
+    request(app)
+      .post('/tas')
+      .send(taTest)
+      .expect(200)
+      .expect((response) => {
+        expect(response.body.Email).toBe(taTest.Email);
+      })
+      .end((error, response) => {
+        if (error) {
+          return done(error);
+        }
+        TA.find({Email: taTest.Email}).then((ta) => {
+          expect(ta.length).toBe(1);
+          done();
+        }).catch((error) => {
+          done(error);
+        })
+      });
+  });
+
+  it('should not add ta with empty body data', (done) => {
+    request(app)
+      .post('/tas')
+      .send({})
+      .expect(400)
+      .end((error, response) => {
+        if (error)
+          return done(error);
+
+        done();
+      });
   });
 });

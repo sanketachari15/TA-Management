@@ -45,6 +45,12 @@ let TA = mongoose.model('TA', {
     minLength: 1,
     trim: true
   },
+  ResumeLink: {
+    type: String,
+    required: true,
+    minLength: 1,
+    trim: true
+  },
   CourseMostInterestedIn: {
     type: [String],
     required: true,
