@@ -88,10 +88,8 @@ export class ProfessorComponent implements OnInit, OnDestroy {
     this.courses[courseNo].push(event.dragData);
 
     let ta = event.dragData;
-
     ta.isTA = false;
     ta.TAofCourse = this.profCourses[courseNo].name;
-
     this.dataService.addTAs(ta).subscribe();
 
     return event.dragData;
@@ -122,11 +120,9 @@ export class ProfessorComponent implements OnInit, OnDestroy {
 
   removeTA(student: any, courseNo: number) {
     this.removeTAClicked = true;
-    this.dataService.deleteTA(student.UFID)
-        .subscribe((x) => {
-            this.courses[courseNo].splice(this.courses[courseNo].indexOf(student), 1);
-            this.droppedItems.splice(this.droppedItems.indexOf(student), 1);
-        });
+    this.courses[courseNo].splice(this.courses[courseNo].indexOf(student), 1);
+    this.droppedItems.splice(this.droppedItems.indexOf(student), 1);
+    this.dataService.deleteTA(student.UFID).subscribe();
   }
 
   getTAs(courseNo: number) {
@@ -148,14 +144,11 @@ export class ProfessorComponent implements OnInit, OnDestroy {
           this.removeTAClicked = false;
       else {
           let dialogRef = this.dialog.open(TadetailsComponent);
-
           dialogRef.componentInstance.dRef = dialogRef;
-
           dialogRef.afterClosed().subscribe(result => {
               console.log('The dialog was closed');
           });
       }
-
   }
 
   show(courseIndex, x): void{
