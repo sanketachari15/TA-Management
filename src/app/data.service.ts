@@ -29,8 +29,15 @@ export class DataService {
     return this.http.patch(this.api + '/profcourses/' + this.profEmail + '/to', msgbody);
   }
 
+  addTAs(ta:any){
+      return this.http.post(this.api + '/tas',  ta);
+  }
+
   getTAs(course: string){
-    console.log("In getTAs " + course);
     return this.http.get(this.api + '/tas/' + course);
+  }
+
+  deleteTA(UFID: number){
+      return this.http.delete(this.api + '/tas/' + UFID);
   }
 }
