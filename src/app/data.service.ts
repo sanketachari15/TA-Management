@@ -32,4 +32,8 @@ export class DataService {
   getTAs(course: string){
     return this.http.get(this.api + '/tas/' + course);
   }
+
+  deleteTA(UFID: number){
+      return this.http.delete(this.api + '/tas/' + UFID);
+  }
 }

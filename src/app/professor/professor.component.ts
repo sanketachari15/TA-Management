@@ -69,10 +69,6 @@ export class ProfessorComponent implements OnInit, OnDestroy {
                                         (err) => console.log('Error occurred in ngOnInit subscribe ' + err),
                                         () => {});
                             });
-                            /*this.courses[0].push(this.students[1]);
-                             this.droppedItems.push(this.students[1]);
-                             this.courses[0].push(this.students[2]);
-                             this.droppedItems.push(this.students[2]);*/
                         },
                         (err) => console.log('Error occurred in ngOnInit subscribe ' + err),
                         () => console.log('professor courses requested'));
@@ -80,9 +76,6 @@ export class ProfessorComponent implements OnInit, OnDestroy {
             (err) => console.log('Error occurred in ngOnInit subscribe ' + err),
             () => console.log('students requested')
         );
-
-
-
   }
 
   ngOnDestroy() {

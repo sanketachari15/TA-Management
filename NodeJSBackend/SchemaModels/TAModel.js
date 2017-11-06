@@ -39,6 +39,12 @@ let TA = mongoose.model('TA', {
     minLength: 1,
     trim: true
   },
+  isTA:{
+    type: Boolean,
+    required: true,
+    minLength: 1,
+    trim: true
+  },
   CourseMostInterestedIn: {
     type: [String],
     required: true,
@@ -61,8 +67,6 @@ let TA = mongoose.model('TA', {
     minLength: 1,
     trim: true
   },
-
-
 });
 
 module.exports= { TA };

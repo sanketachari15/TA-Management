@@ -1,5 +1,6 @@
 const expect = require('expect');
 const request = require('supertest');
+const  _ = require('lodash');
 
 const {app} = require('../server');
 const {TA} = require('../SchemaModels/TAModel');
@@ -13,6 +14,7 @@ const testTAs = [
     SchoolYear: 2,
     Sem: 'Fall2017',
     TAofCourse: 'COP5615: Distributed Operating Systems',
+    isTA: true,
     CourseMostInterestedIn: ['COP5615: Distributed Operating Systems', 'CEN5035: Software Engineering'],
     InterestLevel: '2',
     Email: 'johnjohansson@ufl.edu',
@@ -27,6 +29,7 @@ const testTAs = [
     Sem: 'Fall2017',
     CourseMostInterestedIn: ['COP5615: Distributed Operating Systems', 'CIS6930: Database Implementation'],
     InterestLevel: '3',
+    isTA: true,
     TAofCourse: 'COP5615: Distributed Operating Systems',
     Email: 'jzj@ufl.edu',
     ResumeLink: 'resumeOfTest2',
@@ -41,6 +44,7 @@ const testTAs = [
     Sem: 'Fall2017',
     CourseMostInterestedIn: ['COP5615: Distributed Operating Systems', 'CIS6930: Database Implementation'],
     InterestLevel: '3',
+    isTA: true,
     TAofCourse: 'COP5615: Distributed Operating Systems',
     Email: 'nc@ufl.edu',
     ResumeLink: 'resumeOfTest3',
@@ -54,6 +58,7 @@ const testTAs = [
     SchoolYear: 2,
     Sem: 'Fall2017',
     TAofCourse: 'CEN5035: Software Engineering',
+    isTA: true,
     CourseMostInterestedIn: ['CEN5035: Software Engineering'],
     InterestLevel: '5',
     Email: 'psgr@ufl.edu',
@@ -68,6 +73,7 @@ const testTAs = [
     SchoolYear: 2,
     Sem: 'Fall2017',
     TAofCourse: 'CIS6930: Database Implementation',
+    isTA: true,
     CourseMostInterestedIn: ['COP5615: Distributed Operating Systems', 'CEN5035: Software Engineering', 'CIS6930: Database Implementation'],
     InterestLevel: '5',
     Email: 'rlm@ufl.edu',
@@ -94,7 +100,6 @@ describe('Get /tas', () => {
   })
 });
 
-
 describe('Get tas/course', () => {
   it('should return TAa of course', (done) => {
     request(app)
@@ -111,6 +116,46 @@ describe('Get tas/course', () => {
     let falseTAofCourse = "invalidUFID";
     request(app)
       .get(`/tas/${falseTAofCourse}`)
+      .expect(404)
+      .end(done);
+  });
+});
+
+describe('Delete /tas/:UFID', () => {
+
+  it('should delete the ta', (done) => {
+
+    //----- Delete -----
+    request(app)
+      .delete(`/tas/${testTAs[1].UFID}`)
+      .expect(200)
+      .expect((response) => {
+          expect(response.body.UFID).toBe(testTAs[1].UFID)
+        }
+      )
+      .end((error, response) => {
+        if (error)
+          return done(error);
+
+        //----- Read -----
+        request(app)
+          .get(`/tas/${testTAs[1].Email}`)
+          .expect(404)
+          .expect((response) => {
+            expect(_.isEmpty(response.body)).toBe(true);
+          })
+          .end((error, response) => {
+            if (error)
+              return done(error);
+            done();
+          });
+      });
+  });
+
+  it('should return 404 if tas\'s UFID not found', (done) => {
+    let falseUFID = 89348303099039080938904389;
+    request(app)
+      .delete(`/tas/${falseUFID}`)
       .expect(404)
       .end(done);
   });

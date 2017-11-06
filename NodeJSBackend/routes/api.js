@@ -264,5 +264,18 @@ router.get('/tas/:course', (request, response) => {
   });
 });
 
+// Delete the ta
+router.delete('/tas/:UFID' , (req, res) => {
+  let UFID = req.params.UFID;
+  TA.findOneAndRemove({UFID: UFID}).then((profCourses) => {
+    if(!profCourses) {
+      return res.status(404).send();
+    }
+    console.log(JSON.stringify(profCourses));
+    return res.send(profCourses);
+  }).catch((error) => {
+    res.status(400).send(error);
+  });
+});
 
 module.exports = router;
