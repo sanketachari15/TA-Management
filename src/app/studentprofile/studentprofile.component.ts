@@ -1,8 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {MdDialog, MdDialogClose, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
 import { TadetailsComponent } from '../tadetails/tadetails.component';
-import {  FileUploader } from 'ng2-file-upload/ng2-file-upload';
-const URL = 'http://localhost:3000/api/upload';
+import {SharedService} from "../shared.service";
+import {DataService} from '../data.service';
+import 'rxjs/add/operator/takeUntil';
+import {Subject, Subscription} from 'rxjs/Rx';
+
 // Dummy Upload url
 @Component({
   selector: 'app-studentprofile',
@@ -12,13 +15,29 @@ const URL = 'http://localhost:3000/api/upload';
 
 export class StudentprofileComponent implements OnInit {
 
-  constructor(public dialog: MdDialog) { }
-  gpa = 3.7; // sample for a student
-  public uploader: FileUploader = new FileUploader({url: URL, itemAlias: 'resume'});
+  constructor(private dataService: DataService, private sharedService: SharedService, public dialog: MdDialog) { }
+  students: any;
+  student: any;
+  header = "Welcome Student";
+  gpa; // sample for a student
+  resumeLink;
+  url = '../../assets/images/taimg.jpg';
+
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
+
   ngOnInit() {
-    this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
-    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-         console.log('ImageUpload:uploaded:', item, status, response); };
+    this.sharedService.changeHeader(this.header);
+
+    this.dataService.getStudents()
+        .takeUntil(this.ngUnsubscribe)
+        .subscribe(
+            (x) =>  {this.students = x;
+              this.student = this.students[0];
+              this.gpa = this.student.GPA;
+              this.resumeLink = this.student.ResumeLink; },
+            (err) => console.log('Error occurred in ngOnInit subscribe ' + err),
+            () => console.log('students requested' + this.students[0].ResumeLink)
+        );
 }
   changeGpa(): void {
       let dialogRef = this.dialog.open(GpaChangeComponent, { width: '250px', data: {gpa: this.gpa} });
@@ -32,9 +51,9 @@ export class StudentprofileComponent implements OnInit {
     }
 
   veiwResume(): void {
-    let dialogRef = this.dialog.open(TadetailsComponent);
+    let dialogRef = this.dialog.open(TadetailsComponent, {data: {resumeLink: this.resumeLink}});
 
-        dialogRef.componentInstance.dRef = dialogRef;
+        dialogRef.componentInstance.dialogRef = dialogRef;
 
         dialogRef.afterClosed().subscribe(result => {
           console.log('The dialog was closed');
@@ -42,7 +61,17 @@ export class StudentprofileComponent implements OnInit {
   }
 
   uploadResume(): void {
+  }
 
+  onSelectFile(event) {
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+
+      reader.onload = (x: any) => { // called once readAsDataURL is completed
+        this.url = x.target.result; };
+    }
   }
 
 }
