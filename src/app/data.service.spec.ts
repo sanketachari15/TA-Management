@@ -124,4 +124,9 @@ describe('DataService', () => {
     expect(result[1]).toEqual(this.testData.courses[1], '  should be the second course');
   }));
 
+  it('getStudentHome() should query current service url', () => {
+    this.dataService.getStudentHome();
+    expect(this.lastConnection).toBeDefined('no http service connection at all?');
+    expect(this.lastConnection.request.url).toMatch(/api\/prof-courses/, 'url invalid');
+  });
 });
