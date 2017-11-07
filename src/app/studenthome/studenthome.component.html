@@ -65,22 +65,6 @@
                     <hr>
                 </div>
 
-                <div class="msg-wrapper" *ngIf="newMsgEnabled">
-                    <hr>
-                    <h5>To: </h5>
-                    <div *ngFor="let ta of TAs; let i = index">
-                        <md-slide-toggle [(ngModel)] = "ta.checked">{{ta.FirstName}} {{ta.LastName}}</md-slide-toggle>
-                    </div>
-                    <br>
-                    <input class="msg" name="msg-input" mdInput placeholder="Type message"
-                           [(ngModel)]="message"><br><br>
-                    <button md-button class="button" (click)="sendMessage()">Send</button>
-                    <button md-button class="button" (click)="cancel()">Cancel</button>
-                    <br>
-                    <hr>
-                </div>
-                <!--<router-outlet></router-outlet>-->
-
                 <br><br>
                 <h4>Sent</h4>
                 <hr style="border-width: thick">

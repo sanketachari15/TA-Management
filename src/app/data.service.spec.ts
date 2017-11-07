@@ -64,6 +64,13 @@ class DataService {
     }
     return [];
   }
+
+  getStudentHome() {
+    return this.http.get(this.api + '/studenthome')
+        .toPromise()
+        .then(response => response.json().data)
+        .catch(e => this.handleError(e));
+  }
 }
 
 describe('DataService', () => {
@@ -127,6 +134,6 @@ describe('DataService', () => {
   it('getStudentHome() should query current service url', () => {
     this.dataService.getStudentHome();
     expect(this.lastConnection).toBeDefined('no http service connection at all?');
-    expect(this.lastConnection.request.url).toMatch(/api\/prof-courses/, 'url invalid');
+    expect(this.lastConnection.request.url).toMatch(/api\/studenthome/, 'url invalid');
   });
 });

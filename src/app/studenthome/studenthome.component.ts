@@ -31,7 +31,7 @@ export class StudenthomeComponent implements OnInit {
 }
 
 ngOnInit() {
-  this.courseIndex = this.activatedRoute.snapshot.params['id'];
+  this.courseIndex = 0;
   this.sharedService.currentMessage.subscribe(x => this.sentMsg = x);
   this.sharedService.currentRedirectFrom.subscribe(x => {
       this.redirectFrom = x;
@@ -47,7 +47,7 @@ ngOnInit() {
               this.studentCourses = x[0].Courses;
           },
           (err) => console.log('Error occurred in ngOnInit subscribe ' + err),
-          () => console.log('hello ' + this.studentCourses.name ));
+          () => console.log('Student Home requested'));
 }
 
 ngOnDestroy() {
