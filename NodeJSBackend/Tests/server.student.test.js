@@ -14,7 +14,7 @@ const testStudents = [{
   CourseMostInterestedIn: ['COP5615: Distributed Operating Systems', 'CEN5035: Software Engineering'],
   InterestLevel: '2',
   Email: 'johnjohansson@ufl.edu',
-  ResumeLink: 'resumeOfTest1',
+  ResumeLink: 'https://vadimdez.github.io/ng2-pdf-viewer/pdf-test.pdf',
   GPA: 3.66
 }, {
   UFID: '123456789012',
