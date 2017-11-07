@@ -13,7 +13,6 @@ const testCourses = [{
   ProfessorFullName: 'TestProf1',
   ProfessorEmail: 'TestProf1TestProf1@ufl.edu',
   CourseScheduleLink: 'courseScheduleTest1',
-  CourseSyllabusLink: 'courseSyllabusTest1',
   MaxStudents: 50,
   TAs: ['17162351']
 }, {
@@ -25,7 +24,6 @@ const testCourses = [{
   ProfessorFullName: 'TestProf2',
   ProfessorEmail: 'TestProf2TestProf2@ufl.edu',
   CourseScheduleLink: 'courseScheduleTest2',
-  CourseSyllabusLink: 'courseSyllabusTest2',
   MaxStudents: 50,
   TAs: ['17162351']
 }];

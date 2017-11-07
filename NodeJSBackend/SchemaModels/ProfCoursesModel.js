@@ -90,9 +90,5 @@ let ProfCourses = mongoose.model('ProfCourses', {
   },
 
 });
-<<<<<<< HEAD
 
 module.exports = {ProfCourses};
-=======
-module.exports = {ProfCourses};
->>>>>>> 64ff0e12f29922f9c46d073e22148e8d4d787bac
