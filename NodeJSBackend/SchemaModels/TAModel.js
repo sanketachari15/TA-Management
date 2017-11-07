@@ -76,4 +76,3 @@ let TA = mongoose.model('TA', {
 });
 
 module.exports= { TA };
-
