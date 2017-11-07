@@ -139,15 +139,13 @@ export class ProfessorComponent implements OnInit, OnDestroy {
   }
 
   openDialog(): void {
-    let dialogRef = this.dialog.open(TadetailsComponent, {data: {resumeLink: 'https://vadimdez.github.io/ng2-pdf-viewer/pdf-test.pdf'}});
 
-    dialogRef.componentInstance.dialogRef = dialogRef;
-
-      if(this.removeTAClicked)
-          this.removeTAClicked = false;
-      else {
-          let dialogRef = this.dialog.open(TadetailsComponent);
-          dialogRef.componentInstance.dialogRef = dialogRef;
+      if (this.removeTAClicked) {
+        this.removeTAClicked = false;
+      } else {
+        let dialogRef = this.dialog.open(TadetailsComponent, {data: 
+          {resumeLink: 'https://vadimdez.github.io/ng2-pdf-viewer/pdf-test.pdf'}});
+            dialogRef.componentInstance.dialogRef = dialogRef;
           dialogRef.afterClosed().subscribe(result => {
               console.log('The dialog was closed');
           });

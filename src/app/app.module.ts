@@ -37,6 +37,7 @@ import { GpaChangeComponent } from './studentprofile/studentprofile.component';
 import { CourseComponent } from './course/course.component';
 import { FileSelectDirective } from 'ng2-file-upload';
 import { ManagerComponent } from './manager/manager.component';
+import { CarouselModule } from 'angular4-carousel';
 
 export const ROUTES: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -85,7 +86,8 @@ export const ROUTES: Routes = [
     MdDialogModule,
     MdSidenavModule,
     StarRatingModule.forRoot(),
-    CommonModule
+    CommonModule,
+    CarouselModule
   ],
   providers: [DragDropService, DragDropConfig, DataService, SharedService, MdDialogModule, MdDialog, MdSidenavModule, PdfViewerComponent],
   bootstrap: [AppComponent],

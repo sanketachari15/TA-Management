@@ -21,7 +21,7 @@ import { StudentComponent } from '../student/student.component';
 describe('StudentprofileComponent', () => {
   let component: StudentprofileComponent;
   let fixture: ComponentFixture<StudentprofileComponent>;
-
+  const resumeLink = '../../assets/pdf/resum.pdf';
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [MdTabsModule, MdCardModule, MdTooltipModule, MdIconModule, MdMenuModule, MdSidenavModule,
@@ -36,6 +36,7 @@ describe('StudentprofileComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(StudentprofileComponent);
     component = fixture.componentInstance;
+    component.resumeLink = resumeLink;
     fixture.detectChanges();
   });
 
