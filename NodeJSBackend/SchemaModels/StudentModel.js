@@ -34,7 +34,7 @@ var Student = mongoose.model('Student', {
     trim: true
   },
   CourseMostInterestedIn: {
-    type: String,
+    type: [String],
     required: true,
     minLength: 1,
     trim: true
