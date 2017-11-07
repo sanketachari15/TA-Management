@@ -376,4 +376,5 @@ describe('CRUD /professors', () => {
                   });
           });
   });
+})
 });
