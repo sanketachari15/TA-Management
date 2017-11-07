@@ -1,9 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {MdDialog, MdDialogClose, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
 import { TadetailsComponent } from '../tadetails/tadetails.component';
-import {  FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import {SharedService} from "../shared.service";
-const URL = 'http://localhost:3000/api/upload';
 import {DataService} from '../data.service';
 import 'rxjs/add/operator/takeUntil';
 import {Subject, Subscription} from 'rxjs/Rx';
@@ -23,13 +21,11 @@ export class StudentprofileComponent implements OnInit {
   header = "Welcome Student";
   gpa; // sample for a student
   resumeLink;
+  url = '../../assets/images/taimg.jpg';
+
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
-  public uploader: FileUploader = new FileUploader({url: URL, itemAlias: 'resume'});
   ngOnInit() {
-    this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
-    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-         console.log('ImageUpload:uploaded:', item, status, response); };
     this.sharedService.changeHeader(this.header);
 
     this.dataService.getStudents()
@@ -65,6 +61,17 @@ export class StudentprofileComponent implements OnInit {
   }
 
   uploadResume(): void {
+  }
+
+  onSelectFile(event) {
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+
+      reader.onload = (x: any) => { // called once readAsDataURL is completed
+        this.url = x.target.result; };
+    }
   }
 
 }

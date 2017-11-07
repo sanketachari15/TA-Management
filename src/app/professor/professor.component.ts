@@ -147,7 +147,7 @@ export class ProfessorComponent implements OnInit, OnDestroy {
           this.removeTAClicked = false;
       else {
           let dialogRef = this.dialog.open(TadetailsComponent);
-          dialogRef.componentInstance.dRef = dialogRef;
+          dialogRef.componentInstance.dialogRef = dialogRef;
           dialogRef.afterClosed().subscribe(result => {
               console.log('The dialog was closed');
           });
