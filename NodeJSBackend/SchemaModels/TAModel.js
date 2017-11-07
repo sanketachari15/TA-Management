@@ -52,7 +52,7 @@ let TA = mongoose.model('TA', {
     trim: true
   },
   CourseMostInterestedIn: {
-    type: [String],
+    type: String,
     required: true,
     minLength: 1,
     trim: true
@@ -76,4 +76,3 @@ let TA = mongoose.model('TA', {
 });
 
 module.exports= { TA };
-
