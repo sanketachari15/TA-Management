@@ -378,4 +378,3 @@ describe('CRUD /professors', () => {
   });
 })
 });
-});
