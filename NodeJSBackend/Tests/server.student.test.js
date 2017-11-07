@@ -11,7 +11,7 @@ const testStudents = [{
   GradOrUndergrad: 'Undergrad',
   SchoolYear: 2,
   Sem: 'Fall2017',
-  CourseMostInterestedIn: 'COP5615: Distributed Operating Systems',
+  CourseMostInterestedIn: ['COP5615: Distributed Operating Systems', 'CEN5035: Software Engineering'],
   InterestLevel: '2',
   Email: 'johnjohansson@ufl.edu',
   ResumeLink: 'resumeOfTest1',
@@ -23,7 +23,7 @@ const testStudents = [{
   GradOrUndergrad: 'Undergrad',
   SchoolYear: 2,
   Sem: 'Fall2017',
-  CourseMostInterestedIn: 'CIS6930: Database Implementation',
+  CourseMostInterestedIn: ['COP5615: Distributed Operating Systems', 'CIS6930: Database Implementation'],
   InterestLevel: '3',
   Email: 'jzj@ufl.edu',
   ResumeLink: 'resumeOfTest2',
@@ -35,7 +35,7 @@ const testStudents = [{
   GradOrUndergrad: 'Undergrad',
   SchoolYear: 2,
   Sem: 'Fall2017',
-  CourseMostInterestedIn: 'CEN5035: Software Engineering',
+  CourseMostInterestedIn: ['COP5615: Distributed Operating Systems', 'CEN5035: Software Engineering'],
   InterestLevel: '2',
   Email: 'nc@ufl.edu',
   ResumeLink: 'resumeOfTest3',
@@ -47,7 +47,7 @@ const testStudents = [{
   GradOrUndergrad: 'Undergrad',
   SchoolYear: 2,
   Sem: 'Fall2017',
-  CourseMostInterestedIn: 'CIS6930: Database Implementation',
+  CourseMostInterestedIn: ['CIS6930: Database Implementation'],
   InterestLevel: '3',
   Email: 'cpg@ufl.edu',
   ResumeLink: 'resumeOfTest4',
@@ -59,7 +59,7 @@ const testStudents = [{
   GradOrUndergrad: 'Undergrad',
   SchoolYear: 2,
   Sem: 'Fall2017',
-  CourseMostInterestedIn: 'CEN5035: Software Engineering',
+  CourseMostInterestedIn: ['COP5615: Distributed Operating Systems', 'CEN5035: Software Engineering'],
   InterestLevel: '3',
   Email: 'akb@ufl.edu',
   ResumeLink: 'resumeOfTest5',
@@ -71,7 +71,7 @@ const testStudents = [{
   GradOrUndergrad: 'Undergrad',
   SchoolYear: 2,
   Sem: 'Fall2017',
-  CourseMostInterestedIn: 'COP5615: Distributed Operating Systems',
+  CourseMostInterestedIn: ['COP5615: Distributed Operating Systems', 'CEN5035: Software Engineering', 'CIS6930: Database Implementation'],
   InterestLevel: '4',
   Email: 'frr@ufl.edu',
   ResumeLink: 'resumeOfTest6',
@@ -83,7 +83,7 @@ const testStudents = [{
   GradOrUndergrad: 'grad',
   SchoolYear: 2,
   Sem: 'Fall2017',
-  CourseMostInterestedIn: 'CEN5035: Software Engineering',
+  CourseMostInterestedIn: ['COP5615: Distributed Operating Systems', 'CEN5035: Software Engineering', 'CIS6930: Database Implementation'],
   InterestLevel: '2',
   Email: 'lvh@ufl.edu',
   ResumeLink: 'resumeOfTest7',
@@ -95,7 +95,7 @@ const testStudents = [{
   GradOrUndergrad: 'grad',
   SchoolYear: 2,
   Sem: 'Fall2017',
-  CourseMostInterestedIn: 'CIS6930: Database Implementation',
+  CourseMostInterestedIn: ['COP5615: Distributed Operating Systems',  'CIS6930: Database Implementation'],
   InterestLevel: '5',
   Email: 'msd@ufl.edu',
   ResumeLink: 'resumeOfTest8',
@@ -108,7 +108,7 @@ const testStudents = [{
     GradOrUndergrad: 'Undergrad',
     SchoolYear: 2,
     Sem: 'Fall2017',
-    CourseMostInterestedIn: 'CEN5035: Software Engineering',
+    CourseMostInterestedIn: ['CEN5035: Software Engineering'],
     InterestLevel: '5',
     Email: 'psgr@ufl.edu',
     ResumeLink: 'resumeOfTest9',
@@ -120,7 +120,7 @@ const testStudents = [{
     GradOrUndergrad: 'Undergrad',
     SchoolYear: 2,
     Sem: 'Fall2017',
-    CourseMostInterestedIn: 'CEN5035: Software Engineering',
+    CourseMostInterestedIn: ['CEN5035: Software Engineering'],
     InterestLevel: '5',
     Email: 'frr@ufl.edu',
     ResumeLink: 'resumeOfTest10',
@@ -132,7 +132,7 @@ const testStudents = [{
     GradOrUndergrad: 'grad',
     SchoolYear: 2,
     Sem: 'Fall2017',
-    CourseMostInterestedIn: 'COP5615: Distributed Operating Systems',
+    CourseMostInterestedIn: ['COP5615: Distributed Operating Systems'],
     InterestLevel: '5',
     Email: 'wkh@ufl.edu',
     ResumeLink: 'resumeOfTest11',
@@ -144,7 +144,7 @@ const testStudents = [{
     GradOrUndergrad: 'grad',
     SchoolYear: 2,
     Sem: 'Fall2017',
-    CourseMostInterestedIn: 'CIS6930: Database Implementation',
+    CourseMostInterestedIn: ['COP5615: Distributed Operating Systems', 'CEN5035: Software Engineering', 'CIS6930: Database Implementation'],
     InterestLevel: '5',
     Email: 'rlm@ufl.edu',
     ResumeLink: 'resumeOfTest12',
@@ -241,50 +241,6 @@ describe('Get students/UFID', () => {
     request(app)
     .get(`/students/${falseStudentUFID}`)
     .expect(404)
-    .end(done);
-  });
-});
-
-describe('Delete students/UFID', () => {
-  it('should remove a student', (done) => {
-    var studentId = testStudents[0].UFID;
-    request(app)
-    .delete(`/students/${studentId}`)
-    .expect(200)
-    .expect((response) => {
-      expect(response.body.student.UFID).toBe(studentId)
-    })
-    .end((error, response) => {
-      if(error){
-        return done(error);
-      }
-      Student.find({UFID: studentId}).then((student) => {
-        expect(student.length).toBe(0);
-        done();
-      }).catch((error) => done(error));
-    });
-  });
-
-  it('should return 404 if student not found', (done) => {
-    var falseStudentUFID = "invalidUFID"
-    request(app)
-    .delete(`/students/${falseStudentUFID}`)
-    .expect(404)
-    .end(done);
-  });
-});
-
-describe('Update students/UFID', () => {
-  it('should update the student', (done) => {
-    var studentId = testStudents[0].UFID;
-    request(app)
-    .patch(`/students/${studentId}`)
-    .send({ "InterestLevel": 5 })
-    .expect(200)
-    .expect((response) => {
-      expect(response.body.student.InterestLevel).toBeA('number');
-      expect(response.body.student.InterestLevel).toBe(5);
-    })
     .end(done);
   });
 });
