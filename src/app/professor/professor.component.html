@@ -26,7 +26,7 @@
                                                                   [rating]="student.InterestLevel" [staticColor]="'ok'"
                                                                   [readOnly]="true"></star-rating-comp>
                                             </p>
-                                            <p>
+                                            <p *ngIf="!student.isTA">
                                                 <md-icon class="material-icons" (click)="removeTA(student , i)"
                                                          align="right">cancel
                                                 </md-icon>

@@ -43,6 +43,7 @@ export const ROUTES: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'prof', component: ProfessorComponent},
   {path: 'student', component: StudentComponent},
+  {path: 'manager', component: ManagerComponent},
   {path: 'course/:id', component: CourseComponent}
 ];
 

@@ -12,6 +12,7 @@ const testProfCourses = [
     Courses: [
       {
         name: "COP5615: Distributed Operating Systems",
+        seats: 120,
         announcements: ["TA1 has released the grades for exam1", "TA2 is not taking office hours this week", "TA1 has is working on the evaluation of assignment 2"],
         messages: [{
           from: "Manager X",
@@ -26,6 +27,7 @@ const testProfCourses = [
       },
       {
         name: "CEN5035: Software Engineering",
+        seats: 60,
         announcements: ["TA1 has released the grades for exam1", "TA2 is not taking office hours this week", "TA1 has is working on the evaluation of assignment 2"],
         messages: [{
           from: "Manager X",
@@ -40,6 +42,7 @@ const testProfCourses = [
       },
       {
         name: "CIS6930: Database Implementation",
+        seats: 80,
         announcements: ["TA1 has released the grades for exam1", "TA2 is not taking office hours this week", "TA1 has is working on the evaluation of assignment 2"],
         messages: [{
           from: "Manager X",
@@ -61,6 +64,7 @@ const testProfCourses = [
     Courses: [
       {
         name: "COP5556: Programming Language Principles",
+        seats:120,
         announcements: ["TA1 has released the grades for exam1", "TA2 is not taking office hours this week", "TA1 has is working on the evaluation of assignment 2"],
         messages: [{
           from: "Manager X",
@@ -75,6 +79,7 @@ const testProfCourses = [
       },
       {
         name: "CIS6930: Concurrent Programming",
+        seats: 60,
         announcements: ["TA1 has released the grades for exam1", "TA2 is not taking office hours this week", "TA1 has is working on the evaluation of assignment 2"],
         messages: [{
           from: "Manager X",
@@ -106,6 +111,7 @@ describe('POST /profcourses', () => {
       Courses: [
         {
           name: "COP5615: Distributed Operating Systems",
+          seats: 120,
           announcements: ["TA1 has released the grades for exam1", "TA2 is not taking office hours this week", "TA1 has is working on the evaluation of assignment 2"],
           messages: [{
             from: "Manager X",
@@ -123,6 +129,7 @@ describe('POST /profcourses', () => {
         },
         {
           name: "CEN5035: Software Engineering",
+          seats: 60,
           announcements: ["TA1 has released the grades for exam1", "TA2 is not taking office hours this week", "TA1 has is working on the evaluation of assignment 2"],
           messages: [{
             from: "Manager X",
@@ -140,6 +147,7 @@ describe('POST /profcourses', () => {
         },
         {
           name: "CIS6930: Database Implementation",
+          seats: 80,
           announcements: ["TA1 has released the grades for exam1", "TA2 is not taking office hours this week", "TA1 has is working on the evaluation of assignment 2"],
           messages: [{
             from: "Manager X",
