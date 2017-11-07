@@ -51,20 +51,6 @@ router.delete('/students/:UFID', (request, response) => {
   });
 });
 
-router.patch('/students/:UFID', (request, response) => {
-  var UFID = request.params.UFID;
-  var body = _.pick(request.body, ['SchoolYear', 'Sem', 'CourseMostInterestedIn', 'InterestLevel', 'ResumeLink', 'GPA']);
-
-  Student.findOneAndUpdate({UFID}, {$set: body}, {new: true}).then((student) => {
-    if(!student){
-      response.status(404).send();
-    }
-    response.send({student});
-  }).catch((error) =>{
-    response.status(400).send(error);
-  });
-});
-
 router.post('/professors', (request, response) => {
     var newProfessor = new Professor(request.body);
     newProfessor.save().then((doc) => {
@@ -183,20 +169,6 @@ router.delete('/courses/:Code', (request, response) => {
     response.send({course});
   }).catch((error) => {
     response.status(400).send();
-  });
-});
-
-router.patch('/courses/:Code', (request, response) => {
-  var Code = request.params.Code;
-  var body = _.pick(request.body, ['ProfessorFullName', 'ProfessorEmail', 'CourseScheduleLink', 'MaxStudents', 'TAs']);
-
-  Course.findOneAndUpdate({Code}, {$set: body}, {new: true}).then((course) => {
-    if(!course){
-      response.status(404).send();
-    }
-    response.send({course});
-  }).catch((error) =>{
-    response.status(400).send(error);
   });
 });
 
