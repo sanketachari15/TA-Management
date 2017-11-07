@@ -30,7 +30,7 @@ export class ProfessorComponent implements OnInit, OnDestroy {
   profCourses: any;
   removeTAClicked = false;
 
-  constructor(private dataService: DataService, private sharedService: SharedService, public dialog: MdDialog, private router: Router) {
+  constructor(public dataService: DataService, private sharedService: SharedService, public dialog: MdDialog, private router: Router) {
   }
 
   ngOnInit() {
@@ -140,11 +140,12 @@ export class ProfessorComponent implements OnInit, OnDestroy {
 
   openDialog(): void {
 
-      if(this.removeTAClicked)
-          this.removeTAClicked = false;
-      else {
-          let dialogRef = this.dialog.open(TadetailsComponent);
-          dialogRef.componentInstance.dRef = dialogRef;
+      if (this.removeTAClicked) {
+        this.removeTAClicked = false;
+      } else {
+        let dialogRef = this.dialog.open(TadetailsComponent, {data: 
+          {resumeLink: 'https://vadimdez.github.io/ng2-pdf-viewer/pdf-test.pdf'}});
+            dialogRef.componentInstance.dialogRef = dialogRef;
           dialogRef.afterClosed().subscribe(result => {
               console.log('The dialog was closed');
           });

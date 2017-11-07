@@ -40,4 +40,7 @@ export class DataService {
   deleteTA(UFID: number){
       return this.http.delete(this.api + '/tas/' + UFID);
   }
+  getStudentHome() {
+    return this.http.get(this.api + '/studenthome');
+  }
 }

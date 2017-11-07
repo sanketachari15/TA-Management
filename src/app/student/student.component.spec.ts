@@ -23,6 +23,8 @@ import { GpaChangeComponent } from '../studentprofile/studentprofile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PdfViewerComponent } from 'ng2-pdf-viewer';
 import { TadetailsComponent } from '../tadetails/tadetails.component';
+import {DataService} from "../data.service";
+import { HttpClientModule, HttpClient, HttpHandler } from '@angular/common/http';
 
 describe('StudentComponent', () => {
   let component: StudentComponent;
@@ -43,7 +45,7 @@ describe('StudentComponent', () => {
         MdListModule, BrowserAnimationsModule, RouterTestingModule, FormsModule, ReactiveFormsModule],
       declarations: [ StudentComponent,  StudentprofileComponent, StudenthomeComponent,
         GpaChangeComponent,  TadetailsComponent, PdfViewerComponent ],
-        providers: [SharedService, MdDialogModule, MdDialog, MdSidenavModule, PdfViewerComponent]
+        providers: [SharedService, MdDialogModule, MdDialog, MdSidenavModule, PdfViewerComponent, DataService, HttpClient, HttpHandler]
     })
     .compileComponents();
   }));
