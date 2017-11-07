@@ -17,7 +17,11 @@ export class TadetailsComponent implements OnInit {
     @Inject(MD_DIALOG_DATA) public data: any) { }
   ngOnInit() {
     console.log(this.data.resumeLink);
-    this.pdfSrc = this.data.resumeLink;
+    if (this.data === null) {
+      this.pdfSrc = '../../assets/pdf/resum.pdf';
+    }else {
+      this.pdfSrc = this.data.resumeLink;
+    }
   }
     onNoClick(): void {
       this.dialogRef.close();
