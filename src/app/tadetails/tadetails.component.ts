@@ -10,8 +10,7 @@ import { PdfViewerComponent } from 'ng2-pdf-viewer';
 export class TadetailsComponent implements OnInit {
   pdfSrc = '../../assets/pdf/resum.pdf';
   // pdfSrc = 'https://vadimdez.github.io/ng2-pdf-viewer/pdf-test.pdf';
-  // public dRef: MdDialogRef<TadetailsComponent>;
-  // constructor() { }
+
   constructor(
     public dialogRef: MdDialogRef<TadetailsComponent>,
     @Inject(MD_DIALOG_DATA) public data: any) { }
