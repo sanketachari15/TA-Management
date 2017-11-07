@@ -10,7 +10,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "test": "mocha **/NodeJSBackend/Tests/*.test.js",
-    "testBackendWatch": "nodemon --exec 'npm test'"
+    "testBackendWatch": "nodemon --exec 'npm test'",
+    "test-with-coverage": "nyc --reporter=text mocha **/NodeJSBackend/Tests/*.test.js"
   },
   "private": true,
   "dependencies": {
