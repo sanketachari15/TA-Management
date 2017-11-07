@@ -103,11 +103,20 @@ describe('ProfessorComponent', () => {
     component.droppedItems.push(shuffledStudents[1]);
     component.courses[courseNo].push(shuffledStudents[1]);
 
-    component.removeTA(shuffledStudents[0], 0);
-    component.removeTA(shuffledStudents[0], 1);
+    let deleted_1 = component.dataService.deleteTA(shuffledStudents[0].UFID)
+        .subscribe((x) => {
+            expect(x).toBe(shuffledStudents[0]);
+        });
 
-    expect(component.isAvailable(shuffledStudents[0])).toBe(true);
-    expect(component.isAvailable(shuffledStudents[1])).toBe(true);
+      deleted_1.unsubscribe();
+
+      let deleted_2 = component.dataService.deleteTA(shuffledStudents[1].UFID)
+          .subscribe((x) => {
+              expect(x).toBe(shuffledStudents[1]);
+          });
+
+      deleted_2.unsubscribe();
+
   });
 
   it('should not export to CSV if students list is empty', () => {

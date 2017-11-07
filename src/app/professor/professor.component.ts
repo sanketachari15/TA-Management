@@ -30,7 +30,7 @@ export class ProfessorComponent implements OnInit, OnDestroy {
   profCourses: any;
   removeTAClicked = false;
 
-  constructor(private dataService: DataService, private sharedService: SharedService, public dialog: MdDialog, private router: Router) {
+  constructor(public dataService: DataService, private sharedService: SharedService, public dialog: MdDialog, private router: Router) {
   }
 
   ngOnInit() {
