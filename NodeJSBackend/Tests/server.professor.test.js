@@ -122,7 +122,7 @@ describe('Delete professors/Email', () => {
     .delete(`/professors/${profEmail}`)
     .expect(200)
     .expect((response) => {
-      expect(response.body.professor.Email).toBe(profEmail)
+      expect(response.body.Email).toBe(profEmail)
     })
     .end((error, response) => {
       if(error){
