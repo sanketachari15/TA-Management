@@ -288,5 +288,27 @@ router.get('/tas/:course', (request, response) => {
   });
 });
 
+// Delete the TA
+router.delete('/tas/:UFID' , (req, res) => {
+  let UFID = req.params.UFID;
+  TA.findOneAndRemove({UFID: UFID}).then((ta) => {
+    if(!ta) {
+      return res.status(404).send();
+    }
+    return res.send(ta);
+  }).catch((error) => {
+    res.status(400).send(error);
+  });
+});
+
+// Add new TA
+router.post('/tas', (req, res) => {
+  let newTA = new TA(req.body);
+  newTA.save().then((doc) => {
+    res.send(doc);
+  }, (error) => {
+    res.status(400).send(error);
+  })
+});
 
 module.exports = router;

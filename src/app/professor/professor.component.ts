@@ -25,11 +25,10 @@ export class ProfessorComponent implements OnInit, OnDestroy {
   messages = {0: [], 1: [], 2: [], 3: [], 4: [], 5: []};
   announcements = {0: [], 1: [], 2: [], 3: [], 4: [], 5: []};
 
-  coursesObj: Course[];
-
   students: any;
   search: string;
   profCourses: any;
+  removeTAClicked = false;
 
   constructor(private dataService: DataService, private sharedService: SharedService, public dialog: MdDialog, private router: Router) {
   }
@@ -41,30 +40,42 @@ export class ProfessorComponent implements OnInit, OnDestroy {
     this.dataService.getStudents()
         .takeUntil(this.ngUnsubscribe)
         .subscribe(
-            (x) =>  {this.students = x;},
+            (y) =>  {
+                this.students = y;
+
+                this.dataService.getProfCourses()
+                    .takeUntil(this.ngUnsubscribe)
+                    .subscribe(
+                        (z) => {
+                            let profCourseDetails = _.filter(z, (details) => {return details.FullName == this.prof});
+                            this.profCourses = profCourseDetails[0].Courses;
+                            _.forEach(this.profCourses, (courseDetails) => {
+                                courseDetails.messagesLength = _.filter(courseDetails.messages, (msg) => {return (msg.from) && !_.isEmpty(msg.from)}).length;
+                                courseDetails.announcementsLength = courseDetails.announcements.length;
+                                courseDetails.filesLength = courseDetails.files.length;
+
+                                this.dataService.getTAs(courseDetails.name)
+                                    .takeUntil(this.ngUnsubscribe)
+                                    .subscribe(
+                                        (x) => {
+                                            courseDetails.TAs = x;
+                                            _.forEach(courseDetails.TAs, (ta) => {
+                                                _.forEach(this.students, (student) => {
+                                                    if(student.UFID ===  ta.UFID)
+                                                        this.droppedItems.push(student);
+                                                });
+                                            });
+                                        },
+                                        (err) => console.log('Error occurred in ngOnInit subscribe ' + err),
+                                        () => {});
+                            });
+                        },
+                        (err) => console.log('Error occurred in ngOnInit subscribe ' + err),
+                        () => console.log('professor courses requested'));
+            },
             (err) => console.log('Error occurred in ngOnInit subscribe ' + err),
             () => console.log('students requested')
         );
-
-
-    this.dataService.getProfCourses()
-        .takeUntil(this.ngUnsubscribe)
-        .subscribe(
-            (x) => {
-              let profCourseDetails = _.filter(x, (details) => {return details.FullName == this.prof});
-              this.profCourses = profCourseDetails[0].Courses;
-              _.forEach(this.profCourses, (details) => {
-                details.messagesLength = _.filter(details.messages, (msg) => {return (msg.from) && !_.isEmpty(msg.from)}).length;
-                details.announcementsLength = details.announcements.length;
-                details.filesLength = details.files.length;
-              });
-              /*this.courses[0].push(this.students[1]);
-              this.droppedItems.push(this.students[1]);
-              this.courses[0].push(this.students[2]);
-              this.droppedItems.push(this.students[2]);*/
-            },
-            (err) => console.log('Error occurred in ngOnInit subscribe ' + err),
-            () => console.log('professor courses requested'));
   }
 
   ngOnDestroy() {
@@ -75,6 +86,12 @@ export class ProfessorComponent implements OnInit, OnDestroy {
   onItemDrop(event: any, courseNo: number) {
     this.droppedItems.push(event.dragData);
     this.courses[courseNo].push(event.dragData);
+
+    let ta = event.dragData;
+    ta.isTA = false;
+    ta.TAofCourse = this.profCourses[courseNo].name;
+    this.dataService.addTAs(ta).subscribe();
+
     return event.dragData;
   }
 
@@ -102,12 +119,14 @@ export class ProfessorComponent implements OnInit, OnDestroy {
   }
 
   removeTA(student: any, courseNo: number) {
+    this.removeTAClicked = true;
     this.courses[courseNo].splice(this.courses[courseNo].indexOf(student), 1);
     this.droppedItems.splice(this.droppedItems.indexOf(student), 1);
+    this.dataService.deleteTA(student.UFID).subscribe();
   }
 
   getTAs(courseNo: number) {
-    return this.courses[courseNo];
+    return this.courses[courseNo].concat(this.profCourses[courseNo].TAs);
   }
 
   exportToCSV(courseNo: number) {
@@ -120,13 +139,16 @@ export class ProfessorComponent implements OnInit, OnDestroy {
   }
 
   openDialog(): void {
-    let dialogRef = this.dialog.open(TadetailsComponent);
 
-    dialogRef.componentInstance.dRef = dialogRef;
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
+      if(this.removeTAClicked)
+          this.removeTAClicked = false;
+      else {
+          let dialogRef = this.dialog.open(TadetailsComponent);
+          dialogRef.componentInstance.dRef = dialogRef;
+          dialogRef.afterClosed().subscribe(result => {
+              console.log('The dialog was closed');
+          });
+      }
   }
 
   show(courseIndex, x): void{
@@ -138,14 +160,3 @@ export class ProfessorComponent implements OnInit, OnDestroy {
   }
 }
 
-class Course {
-
-  tas: any[];
-  constructor(private name:string){
-
-  }
-
-  addTA(student: any){
-    this.tas.push(student)
-  }
-}

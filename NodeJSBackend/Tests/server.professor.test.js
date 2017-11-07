@@ -142,6 +142,45 @@ describe('Delete professors/Email', () => {
     .expect(404)
     .end(done);
   });
+
+describe('Delete /professors', () => {
+
+    it('should delete the professor', (done) => {
+
+        //----- Delete -----
+        request(app)
+            .delete(`/professors/${testProfessors[1].Email}`)
+            .expect(200)
+            .expect((response) => {
+                    expect(response.body.Email).toBe(testProfessors[1].Email)
+                }
+            )
+            .end((error, response) => {
+                if (error)
+                    return done(error);
+
+                //----- Read -----
+                request(app)
+                    .get(`/professors/${testProfessors[1].Email}`)
+                    .expect(404)
+                    .expect((response) => {
+                        expect(_.isEmpty(response.body)).toBe(true);
+                    })
+                    .end((error, response) => {
+                        if (error)
+                            return done(error);
+                        done();
+                    });
+            });
+    });
+
+    it('should return 404 if professor\'s email not found', (done) => {
+        let falseProfEmail = "invalidProfessorEmail";
+        request(app)
+            .delete(`/professors/${falseProfEmail}`)
+            .expect(404)
+            .end(done);
+    });
 });
 
 describe('Patch /professors', () => {

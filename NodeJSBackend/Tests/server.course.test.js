@@ -127,32 +127,3 @@ describe('Get courses/Code', () => {
     .end(done);
   });
 });
-
-describe('Delete courses/Code', () => {
-  it('should remove a course', (done) => {
-    var courseCode = testCourses[0].Code;
-    request(app)
-    .delete(`/courses/${courseCode}`)
-    .expect(200)
-    .expect((response) => {
-      expect(response.body.course.Code).toBe(courseCode)
-    })
-    .end((error, response) => {
-      if(error){
-        return done(error);
-      }
-      Course.find({Code: courseCode}).then((courses) => {
-        expect(courses.length).toBe(0);
-        done();
-      }).catch((error) => done(error));
-    });
-  });
-
-  it('should return 404 if course not found', (done) => {
-    var falseCourseCode = "invalidCourseCode"
-    request(app)
-    .delete(`/courses/${falseCourseCode}`)
-    .expect(404)
-    .end(done);
-  });
-});
