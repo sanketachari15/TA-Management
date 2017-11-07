@@ -1,30 +1,87 @@
-<div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">    
-  <!-- The Grid -->
-  <div class="w3-row">
-    <!-- Left Column -->
-    <div class="w3-col m3" style="margin-left:80px">
-      <!-- Profile -->
-      <div class="w3-card-2 w3-round w3-white">
-        <div class="w3-container">
-         <h3 class="w3-center">COP5556: Program Language Principles</h3>
-         <hr>
-         <p>New important announcements from Subject to display here</p>
-         <p> Gainesville, Fl</p>
-         <p> April 1, 1988</p>
+<br>
+<div>
+    <h4 *ngIf="checkDataFromParent()" style="padding-left: 20px">{{courseTitle}}</h4>
+</div>
+<br>
+<div class="wrapper">
+    <div class="left-side">
+
+        <div class="left-side-wrapper">
+            <md-list>
+                <a md-list-item (click)="setLink('home')" [ngClass]="{active: link === 'home'}">Home</a>
+                <a md-list-item (click)="setLink('announcements')" [ngClass]="{active: link === 'announcements'}">Announcements</a>
+                <a md-list-item (click)="setLink('messages')" [ngClass]="{active: link === 'messages'}">Messages</a>
+                <a md-list-item (click)="setLink('files')" [ngClass]="{active: link === 'files'}">Files</a>
+            </md-list>
+
         </div>
-        
-        <div class="icons">
-          <span class="material-icons" mdTooltip="Announcement" mdTooltipPosition="above"><md-icon
-                  class="md-icons">announcement</md-icon></span>
-              <span class="material-icons" mdTooltip="Messages" mdTooltipPosition="above"><md-icon
-                      class="md-icons">message</md-icon></span>
-              <span class="material-icons" mdTooltip="Files" mdTooltipPosition="above"><md-icon
-                      class="md-icons">folder</md-icon></span>
-              <span class="material-icons" mdTooltip="Download" mdTooltipPosition="above"><md-icon
-                      class="md-icons">file_download</md-icon></span>
-          </div>
-      </div>
-      <br>
-      </div>
-      </div>
-      </div>
+    </div>
+    <div class="middle">
+        <div class="middle-wrapper">
+
+            <div class="Home" *ngIf="link === 'home'">
+                <h4>Recent Announcements</h4>
+                <hr style="border-width: thick">
+                <div *ngFor="let announce of getAnnouncements()">
+                    <p>{{announce}}</p>
+                    <hr>
+                </div>
+                <br><br>
+
+                <h4>Inbox</h4>
+                <hr style="border-width: thick">
+                <div *ngFor="let msg of getMessages()">
+                    <h5>{{msg.from}}</h5>
+                    <p>{{msg.message}}</p>
+                    <hr>
+                </div>
+                <br><br>
+
+                <h4>No Files</h4>
+                <hr style="border-width: thick">
+            </div>
+
+            <div class="Announcements" *ngIf="link === 'announcements'">
+                <h4>Recent Announcements</h4>
+                <hr style="border-width: thick">
+                <div *ngFor="let announce of getAnnouncements()">
+                    <p>{{announce}}</p>
+                    <hr>
+                </div>
+            </div>
+
+            <div class="Messages" *ngIf="link === 'messages'">
+                <div class="inbox">
+                    <h4>Inbox</h4>
+                    <md-icon mdTooltip="New message" mdTooltipPosition="above" class="new-message"
+                             (click)="newMessage()">add_circle
+                    </md-icon>
+                </div>
+
+                <hr style="border-width: thick">
+                <div *ngFor="let msg of getMessages()">
+                    <h5>{{msg.from}}</h5>
+                    <p>{{msg.message}}</p>
+                    <hr>
+                </div>
+
+                <br><br>
+                <h4>Sent</h4>
+                <hr style="border-width: thick">
+                <div *ngFor="let msg of getSentMessages()">
+                    <h5>{{msg.to}}</h5>
+                    <p>{{msg.message}}</p>
+                    <hr>
+                </div>
+            </div>
+
+            <div class="Files" *ngIf="link === 'files'">
+                <h4>No files</h4>
+                <hr style="border-width: thick">
+            </div>
+
+        </div>
+    </div>
+    <div class="right-side"></div>
+
+</div>
