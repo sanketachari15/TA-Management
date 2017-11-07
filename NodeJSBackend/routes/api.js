@@ -38,6 +38,18 @@ router.get('/students/:UFID', (request, response) => {
     });
 });
 
+router.delete('/students/:UFID', (request, response) => {
+  var UFID = request.params.UFID;
+  Student.findOneAndRemove({UFID}).then((student) => {
+    if(!student){
+      response.status(404).send();
+    }
+    response.send({student});
+  }).catch((error) => {
+    response.status(400).send();
+  });
+});
+
 router.post('/professors', (request, response) => {
     var newProfessor = new Professor(request.body);
     newProfessor.save().then((doc) => {
@@ -145,6 +157,18 @@ router.get('/courses/:Code', (request, response) => {
     }).catch((error) => {
         response.status(400).send();
     });
+});
+
+router.delete('/courses/:Code', (request, response) => {
+  var Code = request.params.Code;
+  Course.findOneAndRemove({Code}).then((course) => {
+    if(!course){
+      response.status(404).send();
+    }
+    response.send({course});
+  }).catch((error) => {
+    response.status(400).send();
+  });
 });
 
 router.post('/profcourses', (request, response) => {
