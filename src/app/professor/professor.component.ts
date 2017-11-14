@@ -120,12 +120,14 @@ export class ProfessorComponent implements OnInit, OnDestroy {
 
   removeTA(student: any, courseNo: number) {
     this.removeTAClicked = true;
-    this.courses[courseNo].splice(this.courses[courseNo].indexOf(student), 1);
-    this.droppedItems.splice(this.droppedItems.indexOf(student), 1);
+    this.courses[courseNo] = _.filter(this.courses[courseNo], (ta) => ta.UFID != student.UFID);
+    this.droppedItems = _.filter(this.droppedItems, (ta) => ta.UFID != student.UFID);
+    this.profCourses[courseNo].TAs = _.filter(this.profCourses[courseNo].TAs, (ta) => ta.UFID != student.UFID);
     this.dataService.deleteTA(student.UFID).subscribe();
   }
 
   getTAs(courseNo: number) {
+    // console.log("In getTAs");
     return this.courses[courseNo].concat(this.profCourses[courseNo].TAs);
   }
 
