@@ -14,7 +14,7 @@ const testStudents = [{
   CourseMostInterestedIn: ['COP5615: Distributed Operating Systems', 'CEN5035: Software Engineering'],
   InterestLevel: '2',
   Email: 'johnjohansson@ufl.edu',
-  ResumeLink: 'resumeOfTest1',
+  ResumeLink: 'https://vadimdez.github.io/ng2-pdf-viewer/pdf-test.pdf',
   GPA: 3.66
 }, {
   UFID: '123456789012',
@@ -241,6 +241,50 @@ describe('Get students/UFID', () => {
     request(app)
     .get(`/students/${falseStudentUFID}`)
     .expect(404)
+    .end(done);
+  });
+});
+
+describe('Delete students/UFID', () => {
+  it('should remove a student', (done) => {
+    var studentId = testStudents[0].UFID;
+    request(app)
+    .delete(`/students/${studentId}`)
+    .expect(200)
+    .expect((response) => {
+      expect(response.body.student.UFID).toBe(studentId)
+    })
+    .end((error, response) => {
+      if(error){
+        return done(error);
+      }
+      Student.find({UFID: studentId}).then((student) => {
+        expect(student.length).toBe(0);
+        done();
+      }).catch((error) => done(error));
+    });
+  });
+
+  it('should return 404 if student not found', (done) => {
+    var falseStudentUFID = "invalidUFID"
+    request(app)
+    .delete(`/students/${falseStudentUFID}`)
+    .expect(404)
+    .end(done);
+  });
+});
+
+describe('Update students/UFID', () => {
+  it('should update the student', (done) => {
+    var studentId = testStudents[0].UFID;
+    request(app)
+    .patch(`/students/${studentId}`)
+    .send({ "InterestLevel": 5 })
+    .expect(200)
+    .expect((response) => {
+      expect(response.body.student.InterestLevel).toBeA('number');
+      expect(response.body.student.InterestLevel).toBe(5);
+    })
     .end(done);
   });
 });

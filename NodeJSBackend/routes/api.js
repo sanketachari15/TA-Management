@@ -7,6 +7,7 @@ let { Professor } = require('../SchemaModels/ProfessorModel.js');
 let { Course } = require('../SchemaModels/CourseModel.js');
 let {ProfCourses} = require('../SchemaModels/ProfCoursesModel');
 let {TA} = require('../SchemaModels/TAModel');
+let {StudentHome} = require('../SchemaModels/StudentHomeModel');
 
 
 router.post('/students', (request, response) => {
@@ -47,6 +48,20 @@ router.delete('/students/:UFID', (request, response) => {
     response.send({student});
   }).catch((error) => {
     response.status(400).send();
+  });
+});
+
+router.patch('/students/:UFID', (request, response) => {
+  var UFID = request.params.UFID;
+  var body = _.pick(request.body, ['SchoolYear', 'Sem', 'CourseMostInterestedIn', 'InterestLevel', 'ResumeLink', 'GPA']);
+
+  Student.findOneAndUpdate({UFID}, {$set: body}, {new: true}).then((student) => {
+    if(!student){
+      response.status(404).send();
+    }
+    response.send({student});
+  }).catch((error) =>{
+    response.status(400).send(error);
   });
 });
 
@@ -168,6 +183,20 @@ router.delete('/courses/:Code', (request, response) => {
     response.send({course});
   }).catch((error) => {
     response.status(400).send();
+  });
+});
+
+router.patch('/courses/:Code', (request, response) => {
+  var Code = request.params.Code;
+  var body = _.pick(request.body, ['ProfessorFullName', 'ProfessorEmail', 'CourseScheduleLink', 'MaxStudents', 'TAs']);
+
+  Course.findOneAndUpdate({Code}, {$set: body}, {new: true}).then((course) => {
+    if(!course){
+      response.status(404).send();
+    }
+    response.send({course});
+  }).catch((error) =>{
+    response.status(400).send(error);
   });
 });
 
@@ -309,6 +338,50 @@ router.post('/tas', (req, res) => {
   }, (error) => {
     res.status(400).send(error);
   })
+});
+
+// Add new StudentHome
+
+router.post('/studenthome', (request, response) => {
+    let newStudentHome = new StudentHome(request.body);
+    newStudentHome.save().then((doc) => {
+        response.send(doc);
+    }, (error) => {
+        response.status(400).send(error);
+    })
+});
+
+router.get('/studenthome', (req, res) => {
+    StudentHome.find().then((studentHome) => {
+        res.send(studentHome);
+    }, (error) => {
+        res.status(400).send(error);
+    });
+});
+
+router.get('/studenthome/:Email', (request, response) => {
+    let Email = request.params.Email;
+    StudentHome.find({Email}).then((studentHome) => {
+        if(studentHome.length == 0){
+            return response.status(404).send();
+        }
+        response.send(studentHome);
+    }).catch((error) => {
+        response.status(400).send(error);
+    });
+});
+
+// Updates only the messages attribute of StudentHome. Push new message
+router.patch('/studenthome/:Email/to' , (req, res) => {
+  let email = req.params.Email;
+  StudentHome.findOneAndUpdate({Email: email}, { $push : { 'Courses.0.messages': {'to': req.body.to, 'message': req.body.message} }} , {new: true}).then((studentHome) => {
+    if(!studentHome) {
+      return res.status(404).send();
+    }
+    return res.send(studentHome);
+  }).catch((error) => {
+    res.status(400).send(error);
+  });
 });
 
 module.exports = router;
