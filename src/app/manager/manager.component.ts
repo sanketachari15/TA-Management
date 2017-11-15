@@ -117,8 +117,14 @@ export class ManagerComponent implements OnInit, OnDestroy {
                                     student.isTA = _.findIndex(tas, (ta) => {return ta.UFID == student.UFID}) != -1;
 
                                     if (!student.isTA){
-                                        student.allowOrReject = "Reject";
-                                        student.color = "#f44336";
+                                        if (student.isAllowed == false){
+                                            student.allowOrReject = "Allow";
+                                            student.color = "#4CAF50";
+                                        }
+                                        else{
+                                            student.allowOrReject = "Reject";
+                                            student.color = "#f44336";
+                                        }
                                     }
                                     else {
                                         student.allowOrReject = "Already TA";
@@ -136,7 +142,7 @@ export class ManagerComponent implements OnInit, OnDestroy {
 
     getStudents() {
         if (_.isEmpty(this.search))
-            return _.orderBy(this.students, ['GPA'], ['desc']);
+            return _.orderBy(this.students, ['isTA','GPA'], ['inc','desc']);
 
         return _.chain(this.students).filter(student => (student.FirstName + " " + student.LastName).toLowerCase().startsWith(this.search.toLowerCase())).value();
     }
