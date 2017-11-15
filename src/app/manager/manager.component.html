@@ -65,7 +65,8 @@
                                        mdTooltip="{{student.FirstName}} {{student.LastName}}"
                                        mdTooltipPosition="above">{{student.FirstName}} {{student.LastName}}</h4>
                                     <p class="student-gpa font-bold" style="flex: 2">GPA: {{student.GPA}}</p>
-                                    <button style="flex: 2; justify-content: center;" [ngStyle] = "{'background-color': student.color}" (click) = "changeStatus(student)">{{student.allowOrReject}}</button>
+                                    <button style="flex: 2; justify-content: center;" [ngStyle] = "{'background-color': student.color}"
+                                            (click) = "changeStatus(student)" [disabled] = "student.isTA">{{student.allowOrReject}}</button>
                                 </div>
                                 <p class="font-bold">Courses Most Interested In: </p>
                                 <div *ngFor="let course of student.CourseMostInterestedIn">

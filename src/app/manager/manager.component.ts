@@ -23,12 +23,12 @@ export class ManagerComponent implements OnInit, OnDestroy {
     profName: string;
     students: any;
     search: string;
-    allowOrReject: string;
+    TACollection: any;
 
     constructor(private sharedService: SharedService, private dataService: DataService) {
         this.courses = [];
         this.students = [];
-        this.allowOrReject = "Allow";
+        this.TACollection = [];
     }
 
     ngOnInit() {
@@ -99,18 +99,38 @@ export class ManagerComponent implements OnInit, OnDestroy {
     }
 
     getStudentsFromDb() {
-        this.dataService.getStudents()
+
+        this.dataService.getAllTAs()
             .takeUntil(this.ngUnsubscribe)
             .subscribe(
-                (x) => {
-                    this.students = x;
-                    _.each(this.students, (student) => {
-                        student.allowOrReject = "Reject";
-                        student.color = "#f44336";
-                    });
+                (x) =>{
+                    let tas = x;
+
+                    this.dataService.getStudents()
+                        .takeUntil(this.ngUnsubscribe)
+                        .subscribe(
+                            (x) => {
+                                this.students = x;
+                                console.log("TA collection ");
+                                console.log(JSON.stringify(this.TACollection));
+                                _.each(this.students, (student) => {
+                                    student.isTA = _.findIndex(tas, (ta) => {return ta.UFID == student.UFID}) != -1;
+
+                                    if (!student.isTA){
+                                        student.allowOrReject = "Reject";
+                                        student.color = "#f44336";
+                                    }
+                                    else {
+                                        student.allowOrReject = "Already TA";
+                                    }
+                                    console.log(student.FirstName + " is TA? " + student.isTA);
+                                });
+                                console.log(JSON.stringify(this.students));
+                            },
+                            (err) => console.log('Error occurred in getStudents ' + err),
+                        );
                 },
-                (err) => console.log('Error occurred in getStudents ' + err),
-                () => console.log('students requested')
+                (err) => console.log('Error occurred in getAllTAs ' + err),
             );
     }
 
@@ -127,42 +147,32 @@ export class ManagerComponent implements OnInit, OnDestroy {
 
     changeStatus(student: any) {
 
-            /*this.dataService.getAllTAs()
-                .takeUntil(this.ngUnsubscribe)
-                .subscribe(
-                    (x) => {
+        if (student.allowOrReject === "Allow") {
+            student.allowOrReject = "Reject";
+            student.color = "#f44336";
 
-                        let ta  = _.find(this.students, (t) => {return t.UFID === student.UFID});
+            //REST call to accept application
+            student.isAllowed = true;
+            console.log("Allowing");
+            this.dataService.patchStudent(student).takeUntil(this.ngUnsubscribe).subscribe(
+                (x) => {
+                    console.log(JSON.stringify(x));
+                }
+            );
 
-                        if (_.isDefined(ta)){*/
-
-                            if (student.allowOrReject === "Allow") {
-                                student.allowOrReject = "Reject";
-                                student.color = "#f44336";
-
-                                //REST call to accept application
-                                student.isAllowed = true;
-                                console.log("Allowing");
-                                this.dataService.patchStudent(student).takeUntil(this.ngUnsubscribe).subscribe(
-                                    (x) => {console.log(JSON.stringify(x));}
-                                );
-
-                            }
-                            else {
-                                student.allowOrReject = "Allow";
-                                student.color = "#4CAF50";
-
-                                //REST call to reject application
-                                student.isAllowed = false;
-                                console.log("Rejecting");
-                                this.dataService.patchStudent(student).takeUntil(this.ngUnsubscribe).subscribe(
-                                    (x) => {console.log(JSON.stringify(x));}
-                                );
-                            }
-        /*   }
-                   },
-                    (err) => console.log('Error occurred in getStudents ' + err),
-                    () => console.log('students requested')
-                );*/
         }
+        else {
+            student.allowOrReject = "Allow";
+            student.color = "#4CAF50";
+
+            //REST call to reject application
+            student.isAllowed = false;
+            console.log("Rejecting");
+            this.dataService.patchStudent(student).takeUntil(this.ngUnsubscribe).subscribe(
+                (x) => {
+                    console.log(JSON.stringify(x));
+                }
+            );
+        }
+    }
 }
