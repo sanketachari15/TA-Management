@@ -41,7 +41,7 @@ export class ProfessorComponent implements OnInit, OnDestroy {
         .takeUntil(this.ngUnsubscribe)
         .subscribe(
             (y) =>  {
-                this.students = y;
+                this.students = _.filter(y, (student) => {return student.isAllowed;});
 
                 this.dataService.getProfCourses()
                     .takeUntil(this.ngUnsubscribe)

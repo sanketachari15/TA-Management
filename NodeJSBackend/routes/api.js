@@ -65,6 +65,19 @@ router.patch('/students/:UFID', (request, response) => {
   });
 });
 
+router.patch('/students/:UFID/isallowed', (request, response) => {
+  let UFID = request.params.UFID;
+
+  Student.findOneAndUpdate({UFID}, {$set: { isAllowed: request.body.isAllowed} }, {new: true}).then((student) => {
+    if(!student){
+      response.status(404).send();
+    }
+    response.send({student});
+  }).catch((error) =>{
+    response.status(400).send(error);
+  });
+});
+
 router.post('/professors', (request, response) => {
     var newProfessor = new Professor(request.body);
     newProfessor.save().then((doc) => {

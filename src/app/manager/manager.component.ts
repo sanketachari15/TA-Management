@@ -21,14 +21,20 @@ export class ManagerComponent implements OnInit, OnDestroy {
     TAs: any;
     seats: number;
     profName: string;
+    students: any;
+    search: string;
+    allowOrReject: string;
 
     constructor(private sharedService: SharedService, private dataService: DataService) {
-        this.courses = []
+        this.courses = [];
+        this.students = [];
+        this.allowOrReject = "Allow";
     }
 
     ngOnInit() {
         this.sharedService.changeHeader(this.header);
-        this.getProfCourses()
+        this.getProfCourses();
+        this.getStudentsFromDb();
     }
 
     ngOnDestroy() {
@@ -92,7 +98,71 @@ export class ManagerComponent implements OnInit, OnDestroy {
                 () => console.log('professor courses requested'));
     }
 
+    getStudentsFromDb() {
+        this.dataService.getStudents()
+            .takeUntil(this.ngUnsubscribe)
+            .subscribe(
+                (x) => {
+                    this.students = x;
+                    _.each(this.students, (student) => {
+                        student.allowOrReject = "Reject";
+                        student.color = "#f44336";
+                    });
+                },
+                (err) => console.log('Error occurred in getStudents ' + err),
+                () => console.log('students requested')
+            );
+    }
+
+    getStudents() {
+        if (_.isEmpty(this.search))
+            return _.orderBy(this.students, ['GPA'], ['desc']);
+
+        return _.chain(this.students).filter(student => (student.FirstName + " " + student.LastName).toLowerCase().startsWith(this.search.toLowerCase())).value();
+    }
+
     setLink(link: string) {
         this.link = link;
     }
+
+    changeStatus(student: any) {
+
+            /*this.dataService.getAllTAs()
+                .takeUntil(this.ngUnsubscribe)
+                .subscribe(
+                    (x) => {
+
+                        let ta  = _.find(this.students, (t) => {return t.UFID === student.UFID});
+
+                        if (_.isDefined(ta)){*/
+
+                            if (student.allowOrReject === "Allow") {
+                                student.allowOrReject = "Reject";
+                                student.color = "#f44336";
+
+                                //REST call to accept application
+                                student.isAllowed = true;
+                                console.log("Allowing");
+                                this.dataService.patchStudent(student).takeUntil(this.ngUnsubscribe).subscribe(
+                                    (x) => {console.log(JSON.stringify(x));}
+                                );
+
+                            }
+                            else {
+                                student.allowOrReject = "Allow";
+                                student.color = "#4CAF50";
+
+                                //REST call to reject application
+                                student.isAllowed = false;
+                                console.log("Rejecting");
+                                this.dataService.patchStudent(student).takeUntil(this.ngUnsubscribe).subscribe(
+                                    (x) => {console.log(JSON.stringify(x));}
+                                );
+                            }
+        /*   }
+                   },
+                    (err) => console.log('Error occurred in getStudents ' + err),
+                    () => console.log('students requested')
+                );*/
+        }
 }

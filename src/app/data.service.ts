@@ -15,6 +15,10 @@ export class DataService {
     return this.http.get(this.api + '/students');
   }
 
+  patchStudent(student:any){
+    return this.http.patch(this.api + '/students/' + student.UFID + '/isallowed', student)
+  }
+
   getProfCourses(){
     return this.http.get(this.api + '/profcourses');
   }
@@ -35,6 +39,10 @@ export class DataService {
 
   getTAs(course: string){
     return this.http.get(this.api + '/tas/' + course);
+  }
+
+  getAllTAs(){
+      return this.http.get(this.api + '/tas/');
   }
 
   deleteTA(UFID: number){

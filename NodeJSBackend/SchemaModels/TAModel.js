@@ -37,13 +37,15 @@ let TA = mongoose.model('TA', {
     type: String,
     required: true,
     minLength: 1,
-    trim: true
+    trim: true,
+    default: ""
   },
   isTA:{
     type: Boolean,
     required: true,
     minLength: 1,
-    trim: true
+    trim: true,
+    default: false
   },
   ResumeLink: {
     type: String,

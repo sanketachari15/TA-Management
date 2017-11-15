@@ -48,7 +48,34 @@
                     <div class="right-side-2"></div>
                 </div>
             </md-tab>
-            <md-tab label="Students"></md-tab>
+            <md-tab label="Students">
+                <div class="student-wrapper">
+                    <br>
+                    <form>
+                        <md-form-field>
+                            <input class="search-input" name="search-input" mdInput placeholder="Enter name of student"
+                                   [(ngModel)]="search">
+                        </md-form-field>
+                    </form> <br>
+                    <md-list>
+                        <div *ngFor="let student of getStudents()">
+                            <md-card>
+                                <div class="row-flex">
+                                    <h4 class="student-name" style="flex: 4"
+                                       mdTooltip="{{student.FirstName}} {{student.LastName}}"
+                                       mdTooltipPosition="above">{{student.FirstName}} {{student.LastName}}</h4>
+                                    <p class="student-gpa font-bold" style="flex: 2">GPA: {{student.GPA}}</p>
+                                    <button style="flex: 2; justify-content: center;" [ngStyle] = "{'background-color': student.color}" (click) = "changeStatus(student)">{{student.allowOrReject}}</button>
+                                </div>
+                                <p class="font-bold">Courses Most Interested In: </p>
+                                <div *ngFor="let course of student.CourseMostInterestedIn">
+                                    <p>{{course}}</p>
+                                </div>
+                            </md-card>
+                        </div>
+                    </md-list>
+                </div>
+            </md-tab>
             <md-tab label="Details">
                 <div class="wrapper-2">
                     <div class="left-side">
