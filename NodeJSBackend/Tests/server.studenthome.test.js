@@ -58,7 +58,7 @@ describe('POST /studenthome', () => {
       ]
     });
     request(app)
-      .post('/studenthome')
+      .post('/api/studenthome')
       .send(StudentHomeTest)
       .expect(200)
       .expect((response) => {
@@ -79,7 +79,7 @@ describe('POST /studenthome', () => {
 
   it('should not add course with empty body data', (done) => {
     request(app)
-      .post('/studenthome')
+      .post('/api/studenthome')
       .send({})
       .expect(400)
       .end((error, response) => {

@@ -166,7 +166,7 @@ describe('POST /profcourses', () => {
       ]
     });
     request(app)
-      .post('/profcourses')
+      .post('/api/profcourses')
       .send(ProfCoursesTest)
       .expect(200)
       .expect((response) => {
@@ -187,7 +187,7 @@ describe('POST /profcourses', () => {
 
   it('should not add course with empty body data', (done) => {
     request(app)
-      .post('/profcourses')
+      .post('/api/profcourses')
       .send({})
       .expect(400)
       .end((error, response) => {
@@ -202,7 +202,7 @@ describe('POST /profcourses', () => {
 describe('Get /professors', () => {
   it('should get all professor\'s courses', (done) => {
     request(app)
-      .get('/profcourses')
+      .get('/api/profcourses')
       .expect(200)
       .expect((response) => {
         expect(response.body.length).toBe(2)
@@ -215,7 +215,7 @@ describe('Get profcourses/Email', () => {
 
   it('should return profcourses doc', (done) => {
     request(app)
-      .get(`/profcourses/${testProfCourses[0].Email}`)
+      .get(`/api/profcourses/${testProfCourses[0].Email}`)
       .expect(200)
       .expect((response) => {
         // console.log(response.body);
@@ -227,7 +227,7 @@ describe('Get profcourses/Email', () => {
   it('should return 404 if professor not found', (done) => {
     let falseProfEmail = "invalidProfessorEmail";
     request(app)
-      .get(`/profcourses/${falseProfEmail}`)
+      .get(`/api/profcourses/${falseProfEmail}`)
       .expect(404)
       .end(done);
   });

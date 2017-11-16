@@ -112,6 +112,16 @@
   margin-bottom: 10px;
 }
 
-.allow{
-  //color: ;
+.inbox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.button{
+  background-color: #FFFFFF;
+}
+
+.button:hover{
+  background-color: #ff7f00;
 }

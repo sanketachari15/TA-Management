@@ -5,7 +5,7 @@ import 'rxjs/Rx'
 @Injectable()
 export class DataService {
 
-  api: string = 'http://localhost:3000';
+  api: string = 'http://localhost:3000/api';
   prof: string;
   profEmail: string;
 
@@ -28,9 +28,17 @@ export class DataService {
     this.profEmail = "ad@ufl.edu"
   }
 
+  getProfs(){
+      return this.http.get(this.api + '/professors');
+  }
+
   sendMessage(msgbody: any){
     this.getProf();
     return this.http.patch(this.api + '/profcourses/' + this.profEmail + '/to', msgbody);
+  }
+
+  managerSendMessage(msgbody:any, managerEmail: string){
+      return this.http.patch(this.api + '/manager/' + managerEmail + '/to', msgbody);
   }
 
   addTAs(ta:any){
@@ -50,5 +58,9 @@ export class DataService {
   }
   getStudentHome() {
     return this.http.get(this.api + '/studenthome');
+  }
+
+  getManager() {
+    return this.http.get(this.api + '/manager');
   }
 }

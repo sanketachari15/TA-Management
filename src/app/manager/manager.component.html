@@ -94,7 +94,83 @@
                     </div>
                     <div class="middle">
                         <div class="middle-wrapper">
-                            <md-card style="height: 400px;"></md-card>
+
+                            <div class="Home" *ngIf="link === 'home'">
+                                <h4>Recent Announcements</h4>
+                                <hr style="border-width: thick">
+                                <div *ngFor="let announce of getAnnouncements()">
+                                    <p>{{announce}}</p>
+                                    <hr>
+                                </div>
+                                <br><br>
+
+                                <h4>Inbox</h4>
+                                <hr style="border-width: thick">
+                                <div *ngFor="let msg of getMessages()">
+                                    <h5>{{msg.from}}</h5>
+                                    <p>{{msg.message}}</p>
+                                    <hr>
+                                </div>
+                                <br><br>
+
+                                <h4>No Files</h4>
+                                <hr style="border-width: thick">
+                            </div>
+
+                            <div class="Announcements" *ngIf="link === 'announcements'">
+                                <h4>Recent Announcements</h4>
+                                <hr style="border-width: thick">
+                                <div *ngFor="let announce of getAnnouncements()">
+                                    <p>{{announce}}</p>
+                                    <hr>
+                                </div>
+                            </div>
+
+                            <div class="Messages" *ngIf="link === 'messages'">
+                                <div class="inbox">
+                                    <h4>Inbox</h4>
+                                    <md-icon mdTooltip="New message" mdTooltipPosition="above" class="new-message"
+                                             (click)="newMessage()">add_circle
+                                    </md-icon>
+                                </div>
+
+                                <hr style="border-width: thick">
+                                <div *ngFor="let msg of getMessages()">
+                                    <h5>{{msg.from}}</h5>
+                                    <p>{{msg.message}}</p>
+                                    <hr>
+                                </div>
+
+                                <div class="msg-wrapper" *ngIf="newMsgEnabled">
+                                    <hr>
+                                    <h5>To: </h5>
+                                    <div *ngFor="let prof of profs; let i = index">
+                                        <md-slide-toggle [(ngModel)] = "prof.checked">{{prof.FirstName}} {{prof.LastName}}</md-slide-toggle>
+                                    </div>
+                                    <br>
+                                    <input class="msg" name="msg-input" mdInput placeholder="Type message"
+                                           [(ngModel)]="message"><br><br>
+                                    <button class="button" (click)="sendMessage()">Send</button>
+                                    <button class="button" (click)="cancel()">Cancel</button>
+                                    <br>
+                                    <hr>
+                                </div>
+
+                                <br><br>
+                                <h4>Sent</h4>
+                                <hr style="border-width: thick">
+                                <div *ngFor="let msg of getSentMessages()">
+                                    <h5>{{msg.to}}</h5>
+                                    <p>{{msg.message}}</p>
+                                    <hr>
+                                </div>
+                            </div>
+
+                            <div class="Files" *ngIf="link === 'files'">
+                                <h4>No files</h4>
+                                <hr style="border-width: thick">
+                            </div>
+
                         </div>
                     </div>
                     <div class="right-side"></div>

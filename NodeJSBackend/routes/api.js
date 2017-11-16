@@ -8,6 +8,7 @@ let { Course } = require('../SchemaModels/CourseModel.js');
 let {ProfCourses} = require('../SchemaModels/ProfCoursesModel');
 let {TA} = require('../SchemaModels/TAModel');
 let {StudentHome} = require('../SchemaModels/StudentHomeModel');
+let {Manager} = require('../SchemaModels/ManagerModel');
 
 
 router.post('/students', (request, response) => {
@@ -392,6 +393,49 @@ router.patch('/studenthome/:Email/to' , (req, res) => {
       return res.status(404).send();
     }
     return res.send(studentHome);
+  }).catch((error) => {
+    res.status(400).send(error);
+  });
+});
+
+
+router.post('/manager', (req, res) => {
+  let newManager = new Manager(req.body);
+  newManager.save().then((doc) => {
+    res.send(doc);
+  }, (error) => {
+    res.status(400).send(error);
+  })
+});
+
+router.get('/manager', (req, res) => {
+  Manager.find().then((manager) => {
+    res.send(manager);
+  }, (error) => {
+    res.status(400).send(error);
+  });
+});
+
+router.get('/manager/:Email', (req, res) => {
+  let Email = req.params.Email;
+  Manager.find({Email}).then((manager) => {
+    if(manager.length == 0){
+      return res.status(404).send();
+    }
+    res.send(manager);
+  }).catch((error) => {
+    res.status(400).send(error);
+  });
+});
+
+// Updates only the messages attribute of professor. Push new message
+router.patch('/manager/:Email/to' , (req, res) => {
+  let email = req.params.Email;
+  Manager.findOneAndUpdate({Email: email}, { $push : { 'messages': {'to': req.body.to, 'message': req.body.message} }} , {new: true}).then((manager) => {
+    if(!manager) {
+      return res.status(404).send();
+    }
+    return res.send(manager);
   }).catch((error) => {
     res.status(400).send(error);
   });

@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy, Inject} from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import {Angular2Csv} from 'angular2-csv';
 import {DataService} from '../data.service';
 import * as _ from 'lodash';
 import 'rxjs/add/operator/takeUntil';
-import {Subject, Subscription} from 'rxjs/Rx';
-import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
+import {Subject} from 'rxjs/Rx';
+import {MdDialog} from '@angular/material';
 import { TadetailsComponent } from '../tadetails/tadetails.component';
 import {SharedService} from "../shared.service";
 import {Router} from "@angular/router";

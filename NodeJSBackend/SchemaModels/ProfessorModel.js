@@ -34,19 +34,4 @@ var Professor = mongoose.model('Professor', {
   }
 });
 
-// var ProfDobra = new Professor({
-//   FirstName: 'Alin',
-//   LastName: 'Dobra',
-//   Sem: 'Fall2017',
-//   Email: 'alinDobra@ufl.edu',
-//   WebsiteLink: 'xyzTest',
-//   TeachingCourses: ['DOS', 'SE']
-// });
-//
-// ProfDobra.save().then((doc) => {
-//   console.log('Saved professor ', doc);
-// }, (error) => {
-//   console.log('Unable to save professor ', error);
-// });
-
 module.exports= { Professor };

@@ -24,17 +24,31 @@ export class ManagerComponent implements OnInit, OnDestroy {
     students: any;
     search: string;
     TACollection: any;
+    announcements: any;
+    message:string;
+    messages:any;
+    newSentMessages:any;
+    sentMsg:any;
+    newMsgEnabled = false;
+    profs:any;
+    managerEmail:any;
 
     constructor(private sharedService: SharedService, private dataService: DataService) {
         this.courses = [];
         this.students = [];
         this.TACollection = [];
+        this.announcements = [];
+        this.messages = [];
+        this.newSentMessages = [];
+        this.profs = [];
     }
 
     ngOnInit() {
         this.sharedService.changeHeader(this.header);
         this.getProfCourses();
         this.getStudentsFromDb();
+        this.getProfs();
+        this.getManager();
     }
 
     ngOnDestroy() {
@@ -50,11 +64,9 @@ export class ManagerComponent implements OnInit, OnDestroy {
     }
 
     removeTA(t) {
-        console.log("In remove TA");
         this.dataService.deleteTA(t.UFID)
             .takeUntil(this.ngUnsubscribe)
             .subscribe((x) => {
-                console.log("Delete successful");
                 this.TAs = _.filter(this.TAs, (ta) => {
                     return ta.UFID != t.UFID
                 })
@@ -111,8 +123,6 @@ export class ManagerComponent implements OnInit, OnDestroy {
                         .subscribe(
                             (x) => {
                                 this.students = x;
-                                console.log("TA collection ");
-                                console.log(JSON.stringify(this.TACollection));
                                 _.each(this.students, (student) => {
                                     student.isTA = _.findIndex(tas, (ta) => {return ta.UFID == student.UFID}) != -1;
 
@@ -129,9 +139,7 @@ export class ManagerComponent implements OnInit, OnDestroy {
                                     else {
                                         student.allowOrReject = "Already TA";
                                     }
-                                    console.log(student.FirstName + " is TA? " + student.isTA);
                                 });
-                                console.log(JSON.stringify(this.students));
                             },
                             (err) => console.log('Error occurred in getStudents ' + err),
                         );
@@ -140,11 +148,33 @@ export class ManagerComponent implements OnInit, OnDestroy {
             );
     }
 
+    getProfs(){
+        this.dataService.getProfs()
+            .takeUntil(this.ngUnsubscribe)
+            .subscribe(
+                (x) => {this.profs = x;},
+                (err) => console.log('Error occurred in http get professors ' + err)
+            );
+    }
+
     getStudents() {
         if (_.isEmpty(this.search))
             return _.orderBy(this.students, ['isTA','GPA'], ['inc','desc']);
 
         return _.chain(this.students).filter(student => (student.FirstName + " " + student.LastName).toLowerCase().startsWith(this.search.toLowerCase())).value();
+    }
+
+    getManager(){
+        this.dataService.getManager()
+            .takeUntil(this.ngUnsubscribe)
+            .subscribe(
+                (x) => {
+                    this.managerEmail = x[0].Email;
+                    this.announcements = x[0].announcements;
+                    this.messages = x[0].messages;
+                },
+                (err) => console.log('Error occurred in http get manager ' + err)
+            )
     }
 
     setLink(link: string) {
@@ -159,12 +189,7 @@ export class ManagerComponent implements OnInit, OnDestroy {
 
             //REST call to accept application
             student.isAllowed = true;
-            console.log("Allowing");
-            this.dataService.patchStudent(student).takeUntil(this.ngUnsubscribe).subscribe(
-                (x) => {
-                    console.log(JSON.stringify(x));
-                }
-            );
+            this.dataService.patchStudent(student).takeUntil(this.ngUnsubscribe).subscribe();
 
         }
         else {
@@ -173,12 +198,76 @@ export class ManagerComponent implements OnInit, OnDestroy {
 
             //REST call to reject application
             student.isAllowed = false;
-            console.log("Rejecting");
-            this.dataService.patchStudent(student).takeUntil(this.ngUnsubscribe).subscribe(
-                (x) => {
-                    console.log(JSON.stringify(x));
-                }
-            );
+            this.dataService.patchStudent(student).takeUntil(this.ngUnsubscribe).subscribe();
         }
     }
+
+    getAnnouncements() {
+        if (this.announcements.length > 1) {
+            return this.announcements;
+        }
+        return ["No Announcements"];
+    }
+
+    getMessages() {
+        if (this.messages.length > 1) {
+            return _.filter(this.messages, (msgs) => {
+                return (msgs.from) && !_.isEmpty(msgs.from);
+            });
+        }
+        return ["No Messages"];
+    }
+
+    getSentMessages() {
+        if (this.messages.length > 1) {
+            let sentMessages = _.filter(this.messages, (msgs) => {
+                return (msgs.to) && !_.isEmpty(msgs.to)
+            });
+
+            if (this.sentMsg && this.sentMsg != undefined) {
+                this.newSentMessages.push(this.sentMsg);
+                this.sentMsg = null;
+            }
+            return sentMessages.concat(this.newSentMessages);
+        }
+        return ["No Messages"];
+    }
+
+    newMessage() {
+        if (this.newMsgEnabled) {
+            // this.router.navigate(['./new-message'], {relativeTo: this.activatedRoute});
+        }else {
+            this.message = "";
+            this.newMsgEnabled = true;
+        }
+    }
+
+    sendMessage(){
+
+        if (!_.isEmpty(this.message)){
+            _.forEach(this.profs, (prof) => {
+
+                if (prof.checked) {
+                    let msgBody = {'to': prof.FirstName + " " + prof.LastName, 'message': this.message};
+                    this.dataService.managerSendMessage(msgBody, this.managerEmail)
+                        .takeUntil(this.ngUnsubscribe)
+                        .subscribe(
+                            (x) => {
+                            },
+                            (err) => console.log('Error occurred in ngOnInit subscribe ' + err),
+                            () => {
+                                console.log('message sent');
+                                this.sentMsg = msgBody;
+                            }
+                        );
+                }
+            });
+        }
+        this.newMsgEnabled = false;
+    }
+
+    cancel() {
+        this.newMsgEnabled = false;
+    }
+
 }
