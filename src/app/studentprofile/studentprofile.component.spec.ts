@@ -17,11 +17,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GpaChangeComponent } from './studentprofile.component';
 import { StudenthomeComponent } from '../studenthome/studenthome.component';
 import { StudentComponent } from '../student/student.component';
+import { Observable } from 'rxjs/Observable';
 
 describe('StudentprofileComponent', () => {
   let component: StudentprofileComponent;
   let fixture: ComponentFixture<StudentprofileComponent>;
-  const resumeLink = '../../assets/pdf/resum.pdf';
+  let testData;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [MdTabsModule, MdCardModule, MdTooltipModule, MdIconModule, MdMenuModule, MdSidenavModule,
@@ -35,16 +36,36 @@ describe('StudentprofileComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(StudentprofileComponent);
-    component = fixture.componentInstance;
-    component.resumeLink = resumeLink;
-    fixture.detectChanges();
+    component = fixture.debugElement.componentInstance;
+    testData = require('../../../test_data/mock-data.json');
+    // fixture.detectChanges ();
   });
 
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should show the student resume', () => {
-    expect(component).toBeTruthy();
-  });
+  it('Student list should not be empty', async(() => {
+    let dataService = fixture.debugElement.injector.get(DataService);
+    let spy = spyOn(dataService, 'getStudents')
+    .and.returnValue(Promise.resolve(testData));
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expect(component.students).toBeTruthy();
+      expect(component.students.length > 0).toBe(true);
+    });
+  }));
+
+  // it('Logged in student should be selected with same id', () => {
+  //   expect(component.student).toBeTruthy();
+  //   expect(component.student.UFID).toBe('123456789011');
+  //   expect(component.student.FirstName).toBe('John');
+  //   expect(component.student.LastName).toBe('Johansson');
+  // });
+
+  // it('Student should have a resume', () => {
+  //   expect(component.student).toBeTruthy();
+  //   expect(component.student.resumeLink === '').toBe(false);
+  // });
+
 });
