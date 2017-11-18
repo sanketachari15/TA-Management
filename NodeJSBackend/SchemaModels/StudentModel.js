@@ -60,8 +60,14 @@ var Student = mongoose.model('Student', {
     required: true,
     minLength: 1,
     trim: true
+  },
+  isAllowed:{
+    type: Boolean,
+    required: true,
+    minLength: 1,
+    trim: true,
+    default: true
   }
-
 });
 
 // var StudentNikita = new Student({

@@ -174,7 +174,7 @@ describe('POST /students', () => {
       GPA: 3.66
     });
     request(app)
-      .post('/students')
+      .post('/api/students')
       .send(StudentTest)
       .expect(200)
       .expect((response) => {
@@ -196,7 +196,7 @@ describe('POST /students', () => {
 
   it('should not add student with empty body data', (done) => {
     request(app)
-      .post('/students')
+      .post('/api/students')
       .send({})
       .expect(400)
       .end((error, response) => {
@@ -216,7 +216,7 @@ describe('POST /students', () => {
 describe('Get /students', () => {
   it('should get all students', (done) => {
     request(app)
-    .get('/students')
+    .get('/api/students')
     .expect(200)
     .expect((response) => {
       expect(response.body.length).toBe(12)
@@ -228,7 +228,7 @@ describe('Get /students', () => {
 describe('Get students/UFID', () => {
   it('should return student doc', (done) => {
     request(app)
-    .get(`/students/${testStudents[0].UFID}`)
+    .get(`/api/students/${testStudents[0].UFID}`)
     .expect(200)
     .expect((response) => {
       expect(response.body[0].UFID).toBe(testStudents[0].UFID)
@@ -239,7 +239,7 @@ describe('Get students/UFID', () => {
   it('should return 404 if student not found', (done) => {
     var falseStudentUFID = "invalidUFID";
     request(app)
-    .get(`/students/${falseStudentUFID}`)
+    .get(`/api/students/${falseStudentUFID}`)
     .expect(404)
     .end(done);
   });
@@ -249,7 +249,7 @@ describe('Delete students/UFID', () => {
   it('should remove a student', (done) => {
     var studentId = testStudents[0].UFID;
     request(app)
-    .delete(`/students/${studentId}`)
+    .delete(`/api/students/${studentId}`)
     .expect(200)
     .expect((response) => {
       expect(response.body.student.UFID).toBe(studentId)
@@ -268,7 +268,7 @@ describe('Delete students/UFID', () => {
   it('should return 404 if student not found', (done) => {
     var falseStudentUFID = "invalidUFID"
     request(app)
-    .delete(`/students/${falseStudentUFID}`)
+    .delete(`/api/students/${falseStudentUFID}`)
     .expect(404)
     .end(done);
   });
@@ -278,7 +278,7 @@ describe('Update students/UFID', () => {
   it('should update the student', (done) => {
     var studentId = testStudents[0].UFID;
     request(app)
-    .patch(`/students/${studentId}`)
+    .patch(`/api/students/${studentId}`)
     .send({ "InterestLevel": 5 })
     .expect(200)
     .expect((response) => {
