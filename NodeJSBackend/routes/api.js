@@ -8,6 +8,7 @@ let { Course } = require('../SchemaModels/CourseModel.js');
 let {ProfCourses} = require('../SchemaModels/ProfCoursesModel');
 let {TA} = require('../SchemaModels/TAModel');
 let {StudentHome} = require('../SchemaModels/StudentHomeModel');
+let {Manager} = require('../SchemaModels/ManagerModel');
 
 
 router.post('/students', (request, response) => {
@@ -48,6 +49,33 @@ router.delete('/students/:UFID', (request, response) => {
     response.send({student});
   }).catch((error) => {
     response.status(400).send();
+  });
+});
+
+router.patch('/students/:UFID', (request, response) => {
+  var UFID = request.params.UFID;
+  var body = _.pick(request.body, ['SchoolYear', 'Sem', 'CourseMostInterestedIn', 'InterestLevel', 'ResumeLink', 'GPA']);
+
+  Student.findOneAndUpdate({UFID}, {$set: body}, {new: true}).then((student) => {
+    if(!student){
+      response.status(404).send();
+    }
+    response.send({student});
+  }).catch((error) =>{
+    response.status(400).send(error);
+  });
+});
+
+router.patch('/students/:UFID/isallowed', (request, response) => {
+  let UFID = request.params.UFID;
+
+  Student.findOneAndUpdate({UFID}, {$set: { isAllowed: request.body.isAllowed} }, {new: true}).then((student) => {
+    if(!student){
+      response.status(404).send();
+    }
+    response.send({student});
+  }).catch((error) =>{
+    response.status(400).send(error);
   });
 });
 
@@ -169,6 +197,20 @@ router.delete('/courses/:Code', (request, response) => {
     response.send({course});
   }).catch((error) => {
     response.status(400).send();
+  });
+});
+
+router.patch('/courses/:Code', (request, response) => {
+  var Code = request.params.Code;
+  var body = _.pick(request.body, ['ProfessorFullName', 'ProfessorEmail', 'CourseScheduleLink', 'MaxStudents', 'TAs']);
+
+  Course.findOneAndUpdate({Code}, {$set: body}, {new: true}).then((course) => {
+    if(!course){
+      response.status(404).send();
+    }
+    response.send({course});
+  }).catch((error) =>{
+    response.status(400).send(error);
   });
 });
 
@@ -351,6 +393,49 @@ router.patch('/studenthome/:Email/to' , (req, res) => {
       return res.status(404).send();
     }
     return res.send(studentHome);
+  }).catch((error) => {
+    res.status(400).send(error);
+  });
+});
+
+
+router.post('/manager', (req, res) => {
+  let newManager = new Manager(req.body);
+  newManager.save().then((doc) => {
+    res.send(doc);
+  }, (error) => {
+    res.status(400).send(error);
+  })
+});
+
+router.get('/manager', (req, res) => {
+  Manager.find().then((manager) => {
+    res.send(manager);
+  }, (error) => {
+    res.status(400).send(error);
+  });
+});
+
+router.get('/manager/:Email', (req, res) => {
+  let Email = req.params.Email;
+  Manager.find({Email}).then((manager) => {
+    if(manager.length == 0){
+      return res.status(404).send();
+    }
+    res.send(manager);
+  }).catch((error) => {
+    res.status(400).send(error);
+  });
+});
+
+// Updates only the messages attribute of professor. Push new message
+router.patch('/manager/:Email/to' , (req, res) => {
+  let email = req.params.Email;
+  Manager.findOneAndUpdate({Email: email}, { $push : { 'messages': {'to': req.body.to, 'message': req.body.message} }} , {new: true}).then((manager) => {
+    if(!manager) {
+      return res.status(404).send();
+    }
+    return res.send(manager);
   }).catch((error) => {
     res.status(400).send(error);
   });

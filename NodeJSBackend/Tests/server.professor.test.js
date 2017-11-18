@@ -6,19 +6,19 @@ const { app } = require('../server');
 const { Professor } = require('../SchemaModels/ProfessorModel');
 
 const testProfessors = [{
-  FirstName: 'TestProf1',
-  LastName: 'TestProf1',
+  FirstName: 'Alin',
+  LastName: 'Dobra',
   Sem: 'Fall2017',
-  Email: 'TestProf1TestProf1@ufl.edu',
+  Email: 'ad@ufl.edu',
   WebsiteLink: 'xyzTestProf1',
-  TeachingCourses: ['TestSub11', 'TestSub12']
+  TeachingCourses: ['COP5615: Distributed Operating Systems', 'CEN5035: Software Engineering', 'CIS6930: Database Implementation']
 },{
-  FirstName: 'TestProf2',
-  LastName: 'TestProf2',
+  FirstName: 'Beverly',
+  LastName: 'Sanders',
   Sem: 'Fall2017',
-  Email: 'TestProf2TestProf2@ufl.edu',
+  Email: 'bs@ufl.edu',
   WebsiteLink: 'xyzTestProf2',
-  TeachingCourses: ['TestSub21', 'TestSub22']
+  TeachingCourses: ['COP5556: Programming Language Principles', 'CIS6930: Concurrent Programming']
 }];
 
 // beforeEach((done) => {
@@ -44,7 +44,7 @@ describe('POST /professors', () => {
       TeachingCourses: ['TestSub1', 'TestSub2']
     });
     request(app)
-      .post('/professors')
+      .post('/api/professors')
       .send(ProfessorTest)
       .expect(200)
       .expect((response) => {
@@ -66,7 +66,7 @@ describe('POST /professors', () => {
 
   it('should not add professor with empty body data', (done) => {
     request(app)
-      .post('/professors')
+      .post('/api/professors')
       .send({})
       .expect(400)
       .end((error, response) => {
@@ -86,7 +86,7 @@ describe('POST /professors', () => {
 describe('Get /professors', () => {
   it('should get all professors', (done) => {
     request(app)
-    .get('/professors')
+    .get('/api/professors')
     .expect(200)
     .expect((response) => {
       expect(response.body.length).toBe(2)
@@ -98,7 +98,7 @@ describe('Get /professors', () => {
 describe('Get professors/Email', () => {
   it('should return professor doc', (done) => {
     request(app)
-    .get(`/professors/${testProfessors[0].Email}`)
+    .get(`/api/professors/${testProfessors[0].Email}`)
     .expect(200)
     .expect((response) => {
       expect(response.body[0].Email).toBe(testProfessors[0].Email)
@@ -109,7 +109,7 @@ describe('Get professors/Email', () => {
   it('should return 404 if professor not found', (done) => {
     let falseProfEmail = "invalidProfessorEmail";
     request(app)
-    .get(`/professors/${falseProfEmail}`)
+    .get(`/api/professors/${falseProfEmail}`)
     .expect(404)
     .end(done);
   });
@@ -119,7 +119,7 @@ describe('Delete professors/Email', () => {
   it('should remove a professor', (done) => {
     var profEmail = testProfessors[0].Email;
     request(app)
-    .delete(`/professors/${profEmail}`)
+    .delete(`/api/professors/${profEmail}`)
     .expect(200)
     .expect((response) => {
       expect(response.body.Email).toBe(profEmail)
@@ -138,7 +138,7 @@ describe('Delete professors/Email', () => {
   it('should return 404 if professor not found', (done) => {
     var falseProfessorEmail = "invalidProfessorEmail"
     request(app)
-    .delete(`/professors/${falseProfessorEmail}`)
+    .delete(`/api/professors/${falseProfessorEmail}`)
     .expect(404)
     .end(done);
   });
@@ -149,7 +149,7 @@ describe('Delete /professors', () => {
 
         //----- Delete -----
         request(app)
-            .delete(`/professors/${testProfessors[1].Email}`)
+            .delete(`/api/professors/${testProfessors[1].Email}`)
             .expect(200)
             .expect((response) => {
                     expect(response.body.Email).toBe(testProfessors[1].Email)
@@ -161,7 +161,7 @@ describe('Delete /professors', () => {
 
                 //----- Read -----
                 request(app)
-                    .get(`/professors/${testProfessors[1].Email}`)
+                    .get(`/api/professors/${testProfessors[1].Email}`)
                     .expect(404)
                     .expect((response) => {
                         expect(_.isEmpty(response.body)).toBe(true);
@@ -177,7 +177,7 @@ describe('Delete /professors', () => {
     it('should return 404 if professor\'s email not found', (done) => {
         let falseProfEmail = "invalidProfessorEmail";
         request(app)
-            .delete(`/professors/${falseProfEmail}`)
+            .delete(`/api/professors/${falseProfEmail}`)
             .expect(404)
             .end(done);
     });
@@ -191,7 +191,7 @@ describe('Patch /professors', () => {
 
         let newSem = "Fall2018";
         request(app)
-            .patch(`/professors/${testProfessors[0].Email}`)
+            .patch(`/api/professors/${testProfessors[0].Email}`)
             .send({"Sem": newSem})
             .expect(200)
             .expect((response) => {
@@ -205,7 +205,7 @@ describe('Patch /professors', () => {
                 //----- Read -----
 
                 request(app)
-                    .get(`/professors/${testProfessors[0].Email}`)
+                    .get(`/api/professors/${testProfessors[0].Email}`)
                     .expect(200)
                     .expect((response) => {
                         expect(response.body[0].Sem).toBe(newSem);
@@ -221,7 +221,7 @@ describe('Patch /professors', () => {
     it('should return 404 if professor not found', (done) => {
         let falseProfEmail = "invalidProfessorEmail";
         request(app)
-            .patch(`/professors/${falseProfEmail}`)
+            .patch(`/api/professors/${falseProfEmail}`)
             .expect(404)
             .end(done);
     });
@@ -242,7 +242,7 @@ describe('Put /professors', () => {
 
         //----- Put -----
         request(app)
-            .put(`/professors/${testProfessors[0].Email}`)
+            .put(`/api/professors/${testProfessors[0].Email}`)
             .send(prof)
             .expect(200)
             .expect((response) => {
@@ -255,7 +255,7 @@ describe('Put /professors', () => {
                 //----- Read -----
 
                 request(app)
-                    .get(`/professors/${testProfessors[0].Email}`)
+                    .get(`/api/professors/${testProfessors[0].Email}`)
                     .expect(404)
                     .expect((response) => {
                         expect(_.isEmpty(response.body)).toBe(true);
@@ -271,7 +271,7 @@ describe('Put /professors', () => {
     it('should return 404 if professor not found', (done) => {
         let falseProfEmail = "invalidProfessorEmail";
         request(app)
-            .put(`/professors/${falseProfEmail}`)
+            .put(`/api/professors/${falseProfEmail}`)
             .expect(404)
             .end(done);
     });
@@ -292,7 +292,7 @@ describe('CRUD /professors', () => {
       let newSem = "Spring2017";
       //----- Create -----
       request(app)
-          .post('/professors')
+          .post('/api/professors')
           .send(prof)
           .expect(200)
           .expect((response) => {
@@ -305,7 +305,7 @@ describe('CRUD /professors', () => {
 
               //----- Read -----
               request(app)
-                  .get(`/professors/${prof.Email}`)
+                  .get(`/api/professors/${prof.Email}`)
                   .expect(200)
                   .expect((response) => {
                       expect(response.body[0].Email).toBe(prof.Email);
@@ -318,7 +318,7 @@ describe('CRUD /professors', () => {
                       //----- Update/Patch -----
 
                       request(app)
-                          .patch(`/professors/${prof.Email}`)
+                          .patch(`/api/professors/${prof.Email}`)
                           .send({"Sem": newSem})
                           .expect(200)
                           .expect((response) => {
@@ -332,7 +332,7 @@ describe('CRUD /professors', () => {
                               //----- Read -----
 
                               request(app)
-                                  .get(`/professors/${prof.Email}`)
+                                  .get(`/api/professors/${prof.Email}`)
                                   .expect(200)
                                   .expect((response) => {
                                       expect(response.body[0].Sem).toBe(newSem);
@@ -346,7 +346,7 @@ describe('CRUD /professors', () => {
                                       // ----- Delete -----
 
                                       request(app)
-                                          .delete(`/professors/${prof.Email}`)
+                                          .delete(`/api/professors/${prof.Email}`)
                                           .expect(200)
                                           .expect((response) => {
                                               expect(response.body.Sem).toBe(newSem);
@@ -359,7 +359,7 @@ describe('CRUD /professors', () => {
                                               //----- Read -----
 
                                               request(app)
-                                                  .get(`/professors/${prof.Email}`)
+                                                  .get(`/api/professors/${prof.Email}`)
                                                   .expect(404)
                                                   .expect((response) => {
                                                       expect(_.isEmpty(response.body)).toBe(true);

@@ -57,7 +57,7 @@ describe('POST /courses', () => {
       TAs: ['17162351']
     });
     request(app)
-      .post('/courses')
+      .post('/api/courses')
       .send(CourseTest)
       .expect(200)
       .expect((response) => {
@@ -79,7 +79,7 @@ describe('POST /courses', () => {
 
   it('should not add course with empty body data', (done) => {
     request(app)
-      .post('/courses')
+      .post('/api/courses')
       .send({})
       .expect(400)
       .end((error, response) => {
@@ -99,7 +99,7 @@ describe('POST /courses', () => {
 describe('Get /courses', () => {
   it('should get all courses', (done) => {
     request(app)
-    .get('/courses')
+    .get('/api/courses')
     .expect(200)
     .expect((response) => {
       expect(response.body.length).toBe(2)
@@ -111,7 +111,7 @@ describe('Get /courses', () => {
 describe('Get courses/Code', () => {
   it('should return course doc', (done) => {
     request(app)
-    .get(`/courses/${testCourses[0].Code}`)
+    .get(`/api/courses/${testCourses[0].Code}`)
     .expect(200)
     .expect((response) => {
       expect(response.body[0].Code).toBe(testCourses[0].Code)
@@ -122,8 +122,53 @@ describe('Get courses/Code', () => {
   it('should return 404 if course not found', (done) => {
     var falseCourseCode = "invalidCourseCode";
     request(app)
-    .get(`/courses/${falseCourseCode}`)
+    .get(`/api/courses/${falseCourseCode}`)
     .expect(404)
+    .end(done);
+  });
+});
+
+describe('Delete courses/Code', () => {
+  it('should remove a course', (done) => {
+    var courseCode = testCourses[0].Code;
+    request(app)
+    .delete(`/api/courses/${courseCode}`)
+    .expect(200)
+    .expect((response) => {
+      expect(response.body.course.Code).toBe(courseCode)
+    })
+    .end((error, response) => {
+      if(error){
+        return done(error);
+      }
+      Course.find({Code: courseCode}).then((courses) => {
+        expect(courses.length).toBe(0);
+        done();
+      }).catch((error) => done(error));
+    });
+  });
+
+  it('should return 404 if course not found', (done) => {
+    var falseCourseCode = "invalidCourseCode"
+    request(app)
+    .delete(`/api/courses/${falseCourseCode}`)
+    .expect(404)
+    .end(done);
+  });
+});
+
+describe('Update courses/Code', () => {
+  it('should update the course', (done) => {
+    var courseCode = testCourses[0].Code;
+    request(app)
+    .patch(`/api/courses/${courseCode}`)
+    .send({"ProfessorFullName": "TestProf3", "MaxStudents": 100})
+    .expect(200)
+    .expect((response) => {
+      expect(response.body.course.ProfessorFullName).toBe('TestProf3');
+      expect(response.body.course.MaxStudents).toBeA('number');
+      expect(response.body.course.MaxStudents).toBe(100);
+    })
     .end(done);
   });
 });

@@ -1,7 +1,3 @@
-/**
- * Created by sanket on 10/25/17.
- */
-
 let mongoose = require('mongoose');
 
 let Schema = mongoose.Schema;
@@ -27,67 +23,38 @@ let messages = new Schema({
   }
 }, {_id: false});
 
-let courses = new Schema({
-
-  name: {
+let Manager = mongoose.model('Manager', {
+  FirstName: {
     type: String,
     required: true,
     minLength: 1,
     trim: true
   },
-
-  seats:{
-    type: Number,
-    required: true,
-    minLength: 1,
-    trim: true
-  },
-
-  announcements: {
-    type: [String]
-  },
-
-  messages: {
-    type: [messages]
-  },
-
-  files: {
-    type: [String]
-  }
-
-
-}, {_id: false});
-
-let ProfCourses = mongoose.model('ProfCourses', {
-
-  FullName: {
+  LastName: {
     type: String,
-    required: true,
-    minLength: 1,
     trim: true
   },
-
   Email: {
     type: String,
     required: true,
     minLength: 1,
     trim: true
   },
-
   Sem: {
     type: String,
     required: true,
     minLength: 1,
     trim: true
   },
-
-  Courses: {
-    type: [courses],
-    required: true,
-    minLength: 1,
-    trim: true
+  announcements: {
+    type: [String]
   },
-
+  messages: {
+    type: [messages]
+  },
+  files: {
+    type: [String]
+  }
 });
 
-module.exports = {ProfCourses};
+module.exports = {Manager};

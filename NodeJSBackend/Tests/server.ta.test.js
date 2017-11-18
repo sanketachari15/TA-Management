@@ -92,7 +92,7 @@ beforeEach((done) => {
 describe('Get /tas', () => {
   it('should get all tas', (done) => {
     request(app)
-      .get('/tas')
+      .get('/api/tas')
       .expect(200)
       .expect((response) => {
         expect(response.body.length).toBe(5)
@@ -104,7 +104,7 @@ describe('Get /tas', () => {
 describe('Get tas/course', () => {
   it('should return TAa of course', (done) => {
     request(app)
-      .get(`/tas/${testTAs[0].TAofCourse}`)
+      .get(`/api/tas/${testTAs[0].TAofCourse}`)
       .expect(200)
       .expect((response) => {
         expect(response.body[0].TAofCourse).toBe(testTAs[0].TAofCourse);
@@ -116,7 +116,7 @@ describe('Get tas/course', () => {
   it('should return 404 if ta not found', (done) => {
     let falseTAofCourse = "invalidUFID";
     request(app)
-      .get(`/tas/${falseTAofCourse}`)
+      .get(`/api/tas/${falseTAofCourse}`)
       .expect(404)
       .end(done);
   });
@@ -128,7 +128,7 @@ describe('Delete /tas/:UFID', () => {
 
     //----- Delete -----
     request(app)
-      .delete(`/tas/${testTAs[1].UFID}`)
+      .delete(`/api/tas/${testTAs[1].UFID}`)
       .expect(200)
       .expect((response) => {
           expect(response.body.UFID).toBe(testTAs[1].UFID)
@@ -140,7 +140,7 @@ describe('Delete /tas/:UFID', () => {
 
         //----- Read -----
         request(app)
-          .get(`/tas/${testTAs[1].Email}`)
+          .get(`/api/tas/${testTAs[1].Email}`)
           .expect(404)
           .expect((response) => {
             expect(_.isEmpty(response.body)).toBe(true);
@@ -156,7 +156,7 @@ describe('Delete /tas/:UFID', () => {
   it('should return 404 if tas\'s UFID not found', (done) => {
     let falseUFID = 89348303099039080938904389;
     request(app)
-      .delete(`/tas/${falseUFID}`)
+      .delete(`/api/tas/${falseUFID}`)
       .expect(404)
       .end(done);
   });
@@ -181,7 +181,7 @@ describe('POST /tas', () => {
       GPA: 3.66
     });
     request(app)
-      .post('/tas')
+      .post('/api/tas')
       .send(taTest)
       .expect(200)
       .expect((response) => {
@@ -202,7 +202,7 @@ describe('POST /tas', () => {
 
   it('should not add ta with empty body data', (done) => {
     request(app)
-      .post('/tas')
+      .post('/api/tas')
       .send({})
       .expect(400)
       .end((error, response) => {
