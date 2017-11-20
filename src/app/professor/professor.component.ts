@@ -133,7 +133,7 @@ export class ProfessorComponent implements OnInit, OnDestroy {
   exportToCSV(courseNo: number) {
 
     if (!_.isEmpty(this.courses[courseNo])) {
-       new Angular2Csv(this.courses[courseNo], this.profCourses[courseNo].name, {headers: Object.keys(this.courses[courseNo][0])});
+       new Angular2Csv(this.courses[courseNo].concat(this.profCourses[courseNo].TAs), this.profCourses[courseNo].name, {headers: Object.keys(this.courses[courseNo][0])});
        return true;
     }
 
