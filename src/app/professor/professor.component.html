@@ -78,7 +78,7 @@
                         </form>
 
                         <md-list>
-                            <div *ngFor="let student of getStudents(i)">
+                            <div id="students" *ngFor="let student of getStudents(i)">
                                 <md-card class="student-details" dnd-draggable [dragEnabled]="isAvailable(student)"
                                          [dragData]="student"
                                          [ngStyle]="{backgroundColor: getColor(student)}" (click)="openDialog()">
@@ -92,7 +92,7 @@
                                                               [readOnly]="true"></star-rating-comp>
                                         </p>
                                     </div>
-                                    <p class="student-name" style="margin-left: 5px;" mdTooltip="{{student.FirstName}} {{student.LastName}}"
+                                    <p id="student-name" class="student-name" style="margin-left: 5px;" mdTooltip="{{student.FirstName}} {{student.LastName}}"
                                        mdTooltipPosition="above">{{student.FirstName}} {{student.LastName}}</p>
                                     <p class="student-gpa" style="margin-left: 5px;">GPA: {{student.GPA}}</p>
                                 </md-card>
