@@ -42,23 +42,23 @@
 
                             <div class="icons">
                                 <span>
-                                    <md-icon class="md-icons" mdTooltip="Announcement" mdTooltipPosition="above" (click) = "show(i, 'announcements')">announcement</md-icon>
+                                    <md-icon id = "announcements" class="md-icons" mdTooltip="Announcement" mdTooltipPosition="above" (click) = "show(i, 'announcements')">announcement</md-icon>
                                     <span *ngIf= "course.announcementsLength > 0" class="badge badge-container"><span class="badge-text">{{course.announcementsLength}}</span></span>
                                     <span *ngIf= "course.announcementsLength == 0" class="material-icons"></span>
                                 </span>
                                 <span>
-                                    <md-icon class="md-icons" mdTooltip="Messages" mdTooltipPosition="above"(click) = "show(i, 'messages')">message</md-icon>
+                                    <md-icon id = "messages" class="md-icons" mdTooltip="Messages" mdTooltipPosition="above"(click) = "show(i, 'messages')">message</md-icon>
                                     <span *ngIf= "course.messagesLength > 0" class="badge badge-container"><span class="badge-text">{{course.messagesLength}}</span></span>
                                     <span *ngIf= "course.messagesLength == 0" class="material-icons"></span>
                                 </span>
                                 <span>
-                                    <md-icon class="md-icons" mdTooltip="Files" mdTooltipPosition="above"(click) = "show(i, 'files')">folder</md-icon>
+                                    <md-icon id = "files" class="md-icons" mdTooltip="Files" mdTooltipPosition="above"(click) = "show(i, 'files')">folder</md-icon>
                                     <span *ngIf= "course.filesLength > 0" class="badge badge-container"><span class="badge-text">{{course.filesLength}}</span></span>
                                     <span *ngIf= "course.filesLength == 0" class="material-icons"></span>
                                 </span>
                                 <span>
                                     <!--<md-icon class="md-icons material-icons" mdTooltip="Download" mdTooltipPosition="above" [mdMenuTriggerFor]="menu">file_download</md-icon>-->
-                                    <md-icon class="md-icons material-icons" mdTooltip="Download" mdTooltipPosition="above" (click)="exportToCSV(i)">file_download</md-icon>
+                                    <md-icon id= "download" class="md-icons material-icons" mdTooltip="Download" mdTooltipPosition="above" (click)="exportToCSV(i)">file_download</md-icon>
                                     <span class="material-icons"></span>
                                 </span>
                                 <!--<md-menu #menu="mdMenu">

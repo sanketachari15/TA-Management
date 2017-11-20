@@ -127,7 +127,6 @@ export class ProfessorComponent implements OnInit, OnDestroy {
   }
 
   getTAs(courseNo: number) {
-    // console.log("In getTAs");
     return this.courses[courseNo].concat(this.profCourses[courseNo].TAs);
   }
 
@@ -137,6 +136,12 @@ export class ProfessorComponent implements OnInit, OnDestroy {
        new Angular2Csv(this.courses[courseNo], this.profCourses[courseNo].name, {headers: Object.keys(this.courses[courseNo][0])});
        return true;
     }
+
+    if (!_.isEmpty(this.profCourses[courseNo].TAs)) {
+        new Angular2Csv(this.profCourses[courseNo].TAs, this.profCourses[courseNo].name, {headers: Object.keys(this.profCourses[courseNo].TAs[0])});
+        return true;
+    }
+
     return false;
   }
 
