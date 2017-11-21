@@ -1,13 +1,13 @@
 import {element, by, browser, protractor} from "protractor";
-import {until} from "selenium-webdriver";
-import elementLocated = until.elementLocated;
 
 describe('Professor Page', () => {
 
     let EC = protractor.ExpectedConditions;
 
     beforeEach(() => {
-        browser.get('/prof');
+        browser.get('/');
+        element(by.css('.first-element')).click();
+        browser.sleep(500);
     });
 
     it('should display professor home page', () => {
