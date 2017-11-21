@@ -81,11 +81,11 @@ export class StudentprofileComponent implements OnInit {
   template: `<h1 md-dialog-title>Enter new GPA.</h1>
   <div md-dialog-content>
     <md-form-field>
-      <input mdInput tabindex="1" [(ngModel)]="data.gpa">
+      <input mdInput tabindex="1" [(ngModel)]="data.gpa" id="enterGpa">
     </md-form-field>
   </div>
   <div md-dialog-actions>
-    <button md-button [md-dialog-close]="data.gpa" tabindex="2">Ok</button>
+    <button md-button [md-dialog-close]="data.gpa" tabindex="2" id="okButton">Ok</button>
     <button md-button (click)="onNoClick()" tabindex="-1">Cancel</button>
   </div>`,
 })
