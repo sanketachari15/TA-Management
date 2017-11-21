@@ -48,3 +48,26 @@ describe('StudentprofileComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+// it('Student list should not be empty', async(() => {
+//   let dataService = fixture.debugElement.injector.get(DataService);
+//   let spy = spyOn(dataService, 'getStudents')
+//   .and.returnValue(Promise.resolve(testData));
+//   fixture.detectChanges();
+//   fixture.whenStable().then(() => {
+//     expect(component.students).toBeTruthy();
+//     expect(component.students.length > 0).toBe(true);
+//   });
+// }));
+
+// it('Logged in student should be selected with same id', () => {
+//   expect(component.student).toBeTruthy();
+//   expect(component.student.UFID).toBe('123456789011');
+//   expect(component.student.FirstName).toBe('John');
+//   expect(component.student.LastName).toBe('Johansson');
+// });
+
+// it('Student should have a resume', () => {
+//   expect(component.student).toBeTruthy();
+//   expect(component.student.resumeLink === '').toBe(false);
+// });
