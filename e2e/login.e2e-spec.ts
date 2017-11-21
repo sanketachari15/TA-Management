@@ -6,7 +6,7 @@ describe('Login Page', () => {
         browser.get('/login');
     });
 
-    it('should display login page', () => {
+    it('should display login page header', () => {
         expect(element(by.css('.header-name')).getText()).toEqual('TA Management');
     });
 

@@ -8,10 +8,10 @@
                     <div class="left-side-2">
                         <div class="left-side-wrapper">
                             <md-list>
-                                <div *ngFor="let course of courses">
-                                    <md-card class="course-card" (click)="setCourse(course)"
+                                <div id="courses" *ngFor="let course of courses">
+                                    <md-card id="course-card" (click)="setCourse(course)"
                                              [ngClass]="{active: courseName === course.name}">
-                                        <p>{{course.name}}</p>
+                                        <p id="side-course-name">{{course.name}}</p>
                                     </md-card>
                                 </div>
                             </md-list>
@@ -21,7 +21,7 @@
                         <div class="middle-wrapper">
                             <br>
                             <md-card>
-                                <p class="font-bold" style="font-size: medium;">{{courseName}}</p>
+                                <p id = "course-name" class="font-bold" style="font-size: medium;">{{courseName}}</p>
                                 <br>
                                 <div class="row-flex"><p class="font-bold">Professor: &nbsp;</p>
                                     <p>{{profName}}</p></div>
@@ -58,14 +58,14 @@
                         </md-form-field>
                     </form> <br>
                     <md-list>
-                        <div *ngFor="let student of getStudents()">
+                        <div id="students" *ngFor="let student of getStudents()">
                             <md-card>
                                 <div class="row-flex">
                                     <h4 class="student-name" style="flex: 4"
                                        mdTooltip="{{student.FirstName}} {{student.LastName}}"
                                        mdTooltipPosition="above">{{student.FirstName}} {{student.LastName}}</h4>
                                     <p class="student-gpa font-bold" style="flex: 2">GPA: {{student.GPA}}</p>
-                                    <button style="flex: 2; justify-content: center;" [ngStyle] = "{'background-color': student.color}"
+                                    <button id="change-status-btn" style="flex: 2; justify-content: center;" [ngStyle] = "{'background-color': student.color}"
                                             (click) = "changeStatus(student)" [disabled] = "student.isTA">{{student.allowOrReject}}</button>
                                 </div>
                                 <p class="font-bold">Courses Most Interested In: </p>
