@@ -32,6 +32,7 @@ describe('Student Page', () => {
         const gpa = element(by.id('enterGpa'));
         gpa.sendKeys('\b\b\b\b3.9');
         element(by.id('okButton')).click();
+        browser.sleep(500);
         expect(element(by.id('gpa')).getText()).toEqual('GPA: 3.9');
     });
 
