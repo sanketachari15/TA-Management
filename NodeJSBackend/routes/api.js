@@ -9,6 +9,7 @@ let {ProfCourses} = require('../SchemaModels/ProfCoursesModel');
 let {TA} = require('../SchemaModels/TAModel');
 let {StudentHome} = require('../SchemaModels/StudentHomeModel');
 let {Manager} = require('../SchemaModels/ManagerModel');
+let {User} = require('../SchemaModels/UserModel.js');
 
 
 router.post('/students', (request, response) => {
@@ -439,6 +440,18 @@ router.patch('/manager/:Email/to' , (req, res) => {
   }).catch((error) => {
     res.status(400).send(error);
   });
+});
+
+// POST /users
+router.post('/users', (req, res) => {
+  var body = _.pick(req.body, ['Email', 'Password']);
+  var user = new User(body);
+
+  user.save().then((user) => {
+    res.send(user);
+  }).catch((e) => {
+    res.status(400).send(e);
+  })
 });
 
 module.exports = router;
