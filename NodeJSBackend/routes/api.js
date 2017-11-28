@@ -442,13 +442,15 @@ router.patch('/manager/:Email/to' , (req, res) => {
   });
 });
 
-// POST /users
+// POST /users this will be for sign up
 router.post('/users', (req, res) => {
   var body = _.pick(req.body, ['Email', 'Password']);
   var user = new User(body);
 
-  user.save().then((user) => {
-    res.send(user);
+  user.save().then(() => {
+    return user.generateAuthToken();
+  }).then((token) => {
+    res.header('x-auth', token).send(user);
   }).catch((e) => {
     res.status(400).send(e);
   })
