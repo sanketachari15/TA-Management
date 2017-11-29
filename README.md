@@ -16,6 +16,15 @@
 
 ## Running tests
 
+### Back end testing    
+    
+1. Run unit test cases for backend   
+    
+    Follow the steps in order to test backend
+    1. npm install
+    2. npm test
+
+### Front end testing
 1.  Run unit test cases and show result in browser
     
     ng test 
@@ -30,3 +39,4 @@
     3. npm start
     4. ng build --w
     5. ng e2e --no-serve
+    
