@@ -9,7 +9,7 @@
     "build": "ng build",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "test": "mocha **/NodeJSBackend/Tests/*.test.js",
+    "test": "mocha --timeout 15000 **/NodeJSBackend/Tests/*.test.js",
     "testBackendWatch": "nodemon --exec 'npm test'",
     "test-with-coverage": "nyc --reporter=text mocha **/NodeJSBackend/Tests/*.test.js"
   },
