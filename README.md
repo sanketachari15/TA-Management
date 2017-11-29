@@ -23,3 +23,10 @@
 2. Run existing test cases and calculate th code coverage. To see code coverage run the following command and then check coverage/index.html file
 
     ng test --cc 
+    
+3. Run e2e tests with the help of following steps. Execute these steps sequentially.
+    1. npm install
+    2. npm test
+    3. npm start
+    4. ng build --w
+    5. ng e2e --no-serve
