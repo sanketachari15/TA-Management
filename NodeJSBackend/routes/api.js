@@ -10,6 +10,7 @@ let {TA} = require('../SchemaModels/TAModel');
 let {StudentHome} = require('../SchemaModels/StudentHomeModel');
 let {Manager} = require('../SchemaModels/ManagerModel');
 let {User} = require('../SchemaModels/UserModel.js');
+var {authenticate} = require('../middleware/authenticate.js');
 
 
 router.post('/students', (request, response) => {
@@ -454,6 +455,10 @@ router.post('/users', (req, res) => {
   }).catch((e) => {
     res.status(400).send(e);
   })
+});
+
+router.get('/users/me', authenticate, (req, res) => {
+  res.send(req.user);
 });
 
 module.exports = router;
