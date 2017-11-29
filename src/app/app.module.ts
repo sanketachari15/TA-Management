@@ -34,6 +34,8 @@ import { StudentprofileComponent } from './studentprofile/studentprofile.compone
 import { CommonModule } from '@angular/common';
 import { StudenthomeComponent } from './studenthome/studenthome.component';
 import { GpaChangeComponent } from './studentprofile/studentprofile.component';
+import { loginPopComponent } from './login/login.component';
+
 import { CourseComponent } from './course/course.component';
 import { FileSelectDirective } from 'ng2-file-upload';
 import { ManagerComponent } from './manager/manager.component';
@@ -59,6 +61,7 @@ export const ROUTES: Routes = [
     StudentprofileComponent,
     StudenthomeComponent,
     GpaChangeComponent,
+    loginPopComponent,
     CourseComponent,
     FileSelectDirective,
     ManagerComponent
@@ -91,7 +94,7 @@ export const ROUTES: Routes = [
   ],
   providers: [DragDropService, DragDropConfig, DataService, SharedService, MdDialogModule, MdDialog, MdSidenavModule, PdfViewerComponent],
   bootstrap: [AppComponent],
-  entryComponents: [TadetailsComponent, GpaChangeComponent] // Added for TA Info Dialog Box Issue #15
+  entryComponents: [TadetailsComponent, GpaChangeComponent, loginPopComponent] // Added for TA Info Dialog Box Issue #15
 })
 export class AppModule {
 }
