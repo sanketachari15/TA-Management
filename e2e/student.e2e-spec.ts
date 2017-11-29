@@ -9,6 +9,9 @@ describe('Student Page', () => {
     beforeEach(() => {
         browser.get('/login');
         element(by.buttonText('Student-Login')).click();
+        browser.sleep(500);
+        element(by.id('okButton')).click();
+        browser.sleep(500);
     });
 
     it('should display student home page', () => {

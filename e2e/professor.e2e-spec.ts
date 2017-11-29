@@ -8,6 +8,8 @@ describe('Professor Page', () => {
         browser.get('/');
         element(by.css('.first-element')).click();
         browser.sleep(500);
+        element(by.id('okButton')).click();
+        browser.sleep(500);
     });
 
     it('should display professor home page', () => {
@@ -22,7 +24,9 @@ describe('Professor Page', () => {
     });
 
     it('should search student', () => {
+        browser.sleep(1000);
         let search = element(by.name('search-input'));
+        expect(search).toBeTruthy();
         search.sendKeys('Anna');
         browser.sleep(1000);
         let students = element.all(by.id('students'));

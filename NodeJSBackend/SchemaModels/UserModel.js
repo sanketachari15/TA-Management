@@ -12,6 +12,7 @@ var UserSchema = new mongoose.Schema({
     minlength: 1,
     unique: true,
     validate: {
+      isAsync: false,
       validator: validator.isEmail,
       message: '{VALUE} is not a valid email'
     }
@@ -66,6 +67,27 @@ UserSchema.statics.findByToken = function (token) {
     '_id': decoded._id,
     'Tokens.token': token,
     'Tokens.access': 'auth'
+  });
+};
+
+UserSchema.statics.findByCredentials = function (Email, Password) {
+  var User = this;
+
+  return User.findOne({Email}).then((user) => {
+    if (!user) {
+      return Promise.reject();
+    }
+
+    return new Promise((resolve, reject) => {
+      // Use bcrypt.compare to compare password and user.password
+      bcrypt.compare(Password, user.Password, (err, res) => {
+        if (res) {
+          resolve(user);
+        } else {
+          reject();
+        }
+      });
+    });
   });
 };
 
