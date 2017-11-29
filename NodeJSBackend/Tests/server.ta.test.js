@@ -164,7 +164,7 @@ describe('Delete /tas/:UFID', () => {
 
 describe('POST /tas', () => {
 
-  it('should create a new course', (done) => {
+  it('should create a new ta', (done) => {
     let taTest = new TA({
       UFID: '123456789034',
       FirstName: 'Pablo',
