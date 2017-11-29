@@ -8,6 +8,8 @@ describe('Manager Page', () => {
         browser.get('/');
         element(by.css('.third-element')).click();
         browser.sleep(500);
+        element(by.id('okButton')).click();
+        browser.sleep(500);
     });
 
    it('should display manager home page', () => {
