@@ -59,7 +59,7 @@ The following **required** functionality is completed:
 
 ### Video Walkthrough 
 
-Here's a walkthrough of implemented user stories:
+Here's a walkthrough of implemented user stories for Professor:
 
 - Professor should be able to add and remove students as TAs for a particular course, added students should be disabled in the list
 <img src='gifs/prof_add_remove.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
@@ -98,7 +98,7 @@ Here's a walkthrough of implemented user stories:
 
 ### Video Walkthrough 
 
-Here's a walkthrough of implemented user stories:
+Here's a walkthrough of implemented user stories for Student:
 
 - Student should be able to view home and profile page, his gpa, courses he is taking and His latest resume
 <img src='gifs/stud_view.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
@@ -119,6 +119,35 @@ Here's a walkthrough of implemented user stories:
 - Student Should be able to view his announcements, notification and messages.
 <img src='gifs/stud_view_notifications.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
+
+***
+
+## For Manager
+- [x] Manager should be able to view all the courses and the TAs selected by the professors in those courses.
+- [x] Manager should be able to approve or reject the TAs selected by the Professor.
+- [x] Manager should be able to search a student from the list of students who applied for TA and Approve or reject student's request.
+- [x] Manager should be able to view announcements and notifications.
+
+### Video Walkthrough 
+
+Here's a walkthrough of implemented user stories for Manager:
+
+- Manager should be able to view all the courses and the TAs selected by the professors in those courses.
+<img src='gifs/man_view.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+
+- Manager should be able to approve or reject the TAs selected by the Professor.
+<img src='gifs/man_reject_approve.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+
+- Manager should be able to search a student from the list of students who applied for TA and Approve or reject student's request.
+<img src='gifs/man_search.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+
+- Manager should be able to view announcements and notifications.
+<img src='gifs/man_notifications.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+***
 
 ## Notes
 
