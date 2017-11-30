@@ -48,7 +48,7 @@
 
 The following **required** functionality is completed:
 
-### For Professor
+## For Professor
 - [x] Professor should be able to add and remove students as TAs for a particular course, added students should be disabled in the list.
 - [x] Professor should be able to search a particular student from the list and add him as TA
 - [x] If professor added a student in 1 course he/she should be disabled in other courses.
@@ -57,7 +57,7 @@ The following **required** functionality is completed:
 - [x] Student selected for TAs by the Professor should persist, when professor login back again, They should be there.
 - [x] Professor Should be able to download selected TA info in form of an excel sheet.
 
-## Video Walkthrough 
+### Video Walkthrough 
 
 Here's a walkthrough of implemented user stories:
 
@@ -87,6 +87,37 @@ Here's a walkthrough of implemented user stories:
 
 - Professor Should be able to download selected TA info in form of an excel sheet.
 <img src='gifs/prof_download_ta.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+***
+## For Student
+- [x] Student should be able to view home and profile page, his gpa, courses he is taking and His latest resume.
+- [x] Student should be able to change his Gpa.
+- [x] Student should be able to update his profile picture.
+- [x] Student should be able to upload his resume.
+- [x] Student Should be able to view his announcements, notification and messages.
+
+### Video Walkthrough 
+
+Here's a walkthrough of implemented user stories:
+
+- Student should be able to view home and profile page, his gpa, courses he is taking and His latest resume
+<img src='gifs/stud_view.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+
+- Student should be able to change his Gpa.
+<img src='gifs/stud_change_gpa.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+
+- Student should be able to update his profile picture.
+<img src='gifs/stud_change_pic.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+
+- Student should be able to upload his resume.
+<img src='gifs/stud_upload_resume.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+
+- Student Should be able to view his announcements, notification and messages.
+<img src='gifs/stud_view_notifications.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 
 ## Notes
