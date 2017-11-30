@@ -48,6 +48,11 @@
 
 The following **required** functionality is completed:
 
+## Generic
+- [x] Professor should be able to login.
+- [x] Student should be able to login.
+- [x] Manager Should be able to login.
+
 ## For Professor
 - [x] Professor should be able to add and remove students as TAs for a particular course, added students should be disabled in the list.
 - [x] Professor should be able to search a particular student from the list and add him as TA
