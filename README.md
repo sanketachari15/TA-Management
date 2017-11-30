@@ -1,4 +1,4 @@
-# TA-Management System
+# TA-Management System By: Sanket Achari(71096329), Prem Ankur(2394-1141), Nikita Saxena(17162351)
 
 ## Functionality
 
