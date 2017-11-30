@@ -31,3 +31,25 @@
   width: 100%;
   height: 100%;
 }
+
+.button:hover{
+  background-color: #FF9800;
+}
+
+#enter-email{
+ width: 250px;
+}
+
+#enter-password{
+  width: 250px;
+}
+
+.login-singup{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.login-button{
+  background-color: #FF9800;
+}

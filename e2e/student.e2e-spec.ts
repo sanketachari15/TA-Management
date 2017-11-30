@@ -10,9 +10,15 @@ describe('Student Page', () => {
     beforeEach(() => {
         browser.get('/login');
         element(by.buttonText('Student-Login')).click();
-        browser.sleep(500);
-        element(by.id('okButton')).click();
-        browser.sleep(500);
+        browser.sleep(200);
+        element(by.css('.login-button')).click();
+        browser.sleep(200);
+        let email = element(by.name('email'));
+        email.sendKeys('abc@gmail.com');
+        let password = element(by.name('password'));
+        password.sendKeys('abc');
+        element(by.id('ok')).click();
+        browser.sleep(1000);
     });
 
     it('should display student home page', () => {
@@ -20,7 +26,7 @@ describe('Student Page', () => {
         expect(element(by.css('.example-container')).isPresent()).toBe(true);
     });
 
-    it('should display student home name', () => {
+    it('should display student name', () => {
         const name =  element(by.id('name')).getText();
         expect(name).toEqual('John\nJohansson');
     });
