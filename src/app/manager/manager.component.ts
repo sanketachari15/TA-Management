@@ -45,7 +45,7 @@ export class ManagerComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.sharedService.currentEmail.subscribe((x) => this.email = x);
+        this.email = localStorage.getItem('email-Manager');
         this.sharedService.changeHeader(this.header);
         this.getProfCourses();
         this.getStudentsFromDb();

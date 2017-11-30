@@ -124,6 +124,7 @@ export class loginPopComponent {
                         this.dialogRef.close({data: button});
                         console.log("Login response is good");
                         this.sharedService.setEmail(user.Email);
+                        localStorage.setItem('email-' + this.user, user.Email);
                     }
                 },
                 //if response is not empty then show error
@@ -143,6 +144,7 @@ export class loginPopComponent {
                         this.dialogRef.close({data: button});
                         console.log("Sign up response is good");
                         this.sharedService.setEmail(user.Email);
+                        localStorage.setItem('email-' + this.user, user.Email);
                     }
                 },
                 //if response is not empty then show error

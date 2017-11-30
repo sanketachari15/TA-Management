@@ -36,7 +36,8 @@ export class ProfessorComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.sharedService.currentEmail.subscribe((x) => this.email = x);
+    // this.sharedService.currentEmail.subscribe((x) => this.email = x);
+    this.email = localStorage.getItem('email-Professor');
     this.sharedService.changeHeader(this.header);
 
     this.dataService.getStudents()
@@ -49,6 +50,7 @@ export class ProfessorComponent implements OnInit, OnDestroy {
                     .takeUntil(this.ngUnsubscribe)
                     .subscribe(
                         (z) => {
+                            console.log("Printing email " + this.email);
                             let profCourseDetails = _.filter(z, (details) => {return details.Email == this.email});
                             this.profCourses = profCourseDetails[0].Courses;
                             _.forEach(this.profCourses, (courseDetails) => {
