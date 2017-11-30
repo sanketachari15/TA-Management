@@ -15,6 +15,8 @@ let TA = mongoose.model('TA', {
   },
   LastName: {
     type: String,
+    required: true,
+    minLength: 1,
     trim: true
   },
   GradOrUndergrad: {
@@ -25,7 +27,9 @@ let TA = mongoose.model('TA', {
   },
   SchoolYear: {
     type: Number,
-    required: true
+    required: true,
+    minLength: 1,
+    trim: true
   },
   Sem: {
     type: String,
