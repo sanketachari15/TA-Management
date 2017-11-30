@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpParams, HttpClient } from '@angular/common/http';
 import 'rxjs/Rx'
+import {SharedService} from "./shared.service";
 
 @Injectable()
 export class DataService {
 
   api: string = 'http://localhost:3000/api';
-  prof: string;
-  profEmail: string;
+  prof: string = "Alin Dobra";
+  profEmail: string = "ad@ufl.edu";
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, public sharedService: SharedService) { }
 
   getStudents(){
     return this.http.get(this.api + '/students');
@@ -23,17 +24,12 @@ export class DataService {
     return this.http.get(this.api + '/profcourses');
   }
 
-  getProf(){
-    this.prof = "Alin Dobra";
-    this.profEmail = "ad@ufl.edu"
-  }
-
   getProfs(){
       return this.http.get(this.api + '/professors');
   }
 
   sendMessage(msgbody: any){
-    this.getProf();
+    this.sharedService.currentEmail.subscribe((x) => this.profEmail = x);
     return this.http.patch(this.api + '/profcourses/' + this.profEmail + '/to', msgbody);
   }
 

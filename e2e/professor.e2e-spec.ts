@@ -11,26 +11,28 @@ describe('Professor Page', () => {
         element(by.css('.login-button')).click();
         browser.sleep(200);
         let email = element(by.name('email'));
-        email.sendKeys('abc@gmail.com');
+        email.sendKeys('ad@ufl.edu');
         let password = element(by.name('password'));
-        password.sendKeys('abc');
+        password.sendKeys('ad');
         element(by.id('ok')).click();
         browser.sleep(1000);
     });
 
     it('should display professor home page', () => {
+        browser.sleep(200);
         expect(element(by.css('.header-name')).getText()).toEqual('Welcome Professor');
         expect(element(by.css('.middle')).isPresent()).toBe(true)
     });
 
     it('should have student list', () => {
+        browser.sleep(200);
         let students = element.all(by.id('students'));
         expect(students).toBeTruthy();
         expect(students.count()).toEqual(9)
     });
 
     it('should search student', () => {
-        browser.sleep(1000);
+        browser.sleep(1200);
         let search = element(by.name('search-input'));
         expect(search).toBeTruthy();
         search.sendKeys('Anna');
@@ -45,7 +47,9 @@ describe('Professor Page', () => {
     });
 
     it('students should have name', () => {
+        browser.sleep(200);
         let students = element.all(by.id('students'));
+        browser.sleep(200);
         expect(students.count()).toEqual(9);
 
         for (let i = 0; i < 9; i++){
@@ -54,6 +58,7 @@ describe('Professor Page', () => {
     });
 
     it('should direct to announcement Page', () =>{
+        browser.sleep(200);
         let announcements = element(by.id('announcements'));
         browser.executeScript(function (elem) { elem.click(); }, announcements.getWebElement());
         browser.sleep(1000);
@@ -61,6 +66,7 @@ describe('Professor Page', () => {
     });
 
     it('should direct to message Page', () =>{
+        browser.sleep(200);
         let messages = element(by.id('messages'));
         browser.executeScript(function (elem) { elem.click(); }, messages.getWebElement());
         browser.sleep(1000);
@@ -68,6 +74,7 @@ describe('Professor Page', () => {
     });
 
     it('should direct to file Page', () =>{
+        browser.sleep(200);
         let files = element(by.id('files'));
         browser.executeScript(function (elem) { elem.click(); }, files.getWebElement());
         browser.sleep(1000);
@@ -75,6 +82,7 @@ describe('Professor Page', () => {
     });
 
     it('should download the student list', () => {
+        browser.sleep(200);
         let download = element(by.id('download'));
         browser.executeScript(function (elem) { elem.click(); }, download.getWebElement());
         browser.sleep(1000);

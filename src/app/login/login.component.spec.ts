@@ -8,6 +8,7 @@ import { CarouselModule } from 'angular4-carousel';
 import { loginPopComponent } from './login.component';
 import {MdDialogModule, MdDialogRef, MD_DIALOG_DATA, MdDialog} from '@angular/material';
 import {FormsModule} from "@angular/forms";
+import {DataService} from "../data.service";
 
 
 describe('LoginComponent', () => {
@@ -18,7 +19,7 @@ describe('LoginComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ LoginComponent, loginPopComponent ],
       imports: [RouterTestingModule, MdToolbarModule, CarouselModule, MdDialogModule, MdMenuModule, FormsModule],
-      providers: [SharedService, MdDialogModule]
+      providers: [SharedService, DataService, MdDialogModule]
     })
     .compileComponents();
   }));
