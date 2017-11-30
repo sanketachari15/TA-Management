@@ -63,4 +63,12 @@ export class DataService {
   getManager() {
     return this.http.get(this.api + '/manager');
   }
+
+  login(user: any){
+      return this.http.post(this.api + '/users/login', user);
+  }
+
+  signup(user:any){
+      return this.http.post(this.api + '/users', user);
+  }
 }
