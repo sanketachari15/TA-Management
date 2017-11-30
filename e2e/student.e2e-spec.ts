@@ -22,21 +22,25 @@ describe('Student Page', () => {
     });
 
     it('should display student home page', () => {
+        browser.sleep(200);
         expect(element(by.css('.header-name')).getText()).toEqual('Welcome Student');
         expect(element(by.css('.example-container')).isPresent()).toBe(true);
     });
 
     it('should display student name', () => {
+        browser.sleep(200);
         const name =  element(by.id('name')).getText();
         expect(name).toEqual('John\nJohansson');
     });
 
     it('should display student profile on selection', () => {
+        browser.sleep(200);
         element(by.linkText('Profile')).click();
         expect(element(by.id('profilePage')).isPresent()).toBe(true);
     });
 
     it('student should be able to change gpa in the profile', () => {
+        browser.sleep(200);
         element(by.linkText('Profile')).click();
         element(by.id('changeGpa')).click();
         browser.sleep(100);
@@ -48,6 +52,7 @@ describe('Student Page', () => {
     });
 
     it('student should be able to upload profile picture', () => {
+        browser.sleep(200);
         element(by.linkText('Profile')).click();
         const fileToUpload = '../src/assets/images/ta2.jpg',
         absolutePath = path.resolve(__dirname, fileToUpload);
@@ -57,6 +62,7 @@ describe('Student Page', () => {
     });
 
     it('Student should be able to view his Resume', () => {
+        browser.sleep(200);
         element(by.linkText('Profile')).click();
         element(by.buttonText('View Resume')).click();
         browser.sleep(2500);
@@ -64,11 +70,13 @@ describe('Student Page', () => {
     });
 
     it('should display student home on selection', () => {
+        browser.sleep(200);
         element(by.linkText('Home')).click();
         expect(element(by.id('homePage')).isPresent()).toBe(true);
     });
 
     it('Student should be able to see his Recent Announcements, Messages and Files', () => {
+        browser.sleep(200);
         element(by.linkText('Home')).click();
         element(by.linkText('Home')).click();
         browser.sleep(500);
