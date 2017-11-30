@@ -7,9 +7,15 @@ describe('Manager Page', () => {
     beforeEach(() => {
         browser.get('/');
         element(by.css('.third-element')).click();
-        browser.sleep(500);
-        element(by.id('okButton')).click();
-        browser.sleep(500);
+        browser.sleep(200);
+        element(by.css('.login-button')).click();
+        browser.sleep(200);
+        let email = element(by.name('email'));
+        email.sendKeys('abc@gmail.com');
+        let password = element(by.name('password'));
+        password.sendKeys('abc');
+        element(by.id('ok')).click();
+        browser.sleep(1000);
     });
 
    it('should display manager home page', () => {
