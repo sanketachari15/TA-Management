@@ -70,7 +70,7 @@ describe('Student Page', () => {
 
     it('Student should be able to see his Recent Announcements, Messages and Files', () => {
         element(by.linkText('Home')).click();
-        element(by.linkText('Home')).click();
+        element(by.id('notificationHome')).click();
         browser.sleep(500);
         element(by.linkText('Announcements')).click();
         browser.sleep(500);
