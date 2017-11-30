@@ -25,8 +25,9 @@ describe('Professor Page', () => {
     });
 
     it('should have student list', () => {
-        browser.sleep(800);
+        browser.sleep(1000);
         let students = element.all(by.id('students'));
+        browser.sleep(200);
         expect(students).toBeTruthy();
         expect(students.count()).toEqual(9)
     });
@@ -34,12 +35,15 @@ describe('Professor Page', () => {
     it('should search student', () => {
         browser.sleep(1200);
         let search = element(by.name('search-input'));
+        browser.sleep(200);
         expect(search).toBeTruthy();
         search.sendKeys('Anna');
         browser.sleep(1000);
         let students = element.all(by.id('students'));
+        browser.sleep(200);
         expect(students.count()).toEqual(1);
         let studentName = element(by.id('student-name'));
+        browser.sleep(200);
         // browser.wait(EC.not(EC.presenceOf(studentName)), 5000);
         expect(studentName).toBeTruthy();
         expect(studentName.getText()).toContain('Anna');
@@ -47,9 +51,9 @@ describe('Professor Page', () => {
     });
 
     it('students should have name', () => {
-        browser.sleep(500);
+        browser.sleep(1000);
         let students = element.all(by.id('students'));
-        browser.sleep(200);
+        browser.sleep(500);
         expect(students.count()).toEqual(9);
 
         for (let i = 0; i < 9; i++){
@@ -60,6 +64,7 @@ describe('Professor Page', () => {
     it('should direct to announcement Page', () =>{
         browser.sleep(1000);
         let announcements = element(by.id('announcements'));
+        browser.sleep(200);
         browser.executeScript(function (elem) { elem.click(); }, announcements.getWebElement());
         browser.sleep(1000);
         expect(browser.getCurrentUrl()).toContain('course');
@@ -68,6 +73,7 @@ describe('Professor Page', () => {
     it('should direct to message Page', () =>{
         browser.sleep(1000);
         let messages = element(by.id('messages'));
+        browser.sleep(200);
         browser.executeScript(function (elem) { elem.click(); }, messages.getWebElement());
         browser.sleep(1000);
         expect(browser.getCurrentUrl()).toContain('course');
@@ -76,6 +82,7 @@ describe('Professor Page', () => {
     it('should direct to file Page', () =>{
         browser.sleep(1000);
         let files = element(by.id('files'));
+        browser.sleep(200);
         browser.executeScript(function (elem) { elem.click(); }, files.getWebElement());
         browser.sleep(1000);
         expect(browser.getCurrentUrl()).toContain('course');
@@ -84,6 +91,7 @@ describe('Professor Page', () => {
     it('should download the student list', () => {
         browser.sleep(1000);
         let download = element(by.id('download'));
+        browser.sleep(200);
         browser.executeScript(function (elem) { elem.click(); }, download.getWebElement());
         browser.sleep(1000);
     });
