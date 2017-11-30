@@ -64,23 +64,30 @@ Here's a walkthrough of implemented user stories:
 - Professor should be able to add and remove students as TAs for a particular course, added students should be disabled in the list
 <img src='gifs/prof_add_remove.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
+
 - Professor should be able to search a particular student from the list and add him as TA
 <img src='gifs/prof_search.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
 
 - If professor added a student in 1 course he/she should be disabled in other courses.
 <img src='gifs/prof_stu_disab_other_corses.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
+
 - Professor should be able to view announcements and notifications.
 <img src='gifs/prof_view_Notifications.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
 
 - Professor should be able to message TAs.
 <img src='gifs/prof_message_tas.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
+
 - Student selected for TAs by the Professor should persist, when professor login back again, They should be there.
 <img src='gifs/prof_stud_persist.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
+
 - Professor Should be able to download selected TA info in form of an excel sheet.
 <img src='gifs/prof_download_ta.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
 
 ## Notes
 
