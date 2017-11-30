@@ -10,13 +10,13 @@
            <div class="w3-container">
             <h4 class="w3-center">My Profile</h4>
            <div class="image-upload">
-            <p class="w3-center"><img for='file-input' [src]="url" class="w3-circle" style="height:106px;width:106px" alt="Avatar"><br/>
+            <p class="w3-center"><img id="picture" [src]="url" class="w3-circle" style="height:106px;width:106px" alt="Avatar"><br/>
             <!-- <input type='file' [name]="uploadFieldName" (change)="onSelectFile($event.target.name, $event.target.files)" [disabled]="currentStatus === STATUS_SAVING" accept="image/*" #photos> -->
            </p>
            
            <form #f="ngForm" enctype="multipart/form-data" novalidate *ngIf="currentStatus === STATUS_INITIAL || currentStatus === STATUS_SAVING">
             <div class="dropbox1">
-                <input type='file' [name]="uploadFieldName" (change)="onSelectFile($event.target.name, $event.target.files)" [disabled]="currentStatus === STATUS_SAVING" accept="image/*" #photos>                
+                <input type='file' [name]="uploadFieldName" (change)="onSelectFile($event.target.name, $event.target.files)" [disabled]="currentStatus === STATUS_SAVING" accept="image/*" id="pictureUpload" #photos>                
               <p *ngIf="currentStatus === STATUS_INITIAL">
                 Drag your profile photo here</p>
               <p *ngIf="currentStatus === STATUS_SAVING">
@@ -89,7 +89,7 @@
                   <form #f="ngForm" enctype="multipart/form-data" novalidate *ngIf="currentStatus1 === STATUS_INITIAL1 || currentStatus1 === STATUS_SAVING1">
                   <h4 class="w3-center">Upload Resume</h4>
                   <div class="dropbox">
-                      <input type='file' [name]="uploadFieldName" (change)="uploadResume()" [disabled]="currentStatus1 === STATUS_SAVING1" #file>                      
+                      <input type='file' [name]="uploadFieldName" (change)="uploadResume()" [disabled]="currentStatus1 === STATUS_SAVING1" id="resumeUpload"#file>                      
                     <p *ngIf="currentStatus1 === STATUS_INITIAL1">
                       Drag your resume here</p>
                     <p *ngIf="currentStatus1 === STATUS_SAVING1">
