@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit {
                     <md-form-field>
                       <input mdInput tabindex="1" id="enter-email"  name= "email" [(ngModel)] = "email" placeholder="Enter Email" autofocus>
                       <br><br>
-                      <input mdInput tabindex="1" id="enter-password" name= "password" [(ngModel)] = "password" placeholder="Enter Password" type="password">
+                      <input mdInput tabindex="1" id="enter-password" name= "password" [(ngModel)] = "password" placeholder="Enter Password">
                     </md-form-field>
                   </div>
                   <div md-dialog-actions>
