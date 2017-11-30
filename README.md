@@ -1,6 +1,6 @@
 # TA-Management 
 
-**TA MAnagement** is a Application which can be used by Professor - to add and remove new TAs, Manager - to approve or reject TAs added by the Professor, and Student TA - to manage his Profile and get Notifications.
+**TA Management** is a Application which can be used by Professor - to add and remove new TAs, Manager - to approve or reject TAs added by the Professor, and Student TA - to manage his Profile and get Notifications.
 
 ## Initial Setup
 
