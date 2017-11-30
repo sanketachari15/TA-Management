@@ -60,6 +60,7 @@ export class LoginComponent implements OnInit {
                  <button md-button class="signup-button" (click)="onSignUp()" tabindex="-1">Sign Up</button>
                  <button md-button class="login-button" (click)="onLogin()" tabindex="2" id="ok" >Login</button>
               </div>
+              <br>
               <div *ngIf="isClicked">
                   <h1 md-dialog-title>{{header}}</h1>
                   <div md-dialog-content>

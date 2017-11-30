@@ -79,6 +79,7 @@ describe('Manager Page', () => {
         browser.sleep(1000);
 
         let students = element.all(by.id('students'));
+        browser.sleep(500);
         expect(students.count()).toEqual(12);
 
         for (let i = 0; i < 5; i++){

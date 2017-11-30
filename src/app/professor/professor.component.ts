@@ -51,27 +51,32 @@ export class ProfessorComponent implements OnInit, OnDestroy {
                     .subscribe(
                         (z) => {
                             let profCourseDetails = _.filter(z, (details) => {return details.Email == this.email});
-                            this.profCourses = profCourseDetails[0].Courses;
-                            _.forEach(this.profCourses, (courseDetails) => {
-                                courseDetails.messagesLength = _.filter(courseDetails.messages, (msg) => {return (msg.from) && !_.isEmpty(msg.from)}).length;
-                                courseDetails.announcementsLength = courseDetails.announcements.length;
-                                courseDetails.filesLength = courseDetails.files.length;
 
-                                this.dataService.getTAs(courseDetails.name)
-                                    .takeUntil(this.ngUnsubscribe)
-                                    .subscribe(
-                                        (x) => {
-                                            courseDetails.TAs = x;
-                                            _.forEach(courseDetails.TAs, (ta) => {
-                                                _.forEach(this.students, (student) => {
-                                                    if(student.UFID ===  ta.UFID)
-                                                        this.droppedItems.push(student);
+                            if (_.isEmpty(profCourseDetails))
+                                this.profCourses = [];
+                            else {
+                                this.profCourses = profCourseDetails[0].Courses;
+                                _.forEach(this.profCourses, (courseDetails) => {
+                                    courseDetails.messagesLength = _.filter(courseDetails.messages, (msg) => {return (msg.from) && !_.isEmpty(msg.from)}).length;
+                                    courseDetails.announcementsLength = courseDetails.announcements.length;
+                                    courseDetails.filesLength = courseDetails.files.length;
+
+                                    this.dataService.getTAs(courseDetails.name)
+                                        .takeUntil(this.ngUnsubscribe)
+                                        .subscribe(
+                                            (x) => {
+                                                courseDetails.TAs = x;
+                                                _.forEach(courseDetails.TAs, (ta) => {
+                                                    _.forEach(this.students, (student) => {
+                                                        if(student.UFID ===  ta.UFID)
+                                                            this.droppedItems.push(student);
+                                                    });
                                                 });
-                                            });
-                                        },
-                                        (err) => console.log('Error occurred in ngOnInit subscribe ' + err),
-                                        () => {});
-                            });
+                                            },
+                                            (err) => console.log('Error occurred in ngOnInit subscribe ' + err),
+                                            () => {});
+                                });
+                            }
                         },
                         (err) => console.log('Error occurred in ngOnInit subscribe ' + err),
                         () => console.log('professor courses requested'));
