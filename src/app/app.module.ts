@@ -40,6 +40,8 @@ import { CourseComponent } from './course/course.component';
 import { FileSelectDirective } from 'ng2-file-upload';
 import { ManagerComponent } from './manager/manager.component';
 import { CarouselModule } from 'angular4-carousel';
+import { FileUploadService } from './file-upload.service';
+
 
 export const ROUTES: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -92,7 +94,8 @@ export const ROUTES: Routes = [
     CommonModule,
     CarouselModule
   ],
-  providers: [DragDropService, DragDropConfig, DataService, SharedService, MdDialogModule, MdDialog, MdSidenavModule, PdfViewerComponent],
+  providers: [DragDropService, DragDropConfig, DataService, SharedService, MdDialogModule, MdDialog, MdSidenavModule, 
+    PdfViewerComponent, FileUploadService],
   bootstrap: [AppComponent],
   entryComponents: [TadetailsComponent, GpaChangeComponent, loginPopComponent] // Added for TA Info Dialog Box Issue #15
 })

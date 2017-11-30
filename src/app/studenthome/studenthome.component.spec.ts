@@ -8,6 +8,8 @@ import {FormsModule} from "@angular/forms";
 import {DataService} from "../data.service";
 import {HttpModule} from "@angular/http";
 import {HttpClientModule} from "@angular/common/http";
+import {FileUploadService} from '../file-upload.service';
+
 
 describe('StudenthomeComponent', () => {
   let component: StudenthomeComponent;
@@ -17,8 +19,8 @@ describe('StudenthomeComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ StudenthomeComponent],
       imports: [MdListModule, RouterTestingModule, MdIconModule, FormsModule, MdTooltipModule,
-         HttpModule, HttpClientModule, MaterialModule, MdSlideToggleModule,],
-      providers: [SharedService, DataService]
+         HttpModule, HttpClientModule, MaterialModule, MdSlideToggleModule],
+      providers: [SharedService, DataService, FileUploadService]
     })
     .compileComponents();
   }));

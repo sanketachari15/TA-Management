@@ -25,6 +25,7 @@ import { PdfViewerComponent } from 'ng2-pdf-viewer';
 import { TadetailsComponent } from '../tadetails/tadetails.component';
 import {DataService} from "../data.service";
 import { HttpClientModule, HttpClient, HttpHandler } from '@angular/common/http';
+import {FileUploadService} from '../file-upload.service';
 
 describe('StudentComponent', () => {
   let component: StudentComponent;
@@ -45,7 +46,8 @@ describe('StudentComponent', () => {
         MdListModule, BrowserAnimationsModule, RouterTestingModule, FormsModule, ReactiveFormsModule],
       declarations: [ StudentComponent,  StudentprofileComponent, StudenthomeComponent,
         GpaChangeComponent,  TadetailsComponent, PdfViewerComponent ],
-        providers: [SharedService, MdDialogModule, MdDialog, MdSidenavModule, PdfViewerComponent, DataService, HttpClient, HttpHandler]
+        providers: [SharedService, FileUploadService, MdDialogModule, MdDialog, MdSidenavModule,
+          PdfViewerComponent, DataService, HttpClient, HttpHandler]
     })
     .compileComponents();
   }));
