@@ -1,81 +1,108 @@
  <!-- Page Container -->
  <script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script> 
-<div class="w3-container w3-content" id="profilePage" style="max-width:1400px;margin-top:80px">    
-    <!-- The Grid -->
-    <div class="w3-row">
-      <!-- Left Column -->
-      <div class="w3-col m3" style="margin-left:80px">
-        <!-- Profile -->
-        <div class="w3-card-2 w3-round w3-white">
-          <div class="w3-container">
-           <h4 class="w3-center">My Profile</h4>
-          <div class="image-upload">
-           <p class="w3-center"><img for='file-input' [src]="url" class="w3-circle" style="height:106px;width:106px" alt="Avatar"><br/>
-           <input type='file' (change)="onSelectFile($event)"></p>
-           </div>
-           <hr>
-           <p id="gpa"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme" (click)="changeGpa()" id="changeGpa"></i>GPA: {{gpa}}</p>
-           <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> Gainesville, Fl</p>
-           <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> April 1, 1988</p>
-          </div>
-        </div>
-        <br>
-        
-        <!-- Accordion -->
-        <div class="w3-card-2 w3-round">
-          <div class="w3-white">
-            <button class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> My Groups</button>
-            <div id="Demo1" class="w3-hide w3-container">
-              <p>Some text..</p>
+ <div class="w3-container w3-content" id="profilePage" style="max-width:1400px;margin-top:80px">    
+     <!-- The Grid -->
+     <div class="w3-row">
+       <!-- Left Column -->
+       <div class="w3-col m3" style="margin-left:80px">
+         <!-- Profile -->
+         <div class="w3-card-2 w3-round w3-white">
+           <div class="w3-container">
+            <h4 class="w3-center">My Profile</h4>
+           <div class="image-upload">
+            <p class="w3-center"><img id="picture" [src]="url" class="w3-circle" style="height:106px;width:106px" alt="Avatar"><br/>
+            <!-- <input type='file' [name]="uploadFieldName" (change)="onSelectFile($event.target.name, $event.target.files)" [disabled]="currentStatus === STATUS_SAVING" accept="image/*" #photos> -->
+           </p>
+           
+           <form #f="ngForm" enctype="multipart/form-data" novalidate *ngIf="currentStatus === STATUS_INITIAL || currentStatus === STATUS_SAVING">
+            <div class="dropbox1">
+                <input type='file' [name]="uploadFieldName" (change)="onSelectFile($event.target.name, $event.target.files)" [disabled]="currentStatus === STATUS_SAVING" accept="image/*" id="pictureUpload" #photos>                
+              <p *ngIf="currentStatus === STATUS_INITIAL">
+                Drag your profile photo here</p>
+              <p *ngIf="currentStatus === STATUS_SAVING">
+                Uploading {{ photos.files.length }} files... 
+              </p>
             </div>
-            <button class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-calendar-check-o fa-fw w3-margin-right"></i> My Events</button>
-            <div id="Demo2" class="w3-hide w3-container">
-              <p>Some other text..</p>
-            </div>
-            <button class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-users fa-fw w3-margin-right"></i> My Photos</button>
-            <div id="Demo3" class="w3-hide w3-container">
-           <div class="w3-row-padding">
-           <br>
-             <div class="w3-half">
-               <img src="/w3images/lights.jpg" style="width:100%" class="w3-margin-bottom">
-             </div>
-             <div class="w3-half">
-               <img src="/w3images/nature.jpg" style="width:100%" class="w3-margin-bottom">
-             </div>
-             <div class="w3-half">
-               <img src="/w3images/mountains.jpg" style="width:100%" class="w3-margin-bottom">
-             </div>
-             <div class="w3-half">
-               <img src="/w3images/forest.jpg" style="width:100%" class="w3-margin-bottom">
-             </div>
-             <div class="w3-half">
-               <img src="/w3images/nature.jpg" style="width:100%" class="w3-margin-bottom">
-             </div>
-             <div class="w3-half">
-               <img src="/w3images/fjords.jpg" style="width:100%" class="w3-margin-bottom">
-             </div>
-           </div>
-            </div>
-          </div>       
-        </div>
-        </div>
-        <!-- New Column -->
-        <div class="w3-col m3" style="margin-left:80px">
-          <!-- Profile -->
-          <div class="w3-card-2 w3-round w3-white">
-            <div class="w3-container">
-             <h4 class="w3-center" >Enrolled Subjects:</h4>
-             <br>
-             <p class="w3-center">CAP5771: Intro to Data..</p>
-             <p class="w3-center">CEN5035: Software Engg.</p>
-             <p class="w3-center">COP5556: Program Langu.</p>
-             <hr>
-             <p class="w3-center"><button md-button style=" font-weight: bold;" (click)="veiwResume()">View Resume</button></p>
-             <p class="w3-center"><button md-button style=" font-weight: bold;" type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()">Upload Resume</button></p>
-            </div>
-          </div>
-        </div>
+          </form>
 
-        </div>
-        </div>
-        <br>
+            </div>
+            <hr>
+            <p id="gpa"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme" (click)="changeGpa()" id="changeGpa"></i>GPA: {{gpa}}</p>
+            <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> Gainesville, Fl</p>
+            <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> April 1, 1988</p>
+           </div>
+         </div>
+         <br>
+         
+         <!-- Accordion -->
+         <div class="w3-card-2 w3-round">
+           <div class="w3-white">
+             <button class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> My Groups</button>
+             <div id="Demo1" class="w3-hide w3-container">
+               <p>Some text..</p>
+             </div>
+             <button class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-calendar-check-o fa-fw w3-margin-right"></i> My Events</button>
+             <div id="Demo2" class="w3-hide w3-container">
+               <p>Some other text..</p>
+             </div>
+             <button class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-users fa-fw w3-margin-right"></i> My Photos</button>
+             <div id="Demo3" class="w3-hide w3-container">
+            <div class="w3-row-padding">
+            <br>
+              <div class="w3-half">
+                <img src="/w3images/lights.jpg" style="width:100%" class="w3-margin-bottom">
+              </div>
+              <div class="w3-half">
+                <img src="/w3images/nature.jpg" style="width:100%" class="w3-margin-bottom">
+              </div>
+              <div class="w3-half">
+                <img src="/w3images/mountains.jpg" style="width:100%" class="w3-margin-bottom">
+              </div>
+              <div class="w3-half">
+                <img src="/w3images/forest.jpg" style="width:100%" class="w3-margin-bottom">
+              </div>
+              <div class="w3-half">
+                <img src="/w3images/nature.jpg" style="width:100%" class="w3-margin-bottom">
+              </div>
+              <div class="w3-half">
+                <img src="/w3images/fjords.jpg" style="width:100%" class="w3-margin-bottom">
+              </div>
+            </div>
+             </div>
+           </div>       
+         </div>
+         </div>
+         <!-- New Column -->
+         <div class="w3-col m3" style="margin-left:80px">
+           <!-- Profile -->
+           <div class="w3-card-2 w3-round w3-white">
+             <div class="w3-container">
+              <h4 class="w3-center" >Enrolled Subjects:</h4>
+              <br>
+              <p class="w3-center">CAP5771: Intro to Data..</p>
+              <p class="w3-center">CEN5035: Software Engg.</p>
+              <p class="w3-center">COP5556: Program Langu.</p>
+              <hr>
+              <p class="w3-center"><button md-button style=" font-weight: bold;" type="button" class="btn btn-success btn-s" (click)="veiwResume()">View Resume</button></p>
+              <!-- <p class="w3-center"></p> -->
+                 <!-- <button md-button style=" font-weight: bold;" type="button" class="btn btn-success btn-s" [name]="uploadFieldName" (change)="onSelectFile($event.target.name, $event.target.files)" [disabled]="currentStatus === STATUS_SAVING">Upload Resume</button> -->
+                  <form #f="ngForm" enctype="multipart/form-data" novalidate *ngIf="currentStatus1 === STATUS_INITIAL1 || currentStatus1 === STATUS_SAVING1">
+                  <h4 class="w3-center">Upload Resume</h4>
+                  <div class="dropbox">
+                      <input type='file' [name]="uploadFieldName" (change)="uploadResume()" [disabled]="currentStatus1 === STATUS_SAVING1" id="resumeUpload"#file>                      
+                    <p *ngIf="currentStatus1 === STATUS_INITIAL1">
+                      Drag your resume here</p>
+                    <p *ngIf="currentStatus1 === STATUS_SAVING1">
+                      Uploading {{ photos.files.length }} files... 
+                    </p>
+                  </div>
+                </form> 
+                <!-- </p> -->
+                            
+             </div>
+           </div>
+         </div>
+ 
+         </div>
+         </div>
+         <br>

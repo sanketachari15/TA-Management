@@ -33,7 +33,8 @@
 
     ng test --cc 
     
-3. Run e2e tests with the help of following steps. Execute these steps sequentially.
+### End to End Testing
+1. Run e2e tests with the help of following steps. Execute these steps sequentially.
     1. npm install
     2. npm test
     3. npm start

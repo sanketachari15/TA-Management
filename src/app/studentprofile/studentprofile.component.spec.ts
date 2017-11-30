@@ -5,6 +5,7 @@ import {
   MdSidenavModule, MdButtonModule, MdDialogClose
 } from '@angular/material';
 import {DataService} from '../data.service';
+import {FileUploadService} from '../file-upload.service';
 import {HttpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
 import * as _ from 'underscore';
@@ -28,7 +29,7 @@ describe('StudentprofileComponent', () => {
         MdButtonModule, FormsModule, ReactiveFormsModule, HttpModule, HttpClientModule, MdDialogModule, MdListModule, RouterTestingModule],
       declarations: [ StudentComponent,  StudentprofileComponent, StudenthomeComponent,
         GpaChangeComponent,  TadetailsComponent, PdfViewerComponent],
-      providers: [DataService, MdDialogModule, SharedService, PdfViewerComponent, FormsModule, ReactiveFormsModule]
+      providers: [DataService, FileUploadService, MdDialogModule, SharedService, PdfViewerComponent, FormsModule, ReactiveFormsModule]
     })
     .compileComponents();
   }));
