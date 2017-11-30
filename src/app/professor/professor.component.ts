@@ -19,6 +19,7 @@ export class ProfessorComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   header = "Welcome Professor";
   prof = 'Alin Dobra';
+  email: string = 'ad@ufl.edu';
 
   droppedItems = [];
   courses = {0: [], 1: [], 2: [], 3: [], 4: [], 5: []};
@@ -35,6 +36,8 @@ export class ProfessorComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
+    // this.sharedService.currentEmail.subscribe((x) => this.email = x);
+    this.email = localStorage.getItem('email-Professor');
     this.sharedService.changeHeader(this.header);
 
     this.dataService.getStudents()
@@ -47,7 +50,7 @@ export class ProfessorComponent implements OnInit, OnDestroy {
                     .takeUntil(this.ngUnsubscribe)
                     .subscribe(
                         (z) => {
-                            let profCourseDetails = _.filter(z, (details) => {return details.FullName == this.prof});
+                            let profCourseDetails = _.filter(z, (details) => {return details.Email == this.email});
                             this.profCourses = profCourseDetails[0].Courses;
                             _.forEach(this.profCourses, (courseDetails) => {
                                 courseDetails.messagesLength = _.filter(courseDetails.messages, (msg) => {return (msg.from) && !_.isEmpty(msg.from)}).length;
@@ -99,10 +102,8 @@ export class ProfessorComponent implements OnInit, OnDestroy {
 
     let students = _.filter(this.students, (s) => { return _.findIndex(s.CourseMostInterestedIn, (c) => {return c == this.profCourses[courseIndex].name}) > -1});
 
-    if (_.isEmpty( this.search )) {
-
+    if (_.isEmpty( this.search ))
       return _.orderBy(students, ['InterestLevel','GPA'], ['desc', 'desc']);
-    }
 
     return _.chain(students).filter(student =>  (student.FirstName + " " + student.LastName).toLowerCase().startsWith(this.search.toLowerCase())).value();
   }

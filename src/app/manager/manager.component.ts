@@ -14,6 +14,7 @@ export class ManagerComponent implements OnInit, OnDestroy {
     private ngUnsubscribe: Subject<void> = new Subject<void>();
     header = "Welcome Manager";
     prof = 'Alin Dobra';
+    email = 'as@ufl.edu';
     profCourses: any;
     courses: any;
     courseName: string;
@@ -44,6 +45,7 @@ export class ManagerComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.email = localStorage.getItem('email-Manager');
         this.sharedService.changeHeader(this.header);
         this.getProfCourses();
         this.getStudentsFromDb();
@@ -169,9 +171,10 @@ export class ManagerComponent implements OnInit, OnDestroy {
             .takeUntil(this.ngUnsubscribe)
             .subscribe(
                 (x) => {
-                    this.managerEmail = x[0].Email;
-                    this.announcements = x[0].announcements;
-                    this.messages = x[0].messages;
+                    let manager = _.filter(x, (mgr) => {return mgr.Email == this.email});
+                    this.managerEmail = manager[0].Email;
+                    this.announcements = manager[0].announcements;
+                    this.messages = manager[0].messages;
                 },
                 (err) => console.log('Error occurred in http get manager ' + err)
             )

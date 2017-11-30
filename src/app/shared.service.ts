@@ -25,6 +25,9 @@ export class SharedService {
   private newMsgSource = new BehaviorSubject<boolean>(null);
   currentNewMsg = this.newMsgSource.asObservable();
 
+  private emailSource = new BehaviorSubject<string>('');
+  currentEmail = this.emailSource.asObservable();
+
   constructor() { }
 
   changeHeader(header: string){
@@ -53,5 +56,9 @@ export class SharedService {
 
   setNewMsg(enabled: boolean){
     this.newMsgSource.next(enabled);
+  }
+
+  setEmail(email:string){
+    this.emailSource.next(email);
   }
 }
