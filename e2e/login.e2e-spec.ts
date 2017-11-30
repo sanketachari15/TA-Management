@@ -4,6 +4,8 @@ describe('Login Page', () => {
 
     beforeEach(() => {
         browser.get('/login');
+        browser.ignoreSynchronization = true;
+
     });
 
     it('should display login page header', () => {
