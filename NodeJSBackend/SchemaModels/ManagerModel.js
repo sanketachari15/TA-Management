@@ -17,7 +17,7 @@ let messages = new Schema({
   },
   message: {
     type: String,
-    required: true,
+    required: false,
     minLength: 1,
     trim: true
   }
