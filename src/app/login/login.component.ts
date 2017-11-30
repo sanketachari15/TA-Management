@@ -60,13 +60,14 @@ export class LoginComponent implements OnInit {
                  <button md-button class="signup-button" (click)="onSignUp()" tabindex="-1">Sign Up</button>
                  <button md-button class="login-button" (click)="onLogin()" tabindex="2" id="ok" >Login</button>
               </div>
+              <br>
               <div *ngIf="isClicked">
                   <h1 md-dialog-title>{{header}}</h1>
                   <div md-dialog-content>
                     <md-form-field>
-                      <input mdInput tabindex="1" id="enter-email"  name= "email" [(ngModel)] = "email" placeholder="Enter Email">
+                      <input mdInput id="enter-email"  name= "email" [(ngModel)] = "email" placeholder="Enter Email">
                       <br><br>
-                      <input mdInput tabindex="1" id="enter-password" name= "password" [(ngModel)] = "password" placeholder="Enter Password">
+                      <input mdInput type="password" id="enter-password" name= "password" [(ngModel)] = "password" placeholder="Enter Password">
                     </md-form-field>
                   </div>
                   <div md-dialog-actions>

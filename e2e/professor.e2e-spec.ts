@@ -19,13 +19,13 @@ describe('Professor Page', () => {
     });
 
     it('should display professor home page', () => {
-        browser.sleep(200);
+        browser.sleep(500);
         expect(element(by.css('.header-name')).getText()).toEqual('Welcome Professor');
         expect(element(by.css('.middle')).isPresent()).toBe(true)
     });
 
     it('should have student list', () => {
-        browser.sleep(200);
+        browser.sleep(800);
         let students = element.all(by.id('students'));
         expect(students).toBeTruthy();
         expect(students.count()).toEqual(9)
@@ -47,7 +47,7 @@ describe('Professor Page', () => {
     });
 
     it('students should have name', () => {
-        browser.sleep(200);
+        browser.sleep(500);
         let students = element.all(by.id('students'));
         browser.sleep(200);
         expect(students.count()).toEqual(9);
@@ -58,7 +58,7 @@ describe('Professor Page', () => {
     });
 
     it('should direct to announcement Page', () =>{
-        browser.sleep(200);
+        browser.sleep(1000);
         let announcements = element(by.id('announcements'));
         browser.executeScript(function (elem) { elem.click(); }, announcements.getWebElement());
         browser.sleep(1000);
@@ -66,7 +66,7 @@ describe('Professor Page', () => {
     });
 
     it('should direct to message Page', () =>{
-        browser.sleep(200);
+        browser.sleep(1000);
         let messages = element(by.id('messages'));
         browser.executeScript(function (elem) { elem.click(); }, messages.getWebElement());
         browser.sleep(1000);
@@ -74,7 +74,7 @@ describe('Professor Page', () => {
     });
 
     it('should direct to file Page', () =>{
-        browser.sleep(200);
+        browser.sleep(1000);
         let files = element(by.id('files'));
         browser.executeScript(function (elem) { elem.click(); }, files.getWebElement());
         browser.sleep(1000);
@@ -82,7 +82,7 @@ describe('Professor Page', () => {
     });
 
     it('should download the student list', () => {
-        browser.sleep(200);
+        browser.sleep(1000);
         let download = element(by.id('download'));
         browser.executeScript(function (elem) { elem.click(); }, download.getWebElement());
         browser.sleep(1000);
