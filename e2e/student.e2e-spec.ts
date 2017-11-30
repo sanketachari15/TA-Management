@@ -13,9 +13,9 @@ describe('Student Page', () => {
         element(by.css('.login-button')).click();
         browser.sleep(200);
         let email = element(by.name('email'));
-        email.sendKeys('abc@gmail.com');
+        email.sendKeys('jj@ufl.edu');
         let password = element(by.name('password'));
-        password.sendKeys('abc');
+        password.sendKeys('jj');
         element(by.id('ok')).click();
         browser.sleep(1000);
     });

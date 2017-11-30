@@ -11,9 +11,9 @@ describe('Manager Page', () => {
         element(by.css('.login-button')).click();
         browser.sleep(200);
         let email = element(by.name('email'));
-        email.sendKeys('abc@gmail.com');
+        email.sendKeys('as@gmail.com');
         let password = element(by.name('password'));
-        password.sendKeys('abc');
+        password.sendKeys('as');
         element(by.id('ok')).click();
         browser.sleep(1000);
     });

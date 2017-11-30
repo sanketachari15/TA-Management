@@ -74,7 +74,8 @@ export class LoginComponent implements OnInit {
                     <button md-button class="button" (click)="onNoClick('cancel')" tabindex="-1">Cancel</button>
                   </div>
                   <div *ngIf="invalid">
-                    <p [ngStyle] = "{'color': 'red'}"> Please enter valid credentials</p>
+                    <p *ngIf = "isLogin" [ngStyle] = "{'color': 'red'}"> Credentials invalid or user doesn't exist, sign up first</p>
+                    <p *ngIf = "!isLogin" [ngStyle] = "{'color': 'red'}"> Credentials invalid or user already exists</p>
                   </div>
               </div>
             `,
@@ -92,7 +93,8 @@ export class loginPopComponent {
 
   constructor(
     public dialogRef: MdDialogRef<loginPopComponent>,
-    @Inject(MD_DIALOG_DATA) public data: any, public dataService: DataService) {
+    @Inject(MD_DIALOG_DATA) public data: any,
+    public dataService: DataService, public sharedService: SharedService) {
 
       if (data.user === 'prof')
           this.user = 'Professor';
@@ -121,6 +123,7 @@ export class loginPopComponent {
                     if (response["Email"] === user.Email){
                         this.dialogRef.close({data: button});
                         console.log("Login response is good");
+                        this.sharedService.setEmail(user.Email);
                     }
                 },
                 //if response is not empty then show error
@@ -139,6 +142,7 @@ export class loginPopComponent {
                     if (response["Email"] === user.Email){
                         this.dialogRef.close({data: button});
                         console.log("Sign up response is good");
+                        this.sharedService.setEmail(user.Email);
                     }
                 },
                 //if response is not empty then show error

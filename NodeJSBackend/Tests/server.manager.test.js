@@ -8,7 +8,7 @@ const testManager = {
     FirstName: 'Alice',
     LastName: 'Scott',
     Sem: 'Fall2017',
-    Email: 'ad@ufl.edu',
+    Email: 'as@ufl.edu',
     announcements: ["TA1 has released the grades for exam1", "TA2 is not taking office hours this week", "TA1 has is working on the evaluation of assignment 2"],
     messages: [
       {
