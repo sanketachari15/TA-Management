@@ -1,22 +1,23 @@
-# TA-Management System By: Sanket Achari(71096329), Prem Ankur(2394-1141), Nikita Saxena(17162351)
+# TA-Management System 
+### By: Sanket Achari(71096329), Prem Ankur(2394-1141), Nikita Saxena(17162351)
 
 ## Functionality
 
 1) When a Professor logins:  
-   -- Different tabs will be there for different courses.  
-   -- For each course the professor will see the list of students available for him to choose as TAs.  
-   -- The students list will be in sorted order according to their star ratings which is based on their GPA, interest etc.   
-   -- The professor can drag, drop and remove the students he wants as TAs.  
-   -- The professor can also see the latest announcements as wells as message his TAs.  
+- [x] Different tabs will be there for different courses.  
+- [x] For each course the professor will see the list of students available for him to choose as TAs.  
+- [x] The students list will be in sorted order according to their star ratings which is based on their GPA, interest etc.   
+- [x] The professor can drag, drop and remove the students he wants as TAs.  
+- [x] The professor can also see the latest announcements as wells as message his TAs.  
 2) When a Student logins:  
-   -- A student that has been selected as a TA can manage his profile here.  
-   -- The student can update and upload his resume.  
-   -- The student can upload his profile image, GPA etc.  
-   -- The student can also see messages and announcements.  
+- [x] A student that has been selected as a TA can manage his profile here.  
+- [x] The student can update and upload his resume.  
+- [x] The student can upload his profile image, GPA etc.  
+- [x] The student can also see messages and announcements.  
 3) When a TAManager logins:  
-   -- There will be different cards for different courses.  
-   -- For each course the manager can see what all students has the professor chosen for being the TA.  
-   -- The manager can approve or reject the students for the TA position.
+- [x] There will be different cards for different courses.  
+- [x] For each course the manager can see what all students has the professor chosen for being the TA.  
+- [x] The manager can approve or reject the students for the TA position.
 
 # TA-Management 
 
